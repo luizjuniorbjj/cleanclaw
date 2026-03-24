@@ -644,10 +644,10 @@ window.AuthUI = {
     const access = params.get('access_token');
     const refresh = params.get('refresh_token');
     if (access) {
+      console.log('[AuthUI] OAuth callback detected — storing tokens');
       CleanAPI.setTokens(access, refresh);
-      // Clean URL params but keep hash
-      const hash = window.location.pathname || '/';
-      window.history.replaceState({}, '', window.location.pathname + hash);
+      // Clean URL: remove query params, keep pathname only
+      window.history.replaceState({}, '', window.location.pathname);
       return true;
     }
     return false;

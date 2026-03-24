@@ -89,8 +89,20 @@ window.CleanClaw = {
       } catch { localStorage.removeItem('cc_demo_session'); }
     }
 
-    // Handle OAuth callback tokens in URL
-    AuthUI.handleCallback();
+    // Handle OAuth callback tokens in URL (Google/GitHub redirect with ?access_token=)
+    const oauthHandled = AuthUI.handleCallback();
+
+    // Fallback: if AuthUI.handleCallback didn't catch it, extract tokens directly
+    if (!oauthHandled) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlToken = urlParams.get('access_token');
+      const urlRefresh = urlParams.get('refresh_token');
+      if (urlToken) {
+        console.log('[CleanClaw] OAuth tokens found in URL (fallback) — storing');
+        CleanAPI.setTokens(urlToken, urlRefresh);
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    }
 
     // Check if we have a valid token
     const token = CleanAPI.getToken();

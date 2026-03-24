@@ -82,20 +82,22 @@
 /* ===== Auth Container ===== */
 .cc-auth-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
-  padding: var(--cc-space-4);
+  padding: var(--cc-space-6) var(--cc-space-4);
   background: var(--cc-neutral-50);
+  overflow-y: auto;
 }
 
 .cc-auth-backdrop {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
-  padding: var(--cc-space-4);
+  padding: var(--cc-space-6) var(--cc-space-4);
   background: linear-gradient(135deg, var(--cc-primary-50) 0%, var(--cc-neutral-50) 50%, var(--cc-primary-50) 100%);
+  overflow-y: auto;
 }
 
 .cc-auth-card {
@@ -103,8 +105,20 @@
   max-width: 420px;
   background: #fff;
   border-radius: var(--cc-radius-xl);
-  padding: var(--cc-space-8);
+  padding: var(--cc-space-6);
   box-shadow: var(--cc-shadow-md);
+  margin: auto 0;
+}
+
+@media (max-width: 480px) {
+  .cc-auth-card {
+    padding: var(--cc-space-4);
+    border-radius: var(--cc-radius-lg);
+    max-width: 100%;
+  }
+  .cc-auth-container, .cc-auth-backdrop {
+    padding: var(--cc-space-3);
+  }
 }
 
 .cc-auth-logo {
