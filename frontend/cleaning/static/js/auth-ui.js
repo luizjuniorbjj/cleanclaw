@@ -495,7 +495,7 @@ window.AuthUI = {
    * Google OAuth login
    */
   loginWithGoogle() {
-    const redirectUri = encodeURIComponent(window.location.origin + '/cleaning/app');
+    const redirectUri = encodeURIComponent(window.location.origin + '/dashboard');
     window.location.href = `${window.location.origin}/auth/google?redirect_uri=${redirectUri}`;
   },
 
@@ -503,7 +503,7 @@ window.AuthUI = {
    * Google OAuth register (with optional invite)
    */
   registerWithGoogle(inviteToken) {
-    let redirectUri = window.location.origin + '/cleaning/app';
+    let redirectUri = window.location.origin + '/dashboard';
     if (inviteToken) {
       redirectUri += `?invite=${inviteToken}`;
     }
