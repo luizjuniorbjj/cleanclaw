@@ -665,7 +665,13 @@ ul, ol {
   align-items: flex-start;
   justify-content: space-between;
   padding: var(--cc-space-5);
-  border-left: 4px solid var(--cc-primary-500);
+  border: 1px solid var(--cc-neutral-100);
+  border-radius: var(--cc-radius-xl);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.cc-stat-card:hover {
+  border-color: var(--cc-primary-200);
+  box-shadow: 0 4px 16px rgba(0, 176, 178, 0.08);
 }
 
 .cc-stat-card-value {
@@ -715,26 +721,22 @@ ul, ol {
   background: var(--cc-danger-50);
 }
 
-/* Stat card color variants */
-.cc-stat-card.cc-stat-success { border-left-color: var(--cc-success-500); }
+/* Stat card color variants — icon-only differentiation */
 .cc-stat-card.cc-stat-success .cc-stat-card-icon {
   background: var(--cc-success-50);
   color: var(--cc-success-500);
 }
 
-.cc-stat-card.cc-stat-warning { border-left-color: var(--cc-warning-500); }
 .cc-stat-card.cc-stat-warning .cc-stat-card-icon {
   background: var(--cc-warning-50);
   color: var(--cc-warning-500);
 }
 
-.cc-stat-card.cc-stat-danger { border-left-color: var(--cc-danger-500); }
 .cc-stat-card.cc-stat-danger .cc-stat-card-icon {
   background: var(--cc-danger-50);
   color: var(--cc-danger-500);
 }
 
-.cc-stat-card.cc-stat-info { border-left-color: var(--cc-info-500); }
 .cc-stat-card.cc-stat-info .cc-stat-card-icon {
   background: var(--cc-info-100);
   color: var(--cc-info-500);

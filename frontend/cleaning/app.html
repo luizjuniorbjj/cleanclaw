@@ -73,12 +73,15 @@
         </div>
       </aside>
 
-      <!-- Mobile hamburger (owner) -->
-      <button class="cc-mobile-hamburger" id="mobile-hamburger" style="display:none;" onclick="CleanClaw.toggleMobileMenu()" aria-label="Open menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
-          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
+      <!-- Mobile top bar (owner) -->
+      <div class="cc-mobile-header" id="mobile-header" style="display:none;">
+        <button class="cc-mobile-hamburger" id="mobile-hamburger" onclick="CleanClaw.toggleMobileMenu()" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <span class="cc-mobile-page-title" id="mobile-page-title">Dashboard</span>
+      </div>
       <div class="cc-mobile-overlay" id="mobile-overlay" onclick="CleanClaw.closeMobileMenu()"></div>
 
       <!-- Global search bar (owner only) -->

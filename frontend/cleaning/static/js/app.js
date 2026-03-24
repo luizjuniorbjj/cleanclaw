@@ -201,14 +201,14 @@ window.CleanClaw = {
     const sidebar = document.getElementById('sidebar');
     const topNav = document.getElementById('top-nav');
     const bottomTabs = document.getElementById('bottom-tabs');
-    const hamburger = document.getElementById('mobile-hamburger');
+    const mobileHeader = document.getElementById('mobile-header');
     const contentArea = document.getElementById('content-area');
 
     // Reset all nav elements
     sidebar.style.display = 'none';
     topNav.style.display = 'none';
     bottomTabs.style.display = 'none';
-    hamburger.style.display = 'none';
+    if (mobileHeader) mobileHeader.style.display = 'none';
     const globalSearch = document.getElementById('global-search');
     if (globalSearch) globalSearch.style.display = 'none';
 
@@ -270,38 +270,51 @@ window.CleanClaw = {
 
   _renderOwnerNav() {
     const sidebar = document.getElementById('sidebar');
-    const hamburger = document.getElementById('mobile-hamburger');
+    const mobileHeader = document.getElementById('mobile-header');
     const sidebarNav = document.getElementById('sidebar-nav');
     const businessName = document.getElementById('sidebar-business-name');
     const contentArea = document.getElementById('content-area');
 
     sidebar.style.display = 'flex';
-    hamburger.style.display = 'block';
+    if (mobileHeader) mobileHeader.style.display = 'flex';
     contentArea.classList.add('cc-content--with-sidebar');
 
     // Business name
     businessName.textContent = this._currentSlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
-    // Nav items
-    const items = [
-      { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
-      { label: 'Schedule', route: '/schedule', icon: 'schedule' },
-      { label: 'Bookings', route: '/bookings', icon: 'list' },
-      { label: 'Calendar', route: '/calendar', icon: 'calendar' },
-      { label: 'Teams', route: '/teams', icon: 'teams' },
-      { label: 'Clients', route: '/clients', icon: 'clients' },
-      ...(this._currentPlan === 'maximum' ? [{ label: 'CRM / Leads', route: '/crm', icon: 'crm' }] : []),
-      { label: 'Invoices', route: '/invoices', icon: 'invoices' },
-      { label: 'Reports', route: '/reports', icon: 'reports' },
-      ...(this._currentPlan !== 'basic' ? [{ label: 'AI Chat', route: '/chat', icon: 'chat' }] : []),
-      { label: 'Settings', route: '/settings', icon: 'settings' },
+    // Nav items grouped by section
+    const groups = [
+      { label: 'Operations', items: [
+        { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
+        { label: 'Schedule', route: '/schedule', icon: 'schedule' },
+        { label: 'Bookings', route: '/bookings', icon: 'list' },
+        { label: 'Calendar', route: '/calendar', icon: 'calendar' },
+      ]},
+      { label: 'Management', items: [
+        { label: 'Teams', route: '/teams', icon: 'teams' },
+        { label: 'Clients', route: '/clients', icon: 'clients' },
+        ...(this._currentPlan === 'maximum' ? [{ label: 'CRM / Leads', route: '/crm', icon: 'crm' }] : []),
+      ]},
+      { label: 'Finance', items: [
+        { label: 'Invoices', route: '/invoices', icon: 'invoices' },
+        { label: 'Reports', route: '/reports', icon: 'reports' },
+      ]},
+      { label: 'Tools', items: [
+        ...(this._currentPlan !== 'basic' ? [{ label: 'AI Chat', route: '/chat', icon: 'chat' }] : []),
+        { label: 'Settings', route: '/settings', icon: 'settings' },
+      ]},
     ];
 
-    sidebarNav.innerHTML = items.map(item => `
-      <button class="cc-nav-item" data-route="${item.route}" onclick="CleanRouter.navigate('${item.route}');CleanClaw.closeMobileMenu();">
-        ${this._getIcon(item.icon)}
-        <span>${item.label}</span>
-      </button>
+    sidebarNav.innerHTML = groups.map(group => `
+      <div class="cc-nav-group">
+        <div class="cc-nav-group-label">${group.label}</div>
+        ${group.items.map(item => `
+          <button class="cc-nav-item" data-route="${item.route}" onclick="CleanRouter.navigate('${item.route}');CleanClaw.closeMobileMenu();">
+            ${this._getIcon(item.icon)}
+            <span>${item.label}</span>
+          </button>
+        `).join('')}
+      </div>
     `).join('');
 
     // Show global search bar for owner

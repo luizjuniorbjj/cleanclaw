@@ -18,6 +18,10 @@ window.AuthUI = {
             
             <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:200px;max-width:65vw;margin-bottom:var(--cc-space-3);display:block;margin-left:auto;margin-right:auto;">
             <p class="cc-text-sm cc-text-muted">Smart Cleaning Management</p>
+            <div style="display:flex;align-items:center;justify-content:center;gap:var(--cc-space-2);margin-top:var(--cc-space-2);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cc-neutral-400)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span style="font-size:11px;color:var(--cc-neutral-400);">256-bit encrypted &middot; Trusted by 50+ cleaning businesses</span>
+            </div>
           </div>
 
           <!-- Error -->
