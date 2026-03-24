@@ -217,7 +217,7 @@ if _cleaning_dir.exists():
     async def serve_sw():
         return FileResponse(str(_cleaning_dir / "sw.js"), media_type="application/javascript")
 
-    # Temporary DB diagnostic
+    # Temporary DB admin endpoints
     @app.get("/admin/db-check", tags=["Admin"], include_in_schema=False)
     async def db_check_inline(key: str = ""):
         secret = os.getenv("SECRET_KEY", "")
@@ -229,6 +229,34 @@ if _cleaning_dir.exists():
             cols = await conn.fetch("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'users' ORDER BY ordinal_position")
             users = await conn.fetch("SELECT id, email FROM users LIMIT 3")
             return {"columns": [r["column_name"] for r in cols], "user_count": len(users)}
+
+    @app.get("/admin/db-fix-users", tags=["Admin"], include_in_schema=False)
+    async def db_fix_users(key: str = ""):
+        secret = os.getenv("SECRET_KEY", "")
+        if not key or key != secret:
+            return {"error": "unauthorized"}
+        from app.database import get_db_pool
+        pool = await get_db_pool()
+        results = []
+        async with pool.acquire() as conn:
+            for col, typ, default in [
+                ("oauth_provider", "VARCHAR(20)", "NULL"),
+                ("oauth_id", "VARCHAR(255)", "NULL"),
+                ("ref_code", "VARCHAR(50)", "NULL"),
+                ("role", "VARCHAR(20)", "'lead'"),
+                ("stripe_customer_id", "VARCHAR(100)", "NULL"),
+                ("profile_photo_url", "TEXT", "NULL"),
+                ("language", "VARCHAR(5)", "'en'"),
+                ("message_count", "INTEGER", "0"),
+                ("last_login", "TIMESTAMPTZ", "NULL"),
+            ]:
+                try:
+                    await conn.execute(f"ALTER TABLE users ADD COLUMN IF NOT EXISTS {col} {typ} DEFAULT {default}")
+                    results.append(f"OK: {col}")
+                except Exception as e:
+                    results.append(f"ERR: {col}: {str(e)[:80]}")
+            cols = await conn.fetch("SELECT column_name FROM information_schema.columns WHERE table_name = 'users' ORDER BY ordinal_position")
+            return {"results": results, "columns": [r["column_name"] for r in cols]}
 
     # SPA catch-all: serve app.html for all non-API, non-static paths
     # This MUST be the last route registered

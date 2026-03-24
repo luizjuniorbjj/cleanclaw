@@ -20,7 +20,7 @@ class UsersMixin:
     async def create_user(
         self,
         email: str,
-        senha_hash: Optional[str] = None,
+        hashed_password: Optional[str] = None,
         nome: Optional[str] = None,
         oauth_provider: Optional[str] = None,
         oauth_id: Optional[str] = None,
@@ -32,13 +32,13 @@ class UsersMixin:
             row = await conn.fetchrow(
                 """
                 INSERT INTO users (
-                    email, senha_hash, nome, oauth_provider, oauth_id,
+                    email, hashed_password, nome, oauth_provider, oauth_id,
                     ref_code, role
                 )
                 VALUES ($1, $2, $3, $4, $5, $6, $7)
                 RETURNING id, email, nome, role, is_active, created_at
                 """,
-                email, senha_hash, nome, oauth_provider, oauth_id,
+                email, hashed_password, nome, oauth_provider, oauth_id,
                 ref_code, role
             )
             return dict(row)
@@ -86,12 +86,12 @@ class UsersMixin:
                 _uuid(user_id)
             )
 
-    async def update_user_password(self, user_id: str, senha_hash: str):
+    async def update_user_password(self, user_id: str, hashed_password: str):
         """Update user password"""
         async with self._conn() as conn:
             await conn.execute(
-                "UPDATE users SET senha_hash = $2 WHERE id = $1",
-                _uuid(user_id), senha_hash
+                "UPDATE users SET hashed_password = $2 WHERE id = $1",
+                _uuid(user_id), hashed_password
             )
 
     async def update_user_role(self, user_id: str, role: str):
