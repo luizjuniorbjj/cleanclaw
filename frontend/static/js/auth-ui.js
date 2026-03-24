@@ -76,7 +76,7 @@ window.AuthUI = {
 
           <!-- Footer -->
           <p style="text-align:center;margin-top:var(--cc-space-6);font-size:var(--cc-text-sm);color:var(--cc-neutral-500);">
-            Don't have an account? <a href="#/register" style="color:var(--cc-primary-500);font-weight:var(--cc-font-medium);">Sign up</a>
+            Don't have an account? <a href="/register" style="color:var(--cc-primary-500);font-weight:var(--cc-font-medium);">Sign up</a>
           </p>
           <p style="text-align:center;margin-top:var(--cc-space-2);font-size:var(--cc-text-xs);color:var(--cc-neutral-400);">
             Are you a homeowner? <a href="#/register?role=homeowner" style="color:var(--cc-primary-500);">Sign up here</a>
@@ -92,7 +92,7 @@ window.AuthUI = {
   renderRegister(container, inviteToken) {
     const isInvite = !!inviteToken;
     // Check if role=homeowner is in the URL query or hash params
-    const hashParams = new URLSearchParams((window.location.hash.split('?')[1]) || '');
+    const hashParams = new URLSearchParams((window.location.pathname.split('?')[1]) || '');
     const isHomeownerPreset = hashParams.get('role') === 'homeowner';
 
     container.innerHTML = `
@@ -232,7 +232,7 @@ window.AuthUI = {
 
           <!-- Footer -->
           <p style="text-align:center;margin-top:var(--cc-space-6);font-size:var(--cc-text-sm);color:var(--cc-neutral-500);">
-            Already have an account? <a href="#/login" style="color:var(--cc-primary-500);font-weight:var(--cc-font-medium);">Sign in</a>
+            Already have an account? <a href="/login" style="color:var(--cc-primary-500);font-weight:var(--cc-font-medium);">Sign in</a>
           </p>
         </div>
       </div>
@@ -296,11 +296,11 @@ window.AuthUI = {
       if (typeof I18n !== 'undefined') await I18n.init();
       CleanClaw._renderShell();
       // Set hash to default route BEFORE router init to prevent auth redirect
-      const defaultRoute = demo.role === 'super_admin' ? '#/admin/dashboard'
-        : demo.role === 'owner' ? '#/owner/dashboard'
-        : demo.role === 'homeowner' ? '#/homeowner/bookings'
-        : '#/team/today';
-      window.location.hash = defaultRoute;
+      const defaultRoute = demo.role === 'super_admin' ? '/admin'
+        : demo.role === 'owner' ? '/dashboard'
+        : demo.role === 'homeowner' ? '/my-bookings'
+        : '/today';
+      window.location.pathname = defaultRoute;
       // Init router (will see the correct hash now)
       CleanRouter.init(demo.role, 'maximum');
       // Force display AFTER router init (in case router tried to show auth)
@@ -438,10 +438,10 @@ window.AuthUI = {
       }));
       if (typeof I18n !== 'undefined') await I18n.init();
       CleanClaw._renderShell();
-      const defaultRoute = demoRole === 'owner' ? '#/owner/dashboard'
-        : demoRole === 'homeowner' ? '#/homeowner/bookings'
-        : '#/team/today';
-      window.location.hash = defaultRoute;
+      const defaultRoute = demoRole === 'owner' ? '/dashboard'
+        : demoRole === 'homeowner' ? '/my-bookings'
+        : '/today';
+      window.location.pathname = defaultRoute;
       CleanRouter.init(demoRole, 'maximum');
       document.getElementById('auth-container').style.display = 'none';
       document.getElementById('main-layout').style.display = 'flex';
@@ -652,7 +652,7 @@ window.AuthUI = {
     if (access) {
       CleanAPI.setTokens(access, refresh);
       // Clean URL params but keep hash
-      const hash = window.location.hash || '#/';
+      const hash = window.location.pathname || '/';
       window.history.replaceState({}, '', window.location.pathname + hash);
       return true;
     }

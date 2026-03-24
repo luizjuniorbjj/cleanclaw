@@ -46,8 +46,8 @@ window.CleanClaw = {
       CleanAPI.init(this._currentSlug);
       if (typeof I18n !== 'undefined') await I18n.init();
       this._renderShell();
-      const defRoute = CleanRouter.getDefaultRoute ? CleanRouter.getDefaultRoute() : '#/owner/dashboard';
-      window.location.hash = defRoute;
+      const defRoute = CleanRouter.getDefaultRoute ? CleanRouter.getDefaultRoute() : '/dashboard';
+      window.CleanRouter.navigate(defRoute);
       CleanRouter.init(this._currentRole, this._currentPlan);
       document.getElementById('auth-container').style.display = 'none';
       document.getElementById('main-layout').style.display = 'flex';
@@ -73,10 +73,10 @@ window.CleanClaw = {
           CleanAPI.init(this._currentSlug);
           if (typeof I18n !== 'undefined') await I18n.init();
           this._renderShell();
-          const savedHash = window.location.hash;
-          const defaultRoute = CleanRouter.getDefaultRoute ? CleanRouter.getDefaultRoute() : '#/owner/dashboard';
-          const targetRoute = savedHash && savedHash !== '#/' && savedHash !== '#/login' ? savedHash : defaultRoute;
-          window.location.hash = targetRoute;
+          const savedHash = window.location.pathname;
+          const defaultRoute = CleanRouter.getDefaultRoute ? CleanRouter.getDefaultRoute() : '/dashboard';
+          const targetRoute = savedHash && savedHash !== '/' && savedHash !== '/login' ? savedHash : defaultRoute;
+          window.CleanRouter.navigate(targetRoute);
           CleanRouter.init(this._currentRole, this._currentPlan);
           document.getElementById('auth-container').style.display = 'none';
           document.getElementById('main-layout').style.display = 'flex';
@@ -174,8 +174,8 @@ window.CleanClaw = {
       CleanRouter.init(this._currentRole, this._currentPlan);
 
       // Navigate to default if on login/register or root
-      const hash = window.location.hash;
-      if (!hash || hash === '#/' || hash === '#/login' || hash === '#/register') {
+      const hash = window.location.pathname;
+      if (!hash || hash === '/' || hash === '/login' || hash === '/register') {
         CleanRouter.navigate(CleanRouter.getDefaultRoute());
       }
 
@@ -288,17 +288,17 @@ window.CleanClaw = {
 
     // Nav items
     const items = [
-      { label: 'Dashboard', route: '#/owner/dashboard', icon: 'dashboard' },
-      { label: 'Schedule', route: '#/owner/schedule', icon: 'schedule' },
-      { label: 'Bookings', route: '#/owner/bookings', icon: 'list' },
-      { label: 'Calendar', route: '#/owner/calendar', icon: 'calendar' },
-      { label: 'Teams', route: '#/owner/teams', icon: 'teams' },
-      { label: 'Clients', route: '#/owner/clients', icon: 'clients' },
-      ...(this._currentPlan === 'maximum' ? [{ label: 'CRM / Leads', route: '#/owner/crm', icon: 'crm' }] : []),
-      { label: 'Invoices', route: '#/owner/invoices', icon: 'invoices' },
-      { label: 'Reports', route: '#/owner/reports', icon: 'reports' },
-      ...(this._currentPlan !== 'basic' ? [{ label: 'AI Chat', route: '#/owner/chat-monitor', icon: 'chat' }] : []),
-      { label: 'Settings', route: '#/owner/settings', icon: 'settings' },
+      { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
+      { label: 'Schedule', route: '/schedule', icon: 'schedule' },
+      { label: 'Bookings', route: '/bookings', icon: 'list' },
+      { label: 'Calendar', route: '/calendar', icon: 'calendar' },
+      { label: 'Teams', route: '/teams', icon: 'teams' },
+      { label: 'Clients', route: '/clients', icon: 'clients' },
+      ...(this._currentPlan === 'maximum' ? [{ label: 'CRM / Leads', route: '/crm', icon: 'crm' }] : []),
+      { label: 'Invoices', route: '/invoices', icon: 'invoices' },
+      { label: 'Reports', route: '/reports', icon: 'reports' },
+      ...(this._currentPlan !== 'basic' ? [{ label: 'AI Chat', route: '/chat', icon: 'chat' }] : []),
+      { label: 'Settings', route: '/settings', icon: 'settings' },
     ];
 
     sidebarNav.innerHTML = items.map(item => `
@@ -324,9 +324,9 @@ window.CleanClaw = {
     contentArea.classList.add('cc-content--with-topnav', 'cc-content--with-bottomtabs');
 
     const links = [
-      { label: 'My Bookings', route: '#/homeowner/bookings' },
-      { label: 'My Invoices', route: '#/homeowner/invoices' },
-      { label: 'My Home', route: '#/homeowner/preferences' },
+      { label: 'My Bookings', route: '/my-bookings' },
+      { label: 'My Invoices', route: '/my-invoices' },
+      { label: 'My Home', route: '/preferences' },
     ];
 
     topNavLinks.innerHTML = links.map(l => `
@@ -356,10 +356,10 @@ window.CleanClaw = {
     contentArea.classList.add('cc-content--with-bottomtabs');
 
     const tabs = [
-      { label: 'Today', route: '#/team/today', icon: 'list' },
-      { label: 'Schedule', route: '#/team/schedule', icon: 'calendar' },
-      { label: 'Earnings', route: '#/team/earnings', icon: 'dollar' },
-      { label: 'Profile', route: '#/team/profile', icon: 'user' },
+      { label: 'Today', route: '/today', icon: 'list' },
+      { label: 'Schedule', route: '/my-schedule', icon: 'calendar' },
+      { label: 'Earnings', route: '/earnings', icon: 'dollar' },
+      { label: 'Profile', route: '/profile', icon: 'user' },
     ];
 
     bottomTabs.innerHTML = tabs.map(t => `
@@ -388,8 +388,8 @@ window.CleanClaw = {
     loadingScreen.style.display = 'none';
 
     // Navigate to login hash
-    if (window.location.hash !== '#/login' && window.location.hash !== '#/register' && !window.location.hash.startsWith('#/register/invite/')) {
-      window.location.hash = '#/login';
+    if (window.location.pathname !== '/login' && window.location.pathname !== '/register' && !window.location.pathname.startsWith('#/register/invite/')) {
+      window.CleanRouter.navigate('/login');
     }
 
     const authContainer = document.getElementById('auth-container');
@@ -397,9 +397,9 @@ window.CleanClaw = {
     authContainer.style.display = 'flex';
     mainLayout.style.display = 'none';
 
-    if (window.location.hash.startsWith('#/register')) {
-      const inviteToken = window.location.hash.startsWith('#/register/invite/')
-        ? window.location.hash.split('#/register/invite/')[1]
+    if (window.location.pathname.startsWith('/register')) {
+      const inviteToken = window.location.pathname.startsWith('#/register/invite/')
+        ? window.location.pathname.split('#/register/invite/')[1]
         : null;
       AuthUI.renderRegister(authContainer, inviteToken);
     } else {
@@ -449,7 +449,7 @@ window.CleanClaw = {
       this._sseConnection.close();
       this._sseConnection = null;
     }
-    window.location.hash = '#/login';
+    window.CleanRouter.navigate('/login');
     window.location.reload();
   },
 
@@ -703,7 +703,7 @@ window.CleanClaw = {
           pullIndicator.style.opacity = '1';
 
           // Trigger page refresh for current view
-          const currentHash = window.location.hash;
+          const currentHash = window.location.pathname;
           CleanRouter._currentHash = null; // Force re-render
           CleanRouter.navigate(currentHash);
 
@@ -797,7 +797,7 @@ window.CleanClaw = {
       ).slice(0, 3).forEach(t => grouped.team.push({
         name: t.name,
         sub: `${t.member_count || t.members.length} members`,
-        route: '#/owner/teams'
+        route: '/teams'
       }));
 
       // Search bookings
@@ -807,7 +807,7 @@ window.CleanClaw = {
       ).slice(0, 5).forEach(b => grouped.booking.push({
         name: `${b.client_name} — ${b.service}`,
         sub: `${b.scheduled_date} ${b.scheduled_start} (${b.team_name})`,
-        route: '#/owner/schedule'
+        route: '/schedule'
       }));
 
       // Search services
@@ -816,7 +816,7 @@ window.CleanClaw = {
       ).slice(0, 3).forEach(s => grouped.service.push({
         name: s.name,
         sub: `$${s.base_price} — ${s.category}`,
-        route: '#/owner/settings'
+        route: '/settings'
       }));
     }
 

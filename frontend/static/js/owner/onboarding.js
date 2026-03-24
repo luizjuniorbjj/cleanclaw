@@ -44,7 +44,7 @@ window.OwnerOnboarding = {
 
       // If already completed, redirect to dashboard
       if (this._completed || this._skipped) {
-        CleanRouter.navigate('#/owner/dashboard');
+        CleanRouter.navigate('/dashboard');
         return;
       }
 
@@ -560,7 +560,7 @@ window.OwnerOnboarding = {
           </div>
           <h2 style="margin-bottom:var(--cc-space-3);color:var(--cc-neutral-900);">You're All Set!</h2>
           <p class="cc-text-muted" style="margin-bottom:var(--cc-space-6);">Your cleaning business is ready. Start building your schedule and managing clients.</p>
-          <button class="cc-btn cc-btn-primary cc-btn-lg" onclick="CleanRouter.navigate('#/owner/dashboard')">
+          <button class="cc-btn cc-btn-primary cc-btn-lg" onclick="CleanRouter.navigate('/dashboard')">
             Go to Dashboard
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
@@ -666,7 +666,7 @@ window.OwnerOnboarding = {
 
     try {
       await CleanAPI.cleanPost('/onboarding/skip', {});
-      CleanRouter.navigate('#/owner/dashboard');
+      CleanRouter.navigate('/dashboard');
     } catch (err) {
       CleanClaw.showToast('Could not skip setup. Please try again.', 'error');
     }

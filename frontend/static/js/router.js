@@ -1,406 +1,134 @@
 /**
- * CleanClaw Router
- *
- * Hash-based SPA router with role guards, lazy loading, page transitions, and 404 handling.
+ * xCleaners Router - History API with clean URLs
  */
-
 window.CleanRouter = {
-  // Route definitions: hash -> { module, roles, plan, title }
   _routes: {
-    // Public routes
-    '#/login':                    { module: null, roles: ['*'], title: 'Sign In' },
-    '#/register':                 { module: null, roles: ['*'], title: 'Register' },
-    '#/register/invite':          { module: null, roles: ['*'], title: 'Accept Invitation' },
-
-    // Owner routes
-    '#/owner/dashboard':          { module: 'owner/dashboard.js', roles: ['owner'], title: 'Dashboard' },
-    '#/owner/schedule':           { module: 'owner/schedule-builder.js', roles: ['owner'], title: 'Schedule' },
-    '#/owner/calendar':           { module: 'owner/schedule-builder.js', roles: ['owner'], title: 'Calendar' },
-    '#/owner/bookings':           { module: 'owner/bookings.js', roles: ['owner'], title: 'All Bookings' },
-    '#/owner/teams':              { module: 'owner/team-manager.js', roles: ['owner'], title: 'Teams' },
-    '#/owner/clients':            { module: 'owner/client-manager.js', roles: ['owner'], title: 'Clients' },
-    '#/owner/clients/:id':        { module: 'owner/client-detail.js', roles: ['owner'], title: 'Client Detail' },
-    '#/owner/crm':                { module: 'owner/crm.js', roles: ['owner'], plan: 'maximum', title: 'CRM' },
-    '#/owner/invoices':           { module: 'owner/invoice-manager.js', roles: ['owner'], title: 'Invoices' },
-    '#/owner/chat-monitor':       { module: 'owner/chat-monitor.js', roles: ['owner'], plan: 'intermediate', title: 'AI Chat' },
-    '#/owner/onboarding':         { module: 'owner/onboarding.js', roles: ['owner'], title: 'Setup Wizard' },
-    '#/owner/services':           { module: 'owner/services.js', roles: ['owner'], title: 'Services' },
-    '#/owner/reports':             { module: 'owner/reports.js', roles: ['owner'], title: 'Reports' },
-    '#/owner/settings':           { module: 'owner/settings.js', roles: ['owner'], title: 'Settings' },
-
-    // Homeowner routes
-    '#/homeowner/bookings':       { module: 'homeowner/my-bookings.js', roles: ['homeowner'], title: 'My Bookings' },
-    '#/homeowner/bookings/:id':   { module: 'homeowner/booking-detail.js', roles: ['homeowner'], title: 'Booking Detail' },
-    '#/homeowner/invoices':       { module: 'homeowner/my-invoices.js', roles: ['homeowner'], title: 'My Invoices' },
-    '#/homeowner/preferences':    { module: 'homeowner/preferences.js', roles: ['homeowner'], title: 'My Preferences' },
-
-    // Super Admin routes
-    '#/admin/dashboard':          { module: 'admin/super-admin.js', roles: ['super_admin'], title: 'Admin Dashboard' },
-
-    // Team routes
-    '#/team/today':               { module: 'team/today.js', roles: ['team_lead', 'cleaner'], title: 'Today' },
-    '#/team/job/:id':             { module: 'team/job-detail.js', roles: ['team_lead', 'cleaner'], title: 'Job Detail' },
-    '#/team/schedule':            { module: 'team/my-schedule.js', roles: ['team_lead', 'cleaner'], title: 'Schedule' },
-    '#/team/earnings':            { module: 'team/earnings.js', roles: ['team_lead', 'cleaner'], title: 'Earnings' },
-    '#/team/route':               { module: 'team/today.js', roles: ['team_lead', 'cleaner'], title: 'Route' },
-    '#/team/profile':             { module: 'team/profile.js', roles: ['team_lead', 'cleaner'], title: 'Profile' },
+    '/login':            { module: null, roles: ['*'], title: 'Sign In' },
+    '/register':         { module: null, roles: ['*'], title: 'Register' },
+    '/register/invite':  { module: null, roles: ['*'], title: 'Accept Invitation' },
+    '/dashboard':        { module: 'owner/dashboard.js', roles: ['owner'], title: 'Dashboard' },
+    '/schedule':         { module: 'owner/schedule-builder.js', roles: ['owner'], title: 'Schedule' },
+    '/calendar':         { module: 'owner/schedule-builder.js', roles: ['owner'], title: 'Calendar' },
+    '/bookings':         { module: 'owner/bookings.js', roles: ['owner'], title: 'All Bookings' },
+    '/teams':            { module: 'owner/team-manager.js', roles: ['owner'], title: 'Teams' },
+    '/clients':          { module: 'owner/client-manager.js', roles: ['owner'], title: 'Clients' },
+    '/clients/:id':      { module: 'owner/client-detail.js', roles: ['owner'], title: 'Client Detail' },
+    '/crm':              { module: 'owner/crm.js', roles: ['owner'], plan: 'maximum', title: 'CRM' },
+    '/invoices':         { module: 'owner/invoice-manager.js', roles: ['owner'], title: 'Invoices' },
+    '/chat':             { module: 'owner/chat-monitor.js', roles: ['owner'], plan: 'intermediate', title: 'AI Chat' },
+    '/onboarding':       { module: 'owner/onboarding.js', roles: ['owner'], title: 'Setup Wizard' },
+    '/services':         { module: 'owner/services.js', roles: ['owner'], title: 'Services' },
+    '/reports':          { module: 'owner/reports.js', roles: ['owner'], title: 'Reports' },
+    '/settings':         { module: 'owner/settings.js', roles: ['owner'], title: 'Settings' },
+    '/my-bookings':      { module: 'homeowner/my-bookings.js', roles: ['homeowner'], title: 'My Bookings' },
+    '/my-bookings/:id':  { module: 'homeowner/booking-detail.js', roles: ['homeowner'], title: 'Booking Detail' },
+    '/my-invoices':      { module: 'homeowner/my-invoices.js', roles: ['homeowner'], title: 'My Invoices' },
+    '/preferences':      { module: 'homeowner/preferences.js', roles: ['homeowner'], title: 'My Preferences' },
+    '/admin':            { module: 'admin/super-admin.js', roles: ['super_admin'], title: 'Admin Dashboard' },
+    '/today':            { module: 'team/today.js', roles: ['team_lead', 'cleaner'], title: 'Today' },
+    '/job/:id':          { module: 'team/job-detail.js', roles: ['team_lead', 'cleaner'], title: 'Job Detail' },
+    '/my-schedule':      { module: 'team/my-schedule.js', roles: ['team_lead', 'cleaner'], title: 'Schedule' },
+    '/earnings':         { module: 'team/earnings.js', roles: ['team_lead', 'cleaner'], title: 'Earnings' },
+    '/route':            { module: 'team/today.js', roles: ['team_lead', 'cleaner'], title: 'Route' },
+    '/profile':          { module: 'team/profile.js', roles: ['team_lead', 'cleaner'], title: 'Profile' },
   },
+  _legacyMap: {'#/owner/dashboard':'/dashboard','#/owner/schedule':'/schedule','#/owner/calendar':'/calendar','#/owner/bookings':'/bookings','#/owner/teams':'/teams','#/owner/clients':'/clients','#/owner/crm':'/crm','#/owner/invoices':'/invoices','#/owner/chat-monitor':'/chat','#/owner/onboarding':'/onboarding','#/owner/services':'/services','#/owner/reports':'/reports','#/owner/settings':'/settings','#/homeowner/bookings':'/my-bookings','#/homeowner/invoices':'/my-invoices','#/homeowner/preferences':'/preferences','#/admin/dashboard':'/admin','#/team/today':'/today','#/team/schedule':'/my-schedule','#/team/earnings':'/earnings','#/team/route':'/route','#/team/profile':'/profile','#/login':'/login','#/register':'/register'},
+  _defaults: { super_admin:'/admin', owner:'/dashboard', homeowner:'/my-bookings', team_lead:'/today', cleaner:'/today' },
+  _currentPath:null, _loadedModules:{}, _userRole:null, _userPlan:null, _transitioning:false, _transitionDuration:250, _isFirstLoad:true,
 
-  // Default home routes per role
-  _defaults: {
-    super_admin: '#/admin/dashboard',
-    owner:      '#/owner/dashboard',
-    homeowner:  '#/homeowner/bookings',
-    team_lead:  '#/team/today',
-    cleaner:    '#/team/today',
-  },
-
-  // Current state
-  _currentHash: null,
-  _currentModule: null,
-  _loadedModules: {},
-  _userRole: null,
-  _userPlan: null,
-  _transitioning: false,
-
-  // Transition timing (matches design-system cc-duration-normal: 250ms)
-  _transitionDuration: 250,
-
-  /**
-   * Initialize router
-   */
   init(role, plan) {
-    this._userRole = role;
-    this._userPlan = plan || 'basic';
-
-    window.addEventListener('hashchange', () => this._onHashChange());
-    // Handle initial route
-    this._onHashChange();
-  },
-
-  /**
-   * Navigate to a route
-   */
-  navigate(hash) {
-    window.location.hash = hash;
-  },
-
-  /**
-   * Get default route for current role
-   */
-  getDefaultRoute() {
-    return this._defaults[this._userRole] || '#/login';
-  },
-
-  /**
-   * Match a hash against route patterns (supports :id params)
-   */
-  _matchRoute(hash) {
-    // Exact match first
-    if (this._routes[hash]) {
-      return { route: this._routes[hash], params: {} };
-    }
-
-    // Pattern matching for :id params
-    const hashParts = hash.split('/');
-    for (const [pattern, route] of Object.entries(this._routes)) {
-      const patternParts = pattern.split('/');
-      if (patternParts.length !== hashParts.length) continue;
-
-      const params = {};
-      let match = true;
-      for (let i = 0; i < patternParts.length; i++) {
-        if (patternParts[i].startsWith(':')) {
-          params[patternParts[i].substring(1)] = hashParts[i];
-        } else if (patternParts[i] !== hashParts[i]) {
-          match = false;
-          break;
-        }
+    this._userRole = role; this._userPlan = plan || 'basic';
+    window.addEventListener('popstate', () => this._onRouteChange());
+    if (window.location.hash) {
+      const h = window.location.hash;
+      for (const [lh,np] of Object.entries(this._legacyMap)) {
+        if (h===lh||h.startsWith(lh+'/')) { history.replaceState({},'',np+h.substring(lh.length)); break; }
       }
-
-      if (match) return { route, params };
     }
+    this._onRouteChange();
+  },
 
+  navigate(path) {
+    if (path.startsWith('#')) {
+      const b=path.split('/').slice(0,3).join('/'), r=path.split('/').slice(3).join('/');
+      path=(this._legacyMap[b]||path.replace('#',''))+(r?'/'+r:'');
+    }
+    if (path===this._currentPath) return;
+    history.pushState({},'',path);
+    this._onRouteChange();
+  },
+
+  getDefaultRoute() { return this._defaults[this._userRole]||'/login'; },
+
+  _matchRoute(path) {
+    path=path.replace(/\/+$/,'')||'/';
+    if (this._routes[path]) return {route:this._routes[path],params:{}};
+    const pp=path.split('/');
+    for (const [pat,route] of Object.entries(this._routes)) {
+      const rp=pat.split('/');
+      if (rp.length!==pp.length) continue;
+      const params={}; let match=true;
+      for (let i=0;i<rp.length;i++) { if(rp[i].startsWith(':'))params[rp[i].substring(1)]=pp[i]; else if(rp[i]!==pp[i]){match=false;break;} }
+      if (match) return {route,params};
+    }
     return null;
   },
 
-  /**
-   * Handle hash change with page transitions
-   */
-  async _onHashChange() {
-    const hash = window.location.hash || '#/login';
-
-    // Don't re-render same route
-    if (hash === this._currentHash) return;
-
-    // Prevent concurrent transitions
-    if (this._transitioning) return;
-
-    // Handle invite token in URL (e.g., #/register/invite/abc123)
-    let effectiveHash = hash;
-    let inviteToken = null;
-    if (hash.startsWith('#/register/invite/')) {
-      inviteToken = hash.split('#/register/invite/')[1];
-      effectiveHash = '#/register/invite';
+  async _onRouteChange() {
+    const path=window.location.pathname;
+    if (path===this._currentPath&&!this._isFirstLoad) return;
+    this._isFirstLoad=false; this._currentPath=path;
+    if (path==='/'||path==='') { this.navigate(this._userRole?this.getDefaultRoute():'/login'); return; }
+    if (path==='/login'||path==='/register'||path.startsWith('/register/invite')) {
+      if (this._userRole) { this.navigate(this.getDefaultRoute()); return; }
+      const tk=path.startsWith('/register/invite/')?path.split('/')[3]:null;
+      this._renderAuthRoute(path,tk); return;
     }
-
-    const matched = this._matchRoute(effectiveHash);
-
-    // 404 - route not found
-    if (!matched) {
-      this._render404();
-      return;
-    }
-
-    const { route, params } = matched;
-
-    // Auth routes (login/register) - no role guard
-    if (route.roles.includes('*')) {
-      // If user is already authenticated (role set), skip login screen and go to default
-      if (this._userRole) {
-        this._currentHash = null;
-        this.navigate(this.getDefaultRoute());
-        return;
-      }
-      this._currentHash = hash;
-      this._renderAuthRoute(effectiveHash, inviteToken);
-      return;
-    }
-
-    // Role guard
-    if (!route.roles.includes(this._userRole)) {
-      console.warn(`[Router] Role guard: ${this._userRole} cannot access ${hash}`);
-      this.navigate(this.getDefaultRoute());
-      return;
-    }
-
-    // Plan guard
-    if (route.plan) {
-      const planRank = { basic: 0, intermediate: 1, maximum: 2 };
-      if ((planRank[this._userPlan] || 0) < (planRank[route.plan] || 0)) {
-        this._renderPlanGate(route.plan, route.title);
-        this._currentHash = hash;
-        return;
-      }
-    }
-
-    // Perform page transition: exit current -> load new -> enter new
-    const previousHash = this._currentHash;
-    this._currentHash = hash;
-
-    await this._transitionAndRender(route, params, previousHash);
+    const m=this._matchRoute(path);
+    if (!m) { this._render404(); return; }
+    const {route,params}=m;
+    if (!route.roles.includes('*')&&!route.roles.includes(this._userRole)) { this.navigate(this.getDefaultRoute()); return; }
+    if (route.plan) { const pl={basic:0,intermediate:1,maximum:2}; if ((pl[this._userPlan]||0)<(pl[route.plan]||0)){this._renderPlanGate(route.plan,route.title);return;} }
+    await this._transition(route,params);
   },
 
-  /**
-   * Perform exit transition, load new content, perform enter transition
-   */
-  async _transitionAndRender(route, params, previousHash) {
-    const contentView = document.getElementById('content-view');
-
-    // Exit transition (only if there was previous content)
-    if (previousHash && contentView && contentView.innerHTML.trim()) {
-      this._transitioning = true;
-      contentView.classList.add('cc-page-exit');
-
-      await this._wait(this._transitionDuration);
-
-      contentView.classList.remove('cc-page-exit');
-      this._transitioning = false;
-    }
-
-    // Scroll to top
-    const contentArea = document.getElementById('content-area');
-    if (contentArea) {
-      contentArea.scrollTo({ top: 0, behavior: 'instant' });
-    }
-
-    // Load and render the new view
-    await this._loadAndRender(route, params);
-
-    // Enter transition
-    if (contentView) {
-      contentView.classList.add('cc-page-enter');
-
-      // Clean up enter class after animation completes
-      const cleanup = () => {
-        contentView.classList.remove('cc-page-enter');
-        contentView.removeEventListener('animationend', cleanup);
-      };
-      contentView.addEventListener('animationend', cleanup);
-    }
+  async _transition(route,params) {
+    if (this._transitioning) return; this._transitioning=true;
+    const cv=document.getElementById('content-view');
+    if (cv&&cv.innerHTML.trim()) { cv.classList.add('cc-page-exit'); await new Promise(r=>setTimeout(r,this._transitionDuration)); cv.classList.remove('cc-page-exit'); }
+    this._transitioning=false;
+    const ca=document.getElementById('content-area'); if(ca)ca.scrollTo({top:0,behavior:'instant'});
+    await this._loadAndRender(route,params);
+    if(cv){cv.classList.add('cc-page-enter');const c=()=>{cv.classList.remove('cc-page-enter');cv.removeEventListener('animationend',c);};cv.addEventListener('animationend',c);}
   },
 
-  /**
-   * Promise-based wait utility
-   */
-  _wait(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  _renderAuthRoute(path,inviteToken) {
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('main-layout').style.display='none';
+    const c=document.getElementById('auth-container'); c.style.display='flex';
+    if(path==='/register'||path.startsWith('/register/invite')) AuthUI.renderRegister(c,inviteToken);
+    else AuthUI.renderLogin(c);
   },
 
-  /**
-   * Render auth routes (login/register)
-   */
-  _renderAuthRoute(hash, inviteToken) {
-    const container = document.getElementById('auth-container');
-    const mainLayout = document.getElementById('main-layout');
-    const loadingScreen = document.getElementById('loading-screen');
-
-    loadingScreen.style.display = 'none';
-    mainLayout.style.display = 'none';
-    container.style.display = 'flex';
-
-    if (hash === '#/register' || hash === '#/register/invite') {
-      AuthUI.renderRegister(container, inviteToken);
-    } else {
-      AuthUI.renderLogin(container);
-    }
-  },
-
-  /**
-   * Load module JS and render with skeleton loading state
-   */
-  async _loadAndRender(route, params) {
-    const contentView = document.getElementById('content-view');
-    const contentLoading = document.getElementById('content-loading');
-
-    if (!route.module) return;
-
-    // Show skeleton loading state instead of spinner
-    if (typeof CleanClaw !== 'undefined' && CleanClaw.showContentSkeleton) {
-      CleanClaw.showContentSkeleton();
-    } else {
-      contentLoading.style.display = 'flex';
-      contentView.innerHTML = '';
-    }
-
-    // Update nav active state
+  async _loadAndRender(route,params) {
+    const cv=document.getElementById('content-view'),cl=document.getElementById('content-loading');
+    if(!route.module) return;
+    if(typeof CleanClaw!=='undefined'&&CleanClaw.showContentSkeleton)CleanClaw.showContentSkeleton();
+    else{cl.style.display='flex';cv.innerHTML='';}
     this._updateNavActive();
-
-    // Update page title
-    document.title = `${route.title} - CleanClaw`;
-
-    try {
-      // Lazy load module if not already loaded
-      if (!this._loadedModules[route.module]) {
-        await this._loadScript(`/cleaning/static/js/${route.module}?v=8`);
-        this._loadedModules[route.module] = true;
-      }
-
-      // Find render function: moduleName.render(container, params)
-      // Module name convention: owner/dashboard.js -> OwnerDashboard
-      const moduleName = this._getModuleName(route.module);
-      if (window[moduleName] && typeof window[moduleName].render === 'function') {
-        contentView.innerHTML = '';
-        await window[moduleName].render(contentView, params);
-      } else {
-        // Module loaded but no render function - show placeholder
-        contentView.innerHTML = `
-          <div class="cc-placeholder">
-            <h2>${route.title}</h2>
-            <p>This module is coming soon.</p>
-          </div>
-        `;
-      }
-    } catch (err) {
-      console.error(`[Router] Failed to load module: ${route.module}`, err);
-      contentView.innerHTML = `
-        <div class="cc-placeholder cc-placeholder-error">
-          <h2>Failed to load ${route.title}</h2>
-          <p>Please try refreshing the page.</p>
-          <button class="cc-btn cc-btn-primary" onclick="location.reload()">Refresh</button>
-        </div>
-      `;
-    } finally {
-      contentLoading.style.display = 'none';
-    }
+    document.title=route.title+' \u2014 xCleaners';
+    try{
+      if(!this._loadedModules[route.module]){await this._loadScript('/cleaning/static/js/'+route.module+'?v=9');this._loadedModules[route.module]=true;}
+      const mn=this._getModuleName(route.module);
+      if(window[mn]&&typeof window[mn].render==='function'){cv.innerHTML='';await window[mn].render(cv,params);}
+      else cv.innerHTML='<div class="cc-placeholder"><h2>'+route.title+'</h2><p>Coming soon.</p></div>';
+    }catch(e){console.error('[Router]',route.module,e);cv.innerHTML='<div class="cc-placeholder cc-placeholder-error"><h2>Error</h2><button class="cc-btn cc-btn-primary" onclick="location.reload()">Refresh</button></div>';}
+    finally{cl.style.display='none';}
   },
 
-  /**
-   * Load a script dynamically
-   */
-  _loadScript(src) {
-    return new Promise((resolve, reject) => {
-      // Check if already loaded
-      if (document.querySelector(`script[src="${src}"]`)) {
-        resolve();
-        return;
-      }
-      const script = document.createElement('script');
-      script.src = src;
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  },
-
-  /**
-   * Convert module path to global variable name
-   * e.g., "owner/dashboard.js" -> "OwnerDashboard"
-   */
-  _getModuleName(path) {
-    return path
-      .replace('.js', '')
-      .split('/')
-      .map(part => part.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(''))
-      .join('');
-  },
-
-  /**
-   * Update active nav item
-   */
-  _updateNavActive() {
-    // Sidebar nav
-    document.querySelectorAll('.cc-nav-item').forEach(item => {
-      item.classList.toggle('active', item.dataset.route === this._currentHash);
-    });
-    // Bottom tabs
-    document.querySelectorAll('.cc-tab-item').forEach(item => {
-      item.classList.toggle('active', item.dataset.route === this._currentHash);
-    });
-    // Top nav links
-    document.querySelectorAll('.cc-top-nav-link').forEach(item => {
-      item.classList.toggle('active', item.dataset.route === this._currentHash);
-    });
-  },
-
-  /**
-   * Render plan gate (upgrade prompt)
-   */
-  _renderPlanGate(requiredPlan, featureName) {
-    const contentView = document.getElementById('content-view');
-    const contentLoading = document.getElementById('content-loading');
-    contentLoading.style.display = 'none';
-
-    const planNames = { intermediate: 'Intermediate', maximum: 'Maximum' };
-    contentView.innerHTML = `
-      <div class="cc-plan-gate cc-animate-fade-in">
-        <div class="cc-plan-gate-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--cc-neutral-400)" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-        </div>
-        <h2>${featureName}</h2>
-        <p>Available on the <strong>${planNames[requiredPlan] || requiredPlan}</strong> plan.</p>
-        <button class="cc-btn cc-btn-primary" onclick="CleanRouter.navigate('#/owner/settings')">Upgrade Now</button>
-      </div>
-    `;
-  },
-
-  /**
-   * Render 404 page
-   */
-  _render404() {
-    const contentView = document.getElementById('content-view');
-    const contentLoading = document.getElementById('content-loading');
-    if (contentLoading) contentLoading.style.display = 'none';
-    if (contentView) {
-      contentView.innerHTML = `
-        <div class="cc-placeholder cc-animate-fade-in">
-          <h2>Page Not Found</h2>
-          <p>The page you're looking for doesn't exist.</p>
-          <button class="cc-btn cc-btn-primary" onclick="CleanRouter.navigate(CleanRouter.getDefaultRoute())">Go Home</button>
-        </div>
-      `;
-    }
-  },
+  _loadScript(src){return new Promise((ok,err)=>{if(document.querySelector('script[src="'+src+'"]')){ok();return;}const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=err;document.head.appendChild(s);});},
+  _getModuleName(p){return p.replace('.js','').split('/').map(x=>x.split('-').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join('')).join('');},
+  _updateNavActive(){document.querySelectorAll('.cc-nav-item,.cc-tab-item,.cc-top-nav-link').forEach(i=>{i.classList.toggle('active',i.dataset.route===this._currentPath);});},
+  _renderPlanGate(rp,fn){const cv=document.getElementById('content-view');document.getElementById('content-loading').style.display='none';cv.innerHTML='<div class="cc-plan-gate cc-animate-fade-in"><h2>'+fn+'</h2><p>Available on <strong>'+(rp==='intermediate'?'Intermediate':'Maximum')+'</strong> plan.</p><button class="cc-btn cc-btn-primary" onclick="CleanRouter.navigate(\'/settings\')">Upgrade</button></div>';},
+  _render404(){const cv=document.getElementById('content-view'),cl=document.getElementById('content-loading');if(cl)cl.style.display='none';if(cv)cv.innerHTML='<div class="cc-placeholder cc-animate-fade-in"><h2>Page Not Found</h2><button class="cc-btn cc-btn-primary" onclick="CleanRouter.navigate(CleanRouter.getDefaultRoute())">Home</button></div>';},
 };
