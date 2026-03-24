@@ -907,7 +907,15 @@ body:has(.cc-sidebar.collapsed) .cc-content--with-sidebar {
 
 /* Mobile: < 768px */
 @media (max-width: 767px) {
-  /* Sidebar: slide-in from left on mobile */
+  /* Main layout: column direction on mobile so header + content stack vertically */
+  .cc-main-layout {
+    flex-direction: column;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Sidebar: slide-in from left on mobile (fixed, out of flow) */
   .cc-sidebar {
     position: fixed;
     left: 0;
@@ -948,13 +956,25 @@ body:has(.cc-sidebar.collapsed) .cc-content--with-sidebar {
     padding-left: 48px;
   }
 
-  /* Content takes full width */
+  /* Content takes full width — !important overrides collapsed-sidebar :has() selector */
   .cc-content--with-sidebar {
-    margin-left: 0;
+    margin-left: 0 !important;
+  }
+
+  /* Ensure content area always uses full viewport width on mobile */
+  .cc-content {
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    height: auto !important;
+    flex: 1 1 0% !important;
+    min-height: 0;
   }
 
   .cc-content-view {
     padding: var(--cc-space-4);
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   /* Top nav: hide links on mobile, keep logout visible */
@@ -972,11 +992,17 @@ body:has(.cc-sidebar.collapsed) .cc-content--with-sidebar {
 
   .cc-top-nav {
     padding: 0 var(--cc-space-3);
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
   }
 
-  /* Bottom tabs: show for all roles */
+  /* Bottom tabs: show for all roles, full width */
   .cc-bottom-tabs {
     display: flex !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
   }
 
   .cc-content--with-topnav {
@@ -2976,6 +3002,8 @@ body:has(.cc-sidebar.collapsed) .cc-content--with-sidebar {
 
   .cc-super-admin {
     padding: var(--cc-space-3);
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .cc-sa-actions-bar {
@@ -3038,10 +3066,18 @@ body:has(.cc-sidebar.collapsed) .cc-content--with-sidebar {
     border-radius: var(--cc-radius-lg) !important;
   }
   .cc-greeting-card h2, .cc-greeting-card .cc-greeting-title {
-    font-size: var(--cc-text-lg) !important;
+    font-size: 18px !important;
+    line-height: 1.3 !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
   .cc-greeting-card .cc-greeting-subtitle {
     font-size: var(--cc-text-sm) !important;
+  }
+  /* Also target inline-style greeting titles (JS-rendered) */
+  #greeting-card > div:first-child > div:first-child {
+    font-size: 18px !important;
+    line-height: 1.3 !important;
   }
 }
 
