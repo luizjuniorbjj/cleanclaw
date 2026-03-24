@@ -254,7 +254,7 @@ window.CleanClaw = {
     const brand = topNav.querySelector('.cc-top-nav-brand');
     if (brand) {
       brand.innerHTML = `
-        <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:32px;">
+        <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:130px;">
       `;
     }
 
@@ -415,11 +415,7 @@ window.CleanClaw = {
     authContainer.innerHTML = `
       <div class="cc-auth-card">
         <div class="cc-auth-logo">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="22" stroke="#3B82F6" stroke-width="3"/>
-            <path d="M16 24l5 5 11-11" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:36px;">
+          <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:160px;margin-bottom:12px;">
         </div>
         <h2 class="cc-auth-heading">No cleaning business found</h2>
         <p style="text-align:center;color:var(--cc-neutral-500);margin-bottom:24px;">

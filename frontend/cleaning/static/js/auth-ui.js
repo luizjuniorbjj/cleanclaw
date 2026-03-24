@@ -16,12 +16,8 @@ window.AuthUI = {
           <!-- Brand -->
           <div style="text-align:center;margin-bottom:var(--cc-space-8);">
             <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--cc-radius-xl);background:var(--cc-primary-50);margin-bottom:var(--cc-space-3);">
-              <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="20" stroke="var(--cc-primary-500)" stroke-width="3"/>
-                <path d="M16 24l5 5 11-11" stroke="var(--cc-primary-500)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
             </div>
-            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:80px;margin-bottom:var(--cc-space-3);"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
+            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:220px;max-width:70vw;margin-bottom:var(--cc-space-4);display:block;margin-left:auto;margin-right:auto;"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
             <p class="cc-text-sm cc-text-muted">Smart Cleaning Management</p>
           </div>
 
@@ -101,12 +97,8 @@ window.AuthUI = {
           <!-- Brand -->
           <div style="text-align:center;margin-bottom:var(--cc-space-6);">
             <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--cc-radius-xl);background:var(--cc-primary-50);margin-bottom:var(--cc-space-3);">
-              <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="20" stroke="var(--cc-primary-500)" stroke-width="3"/>
-                <path d="M16 24l5 5 11-11" stroke="var(--cc-primary-500)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
             </div>
-            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:80px;margin-bottom:var(--cc-space-3);"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
+            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:220px;max-width:70vw;margin-bottom:var(--cc-space-4);display:block;margin-left:auto;margin-right:auto;"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
           </div>
 
           ${isInvite ? `
