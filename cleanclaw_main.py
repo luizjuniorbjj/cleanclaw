@@ -243,23 +243,26 @@ async def run_migrations(key: str = ""):
     migration_dir = Path(__file__).resolve().parent / "database" / "migrations"
     files = sorted(glob.glob(str(migration_dir / "01[129]*.sql")))
     
+    # Check existing tables
     async with pool.acquire() as conn:
-        # Check existing
         existing = await conn.fetch("SELECT tablename FROM pg_tables WHERE tablename LIKE 'cleaning_%' ORDER BY 1")
         results.append(f"existing_tables: {len(existing)}")
-        
-        for mig_file in files:
-            name = os.path.basename(mig_file)
-            try:
-                with open(mig_file, 'r') as f:
-                    sql = f.read()
+    
+    # Run each migration in its own connection to avoid transaction issues
+    for mig_file in files:
+        name = os.path.basename(mig_file)
+        try:
+            with open(mig_file, 'r') as f:
+                sql = f.read()
+            async with pool.acquire() as conn:
                 await conn.execute(sql)
-                results.append(f"OK: {name}")
-            except Exception as e:
-                err = str(e).split('\n')[0]
-                results.append(f"WARN: {name}: {err}")
-        
-        # Final count
+            results.append(f"OK: {name}")
+        except Exception as e:
+            err = str(e).split(chr(10))[0]
+            results.append(f"WARN: {name}: {err}")
+    
+    # Final count
+    async with pool.acquire() as conn:
         final = await conn.fetch("SELECT tablename FROM pg_tables WHERE tablename LIKE 'cleaning_%' ORDER BY 1")
         results.append(f"final_tables: {len(final)}")
         tables = [r['tablename'] for r in final]
