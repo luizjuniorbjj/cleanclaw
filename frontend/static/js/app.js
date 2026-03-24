@@ -36,7 +36,7 @@ window.CleanClaw = {
     // Preview mode — bypass auth for UI testing (add ?preview=owner to URL)
     const urlParams = new URLSearchParams(window.location.search);
     const previewRole = urlParams.get('preview');
-    if (previewRole && ['owner', 'homeowner', 'cleaner', 'team_lead'].includes(previewRole)) {
+    if (previewRole && ['owner', 'homeowner', 'cleaner', 'team_lead', 'super_admin'].includes(previewRole)) {
       console.log(`[CleanClaw] PREVIEW MODE: ${previewRole}`);
       this._user = { id: 'preview', email: 'preview@demo.com', nome: 'Preview User', name: 'Preview User' };
       this._roles = [{ role: previewRole, business_slug: 'demo-business', plan: 'maximum' }];
@@ -239,6 +239,37 @@ window.CleanClaw = {
 
     // User info
     this._renderUserInfo();
+  },
+
+  _renderSuperAdminNav() {
+    const topNav = document.getElementById('top-nav');
+    const topNavLinks = document.getElementById('top-nav-links');
+    const topNavUser = document.getElementById('top-nav-user');
+    const contentArea = document.getElementById('content-area');
+
+    topNav.style.display = 'flex';
+    contentArea.classList.add('cc-content--with-topnav');
+
+    // Override brand text
+    const brand = topNav.querySelector('.cc-top-nav-brand');
+    if (brand) {
+      brand.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 48 48" fill="none" style="margin-right:8px;">
+          <circle cx="24" cy="24" r="20" stroke="var(--cc-primary-500)" stroke-width="3"/>
+          <path d="M16 24l5 5 11-11" stroke="var(--cc-primary-500)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span style="font-weight:700;color:var(--cc-primary-500);">CleanClaw Admin</span>
+      `;
+    }
+
+    // No nav links for super admin (single page)
+    topNavLinks.innerHTML = '';
+
+    // User / logout
+    topNavUser.innerHTML = `
+      <span class="cc-text-sm" style="margin-right:var(--cc-space-3);color:var(--cc-neutral-600);">${this._user?.name || 'Admin'}</span>
+      <button class="cc-btn cc-btn-sm cc-btn-ghost" onclick="CleanClaw.logout()">Log Out</button>
+    `;
   },
 
   _renderOwnerNav() {

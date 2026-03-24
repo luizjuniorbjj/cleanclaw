@@ -58,6 +58,12 @@ window.DemoData = {
     if (event === 'dataChanged') this._saveToStorage();
   },
 
+  _businesses: [
+    { id: 'biz-1', name: 'Clean New Orleans', owner_email: 'admin@cleanneworleans.com', plan: 'pro', status: 'active', city: 'New Orleans', state: 'LA', created_at: '2026-03-01', teams: 3, clients: 5, cleaners: 7, mrr: 49 },
+    { id: 'biz-2', name: 'Sparkle Miami', owner_email: 'owner@sparklemiami.com', plan: 'business', status: 'active', city: 'Miami', state: 'FL', created_at: '2026-02-15', teams: 5, clients: 45, cleaners: 12, mrr: 99 },
+    { id: 'biz-3', name: 'Fresh Start Houston', owner_email: 'admin@freshstarthouston.com', plan: 'basic', status: 'trial', city: 'Houston', state: 'TX', created_at: '2026-03-20', teams: 1, clients: 8, cleaners: 3, mrr: 0 },
+  ],
+
   _teams: [
     { id: 'team-1', name: 'Team Alpha', color: '#1A73E8', is_active: true, max_daily_jobs: 6, member_count: 3,
       members: [

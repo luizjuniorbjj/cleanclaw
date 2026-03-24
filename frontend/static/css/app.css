@@ -2670,3 +2670,224 @@
     gap: var(--cc-space-4);
   }
 }
+
+/* ==============================================
+   SUPER ADMIN DASHBOARD
+   ============================================== */
+
+.cc-super-admin {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--cc-space-6);
+}
+
+/* KPI Cards */
+.cc-sa-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--cc-space-4);
+  margin-bottom: var(--cc-space-6);
+}
+
+.cc-sa-kpi-card {
+  background: var(--cc-white);
+  border: 1px solid var(--cc-neutral-200);
+  border-radius: var(--cc-radius-lg);
+  padding: var(--cc-space-5);
+  text-align: center;
+}
+
+.cc-sa-kpi-value {
+  font-size: var(--cc-text-3xl, 1.875rem);
+  font-weight: 700;
+  color: var(--cc-primary-600);
+  line-height: 1.2;
+}
+
+.cc-sa-kpi-label {
+  font-size: var(--cc-text-sm);
+  color: var(--cc-neutral-500);
+  margin-top: var(--cc-space-1);
+}
+
+/* Actions Bar */
+.cc-sa-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--cc-space-4);
+}
+
+/* Table */
+.cc-sa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--cc-text-sm);
+}
+
+.cc-sa-table thead th {
+  text-align: left;
+  padding: var(--cc-space-3) var(--cc-space-4);
+  font-weight: 600;
+  color: var(--cc-neutral-600);
+  border-bottom: 2px solid var(--cc-neutral-200);
+  white-space: nowrap;
+}
+
+.cc-sa-table tbody td {
+  padding: var(--cc-space-3) var(--cc-space-4);
+  border-bottom: 1px solid var(--cc-neutral-100);
+  vertical-align: middle;
+}
+
+.cc-sa-row:hover {
+  background: var(--cc-neutral-50);
+}
+
+.cc-sa-expand-btn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: var(--cc-neutral-400);
+  vertical-align: middle;
+  margin-right: var(--cc-space-1);
+}
+
+.cc-sa-expand-btn:hover {
+  color: var(--cc-primary-500);
+}
+
+.cc-sa-row-actions {
+  display: flex;
+  gap: var(--cc-space-1);
+}
+
+/* Plan Badges */
+.cc-sa-plan-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--cc-radius-full);
+  font-size: var(--cc-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cc-sa-plan-basic    { background: var(--cc-neutral-100); color: var(--cc-neutral-600); }
+.cc-sa-plan-pro      { background: var(--cc-primary-50);  color: var(--cc-primary-600); }
+.cc-sa-plan-business { background: var(--cc-warning-50, #fef3c7); color: var(--cc-warning-700, #92400e); }
+
+/* Status Badges */
+.cc-sa-status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--cc-radius-full);
+  font-size: var(--cc-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.cc-sa-status-active    { background: var(--cc-success-50);  color: var(--cc-success-700); }
+.cc-sa-status-suspended { background: var(--cc-danger-50);   color: var(--cc-danger-600); }
+.cc-sa-status-trial     { background: var(--cc-primary-50);  color: var(--cc-primary-600); }
+
+/* Expanded Row */
+.cc-sa-expanded-row td {
+  background: var(--cc-neutral-50);
+  padding: var(--cc-space-4) var(--cc-space-6) !important;
+}
+
+.cc-sa-expanded-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--cc-space-4);
+  text-align: center;
+}
+
+.cc-sa-expanded-stat-value {
+  display: block;
+  font-size: var(--cc-text-xl, 1.25rem);
+  font-weight: 700;
+  color: var(--cc-neutral-800);
+}
+
+.cc-sa-expanded-stat-label {
+  display: block;
+  font-size: var(--cc-text-xs);
+  color: var(--cc-neutral-500);
+  margin-top: 2px;
+}
+
+/* Create Business Modal */
+.cc-sa-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cc-sa-modal {
+  background: var(--cc-white);
+  border-radius: var(--cc-radius-xl);
+  padding: var(--cc-space-6);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.cc-sa-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--cc-space-5);
+}
+
+.cc-sa-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--cc-neutral-400);
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.cc-sa-modal-close:hover {
+  color: var(--cc-neutral-700);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cc-sa-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cc-sa-expanded-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cc-sa-table {
+    font-size: var(--cc-text-xs);
+  }
+
+  .cc-sa-table thead th,
+  .cc-sa-table tbody td {
+    padding: var(--cc-space-2) var(--cc-space-2);
+  }
+
+  .cc-super-admin {
+    padding: var(--cc-space-3);
+  }
+
+  .cc-sa-actions-bar {
+    flex-direction: column;
+    gap: var(--cc-space-3);
+    align-items: stretch;
+  }
+}
