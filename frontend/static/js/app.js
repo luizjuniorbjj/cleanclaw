@@ -254,10 +254,6 @@ window.CleanClaw = {
     const brand = topNav.querySelector('.cc-top-nav-brand');
     if (brand) {
       brand.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none" style="margin-right:8px;">
-          <circle cx="24" cy="24" r="20" stroke="var(--cc-primary-500)" stroke-width="3"/>
-          <path d="M16 24l5 5 11-11" stroke="var(--cc-primary-500)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
         <span style="font-weight:700;color:var(--cc-primary-500);">CleanClaw Admin</span>
       `;
     }

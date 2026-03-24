@@ -254,11 +254,7 @@ window.CleanClaw = {
     const brand = topNav.querySelector('.cc-top-nav-brand');
     if (brand) {
       brand.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none" style="margin-right:8px;">
-          <circle cx="24" cy="24" r="20" stroke="var(--cc-primary-500)" stroke-width="3"/>
-          <path d="M16 24l5 5 11-11" stroke="var(--cc-primary-500)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:24px;"> <span style="font-weight:600;color:var(--cc-neutral-500);font-size:12px;">Admin</span>
+        <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:32px;">
       `;
     }
 
