@@ -17,7 +17,7 @@ window.AuthUI = {
           <div style="text-align:center;margin-bottom:var(--cc-space-8);">
             <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--cc-radius-xl);background:var(--cc-primary-50);margin-bottom:var(--cc-space-3);">
             </div>
-            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:220px;max-width:70vw;margin-bottom:var(--cc-space-4);display:block;margin-left:auto;margin-right:auto;"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
+            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:220px;max-width:70vw;margin-bottom:var(--cc-space-4);display:block;margin-left:auto;margin-right:auto;">
             <p class="cc-text-sm cc-text-muted">Smart Cleaning Management</p>
           </div>
 
@@ -98,7 +98,7 @@ window.AuthUI = {
           <div style="text-align:center;margin-bottom:var(--cc-space-6);">
             <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--cc-radius-xl);background:var(--cc-primary-50);margin-bottom:var(--cc-space-3);">
             </div>
-            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:220px;max-width:70vw;margin-bottom:var(--cc-space-4);display:block;margin-left:auto;margin-right:auto;"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
+            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:220px;max-width:70vw;margin-bottom:var(--cc-space-4);display:block;margin-left:auto;margin-right:auto;">
           </div>
 
           ${isInvite ? `
