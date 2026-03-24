@@ -220,3 +220,48 @@ if __name__ == "__main__":
         port=CLEANCLAW_PORT,
         reload=DEBUG,
     )
+
+
+# ============================================
+# TEMPORARY — Migration endpoint (remove after use)
+# ============================================
+
+@app.get("/admin/migrate", tags=["Admin"], include_in_schema=False)
+async def run_migrations(key: str = ""):
+    """One-time migration endpoint. Requires SECRET_KEY as query param."""
+    import glob
+    secret = os.getenv("SECRET_KEY", "")
+    if not key or key != secret:
+        return {"error": "unauthorized"}
+    
+    from app.database import get_pool
+    pool = get_pool()
+    if not pool:
+        return {"error": "no database connection"}
+    
+    results = []
+    migration_dir = Path(__file__).resolve().parent / "database" / "migrations"
+    files = sorted(glob.glob(str(migration_dir / "01[129]*.sql")))
+    
+    async with pool.acquire() as conn:
+        # Check existing
+        existing = await conn.fetch("SELECT tablename FROM pg_tables WHERE tablename LIKE 'cleaning_%' ORDER BY 1")
+        results.append(f"existing_tables: {len(existing)}")
+        
+        for mig_file in files:
+            name = os.path.basename(mig_file)
+            try:
+                with open(mig_file, 'r') as f:
+                    sql = f.read()
+                await conn.execute(sql)
+                results.append(f"OK: {name}")
+            except Exception as e:
+                err = str(e).split('\n')[0]
+                results.append(f"WARN: {name}: {err}")
+        
+        # Final count
+        final = await conn.fetch("SELECT tablename FROM pg_tables WHERE tablename LIKE 'cleaning_%' ORDER BY 1")
+        results.append(f"final_tables: {len(final)}")
+        tables = [r['tablename'] for r in final]
+    
+    return {"results": results, "tables": tables}
