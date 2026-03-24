@@ -3031,4 +3031,55 @@ body:has(.cc-sidebar.collapsed) .cc-content--with-sidebar {
 @keyframes cc-spin {
   to { transform: rotate(360deg); }
 }
-.cc-hidden { display: none \!important; }
+/* ===== Greeting card mobile compact ===== */
+@media (max-width: 480px) {
+  .cc-greeting-card {
+    padding: var(--cc-space-4) !important;
+    border-radius: var(--cc-radius-lg) !important;
+  }
+  .cc-greeting-card h2, .cc-greeting-card .cc-greeting-title {
+    font-size: var(--cc-text-lg) !important;
+  }
+  .cc-greeting-card .cc-greeting-subtitle {
+    font-size: var(--cc-text-sm) !important;
+  }
+}
+
+/* ===== KPI cards mobile compact (480px) ===== */
+@media (max-width: 480px) {
+  .cc-kpi-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--cc-space-2);
+  }
+  .cc-kpi-card {
+    padding: var(--cc-space-3) !important;
+  }
+  .cc-kpi-card .cc-kpi-value {
+    font-size: var(--cc-text-2xl) !important;
+  }
+  .cc-kpi-card .cc-kpi-label {
+    font-size: 11px !important;
+  }
+  /* Also target dashboard stat cards */
+  .cc-dash-kpis .cc-stat-card {
+    padding: var(--cc-space-3) !important;
+  }
+  .cc-dash-kpis .cc-stat-card .cc-stat-card-value {
+    font-size: var(--cc-text-xl) !important;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+  .cc-dash-kpis .cc-stat-card .cc-stat-card-label {
+    font-size: 11px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cc-dash-kpis .cc-stat-card-icon {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 16px !important;
+  }
+}
+
+.cc-hidden { display: none !important; }

@@ -117,6 +117,8 @@ window.CleanRouter = {
     else{cl.style.display='flex';cv.innerHTML='';}
     this._updateNavActive();
     document.title=route.title+' \u2014 Xcleaners';
+      const mobileTitle=document.getElementById('mobile-page-title');
+      if(mobileTitle)mobileTitle.textContent=route.title;
     try{
       if(!this._loadedModules[route.module]){await this._loadScript('/cleaning/static/js/'+route.module+'?v=11');this._loadedModules[route.module]=true;}
       const mn=this._getModuleName(route.module);

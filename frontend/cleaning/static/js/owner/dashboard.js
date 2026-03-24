@@ -33,11 +33,11 @@ window.OwnerDashboard = {
         </div>
 
         <!-- Greeting Card -->
-        <div class="cc-card" id="greeting-card" style="background:linear-gradient(135deg, var(--cc-primary-500), var(--cc-primary-700));color:#fff;padding:var(--cc-space-6);border-radius:var(--cc-radius-xl);margin-bottom:var(--cc-space-4);">
-          <div style="font-size:var(--cc-text-2xl);font-weight:var(--cc-font-bold);margin-bottom:var(--cc-space-2);">
+        <div class="cc-card cc-greeting-card" id="greeting-card" style="background:linear-gradient(135deg, var(--cc-primary-500), var(--cc-primary-700));color:#fff;padding:var(--cc-space-6);border-radius:var(--cc-radius-xl);margin-bottom:var(--cc-space-4);">
+          <div class="cc-greeting-title" style="font-size:var(--cc-text-2xl);font-weight:var(--cc-font-bold);margin-bottom:var(--cc-space-2);">
             ${_greeting}, ${_userName}!
           </div>
-          <div style="opacity:0.85;font-size:var(--cc-text-sm);" id="greeting-summary">
+          <div class="cc-greeting-subtitle" style="opacity:0.85;font-size:var(--cc-text-sm);" id="greeting-summary">
             Loading today's summary...
           </div>
         </div>
