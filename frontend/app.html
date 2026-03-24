@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1A73E8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="CleanClaw">
+  <meta name="description" content="CleanClaw — Cleaning Business Management">
+  <meta name="robots" content="noindex, nofollow">
+
+  <title>CleanClaw</title>
+  <!-- Force clear stale service workers on load -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        regs.forEach(r => r.unregister());
+      });
+      caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
+    }
+  </script>
+
+  <link rel="manifest" href="/cleaning/manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="/cleaning/static/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/cleaning/static/icons/icon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/cleaning/static/css/design-system.css?v=8">
+  <link rel="stylesheet" href="/cleaning/static/css/app.css?v=8">
+  <link rel="stylesheet" href="/cleaning/static/css/schedule.css?v=3">
+</head>
+<body>
+
+  <!-- Offline banner -->
+  <div class="cc-offline-banner" id="offline-banner" style="display:none;">
+    You're offline. Some features may be unavailable.
+  </div>
+
+  <!-- App Shell -->
+  <div class="cc-app" id="cc-app">
+
+    <!-- Loading screen (shown while initializing) -->
+    <div class="cc-loading-screen" id="loading-screen">
+      <div class="cc-loading-logo">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" stroke="#3B82F6" stroke-width="3"/>
+          <path d="M16 24l5 5 11-11" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1>CleanClaw</h1>
+      </div>
+      <div class="cc-spinner"></div>
+      <p>Loading...</p>
+    </div>
+
+    <!-- Auth screens (login/register) - rendered by auth-ui.js -->
+    <div class="cc-auth-container" id="auth-container" style="display:none;"></div>
+
+    <!-- Main app (shown after auth) -->
+    <div class="cc-main-layout" id="main-layout" style="display:none;">
+
+      <!-- Owner sidebar (desktop) -->
+      <aside class="cc-sidebar" id="sidebar" style="display:none;">
+        <div class="cc-sidebar-header">
+          <button class="cc-sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <div class="cc-sidebar-brand">
+            <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="#3B82F6" stroke-width="3"/>
+              <path d="M16 24l5 5 11-11" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="cc-sidebar-title">CleanClaw</span>
+          </div>
+        </div>
+        <div class="cc-sidebar-business" id="sidebar-business-name">Loading...</div>
+        <nav class="cc-sidebar-nav" id="sidebar-nav">
+          <!-- Populated by app.js based on role -->
+        </nav>
+        <div class="cc-sidebar-footer">
+          <div class="cc-sidebar-user" id="sidebar-user"></div>
+          <button class="cc-sidebar-role-switch" id="role-switch-btn" style="display:none;" onclick="CleanClaw.showRoleSwitcher()">
+            Switch Role
+          </button>
+          <button class="cc-sidebar-logout" onclick="CleanClaw.logout()">Log Out</button>
+        </div>
+      </aside>
+
+      <!-- Mobile hamburger (owner) -->
+      <button class="cc-mobile-hamburger" id="mobile-hamburger" style="display:none;" onclick="CleanClaw.toggleMobileMenu()" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div class="cc-mobile-overlay" id="mobile-overlay" onclick="CleanClaw.closeMobileMenu()"></div>
+
+      <!-- Global search bar (owner only) -->
+      <div class="cc-global-search" id="global-search" style="display:none;">
+        <div class="cc-global-search-input-wrap">
+          <svg class="cc-global-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="cc-input" id="global-search-input" placeholder="Search clients, teams, bookings..." autocomplete="off">
+        </div>
+        <div id="global-search-results" class="cc-search-results"></div>
+      </div>
+
+      <!-- Top nav (homeowner desktop) -->
+      <header class="cc-top-nav" id="top-nav" style="display:none;">
+        <div class="cc-top-nav-brand">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="#3B82F6" stroke-width="3"/>
+            <path d="M16 24l5 5 11-11" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>CleanClaw</span>
+        </div>
+        <nav class="cc-top-nav-links" id="top-nav-links">
+          <!-- Populated by app.js -->
+        </nav>
+        <div class="cc-top-nav-user" id="top-nav-user"></div>
+      </header>
+
+      <!-- Content area -->
+      <main class="cc-content" id="content-area">
+        <div class="cc-content-loading" id="content-loading" style="display:none;">
+          <div class="cc-spinner"></div>
+          <p>Loading module...</p>
+        </div>
+        <div class="cc-content-view" id="content-view"></div>
+      </main>
+
+      <!-- Bottom tabs (cleaner + homeowner mobile) -->
+      <nav class="cc-bottom-tabs" id="bottom-tabs" style="display:none;">
+        <!-- Populated by app.js based on role -->
+      </nav>
+
+    </div>
+  </div>
+
+  <!-- Toast notification container -->
+  <div class="cc-toast-container" id="toast-container"></div>
+
+  <!-- Role switcher modal -->
+  <div class="cc-modal-overlay" id="role-modal" style="display:none;" onclick="CleanClaw.closeRoleSwitcher(event)">
+    <div class="cc-modal" onclick="event.stopPropagation()">
+      <h3>Switch Role</h3>
+      <div id="role-modal-content"></div>
+      <button class="cc-btn cc-btn-secondary" onclick="CleanClaw.closeRoleSwitcher()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/cleaning/static/js/shared/illustrations.js?v=8"></script>
+  <script src="/cleaning/static/js/shared/demo-data.js?v=8"></script>
+  <script src="/cleaning/static/js/shared/cleaning-api.js?v=8"></script>
+  <script src="/cleaning/static/js/shared/sse-client.js?v=8"></script>
+  <script src="/cleaning/static/js/shared/offline-store.js?v=8"></script>
+  <script src="/cleaning/static/js/shared/i18n.js?v=8"></script>
+  <script src="/cleaning/static/js/auth-ui.js?v=8"></script>
+  <script src="/cleaning/static/js/router.js?v=8"></script>
+  <script src="/cleaning/static/js/app.js?v=8"></script>
+
+</body>
+</html>

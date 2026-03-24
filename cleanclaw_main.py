@@ -1,0 +1,222 @@
+"""
+CleanClaw — Standalone FastAPI Entry Point
+
+Isolated CleanClaw service that ONLY loads cleaning-related routes.
+Runs independently from the main ClaWtoBusiness monolith on port 8003.
+"""
+
+import logging
+import os
+from contextlib import asynccontextmanager
+from pathlib import Path
+
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+
+# Security middleware
+from app.modules.cleaning.middleware.security import (
+    SecurityHeadersMiddleware,
+    RateLimitMiddleware,
+    RequestValidationMiddleware,
+)
+from app.modules.cleaning.middleware.business_context import BusinessContextMiddleware
+
+# Configure logging
+logging.basicConfig(
+    level=getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO),
+    format="%(levelname)s:%(name)s:%(message)s",
+)
+logger = logging.getLogger("cleanclaw.main")
+
+# Database & Redis
+from app.database import init_db, close_db
+from app.redis_client import init_redis, close_redis
+
+# CleanClaw route imports (same as app/main.py cleaning section)
+from app.modules.cleaning.routes.app_routes import router as cleaning_app_router
+from app.modules.cleaning.routes.onboarding import router as cleaning_onboarding_router
+from app.modules.cleaning.routes.clients import router as cleaning_clients_router
+from app.modules.cleaning.routes.services import router as cleaning_services_router
+from app.modules.cleaning.routes.teams import router as cleaning_teams_router
+from app.modules.cleaning.routes.members import router as cleaning_members_router
+from app.modules.cleaning.routes.schedule import router as cleaning_schedule_router
+from app.modules.cleaning.routes.cleaner_routes import router as cleaning_cleaner_router
+from app.modules.cleaning.routes.homeowner_routes import router as cleaning_homeowner_router
+from app.modules.cleaning.routes.invoice_routes import router as cleaning_invoice_router
+from app.modules.cleaning.routes.notification_routes import router as cleaning_notification_router
+from app.modules.cleaning.routes.dashboard_routes import router as cleaning_dashboard_router
+from app.modules.cleaning.routes.settings_routes import router as cleaning_settings_router
+from app.modules.cleaning.routes.ai_routes import router as cleaning_ai_router
+from app.modules.cleaning.routes.auth_routes import router as cleaning_auth_router
+from app.modules.cleaning.routes.plan import router as cleaning_plan_router
+from app.modules.cleaning.routes.push_routes import router as cleaning_push_router
+
+# Auth router (needed for login/token endpoints)
+from app.auth import router as auth_router
+
+
+# ============================================
+# CONFIGURATION
+# ============================================
+
+CLEANCLAW_PORT = int(os.getenv("CLEANCLAW_PORT", "8003"))
+DEBUG = os.getenv("DEBUG", "false").lower() in ("true", "1", "yes")
+
+
+# ============================================
+# LIFECYCLE
+# ============================================
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Manage startup and shutdown for CleanClaw service."""
+    logger.info("\n  CleanClaw API v1.0.0")
+    logger.info("=" * 40)
+
+    # Database — graceful fallback for UI testing without DB
+    try:
+        await init_db()
+        logger.info("[DB] Database connected")
+    except Exception as e:
+        logger.warning(f"[DB] Not available — API routes will fail but UI is accessible: {e}")
+
+    # Redis — graceful fallback
+    try:
+        redis_conn = await init_redis()
+        if redis_conn:
+            logger.info("[REDIS] Connected")
+        else:
+            logger.warning("[REDIS] Not available — using in-memory fallback")
+    except Exception as e:
+        logger.warning(f"[REDIS] Not available: {e}")
+
+    logger.info("[OK] CleanClaw API ready")
+    logger.info("=" * 40)
+    logger.info(f"  http://localhost:{CLEANCLAW_PORT}")
+    logger.info(f"  http://localhost:{CLEANCLAW_PORT}/docs")
+
+    yield
+
+    await close_redis()
+    await close_db()
+    logger.info("[SHUTDOWN] CleanClaw stopped")
+
+
+# ============================================
+# APP
+# ============================================
+
+app = FastAPI(
+    title="CleanClaw API",
+    description="Standalone API for CleanClaw — cleaning business management PWA",
+    version="1.0.0",
+    lifespan=lifespan,
+    docs_url="/docs" if DEBUG else None,
+    redoc_url="/redoc" if DEBUG else None,
+)
+
+
+# ============================================
+# CORS
+# ============================================
+
+def get_cors_origins():
+    """Return CORS origins from env or defaults."""
+    env_origins = os.getenv("CLEANCLAW_CORS_ORIGINS", "")
+    if env_origins:
+        return [o.strip() for o in env_origins.split(",") if o.strip()]
+    return [
+        "http://localhost:3000",
+        "http://localhost:8003",
+    ]
+
+
+# Middleware execution order (outermost → innermost):
+#   SecurityHeaders → RateLimit → RequestValidation → CORS → BusinessContext → Route
+#
+# In Starlette, the LAST add_middleware call is the OUTERMOST layer.
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=get_cors_origins(),
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["X-Request-ID"],
+)
+app.add_middleware(BusinessContextMiddleware)
+app.add_middleware(RequestValidationMiddleware)
+app.add_middleware(RateLimitMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
+
+
+# ============================================
+# ROUTES — Health & Root
+# ============================================
+
+@app.get("/health", tags=["Status"])
+async def health():
+    return {"status": "ok", "service": "cleanclaw"}
+
+
+@app.get("/", tags=["Root"], include_in_schema=False)
+async def root_redirect():
+    return RedirectResponse(url="/cleaning/app", status_code=302)
+
+
+# ============================================
+# ROUTES — CleanClaw API (same prefixes as monolith)
+# ============================================
+
+app.include_router(auth_router)
+app.include_router(cleaning_onboarding_router)
+app.include_router(cleaning_clients_router)
+app.include_router(cleaning_services_router)
+app.include_router(cleaning_teams_router)
+app.include_router(cleaning_members_router)
+app.include_router(cleaning_schedule_router)
+app.include_router(cleaning_cleaner_router)
+app.include_router(cleaning_homeowner_router)
+app.include_router(cleaning_invoice_router)
+app.include_router(cleaning_notification_router)
+app.include_router(cleaning_dashboard_router)
+app.include_router(cleaning_settings_router)
+app.include_router(cleaning_ai_router)
+app.include_router(cleaning_auth_router)
+app.include_router(cleaning_plan_router)
+app.include_router(cleaning_push_router)
+app.include_router(cleaning_app_router)
+
+
+# ============================================
+# FRONTEND — Static Files + PWA Shell
+# ============================================
+
+_frontend_dir = Path(__file__).resolve().parent / "frontend"
+_cleaning_dir = _frontend_dir / "cleaning"
+
+if _cleaning_dir.exists():
+    _cleaning_static = _cleaning_dir / "static"
+    if _cleaning_static.exists():
+        app.mount("/cleaning/static", StaticFiles(directory=str(_cleaning_static)), name="cleaning-static")
+
+    @app.get("/cleaning/app", tags=["Frontend"], include_in_schema=False)
+    @app.get("/cleaning/app/{path:path}", tags=["Frontend"], include_in_schema=False)
+    async def serve_cleaning_app(path: str = ""):
+        return FileResponse(str(_cleaning_dir / "app.html"))
+
+
+# ============================================
+# RUN
+# ============================================
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "cleanclaw_main:app",
+        host="0.0.0.0",
+        port=CLEANCLAW_PORT,
+        reload=DEBUG,
+    )

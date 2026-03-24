@@ -1,0 +1,563 @@
+"""
+CleanClaw v3 — Client Service (S2.3).
+
+CRUD for cleaning_clients with search, filter, pagination,
+client stats (LTV, total bookings), property details management,
+duplicate detection, and plan-limit enforcement.
+"""
+
+import json
+import logging
+from datetime import datetime, date
+from typing import Optional
+
+from app.database import Database
+from app.modules.cleaning.middleware.plan_guard import check_limit
+
+logger = logging.getLogger("cleanclaw.client_service")
+
+
+# ============================================
+# DURATION ESTIMATOR
+# ============================================
+
+def estimate_duration(
+    sqft: Optional[int],
+    bedrooms: Optional[int],
+    bathrooms: Optional[float],
+    base_duration: int = 120,
+) -> int:
+    """
+    Estimate cleaning duration in minutes.
+    Formula from S2.3 story:
+      base = service.estimated_duration_minutes (default 120)
+      sqft_factor = max(1.0, sqft / 1500)
+      room_factor = 1.0 + (bedrooms + bathrooms - 3) * 0.1
+      estimated = int(base * sqft_factor * room_factor)
+    """
+    sqft = sqft or 1500
+    bedrooms = bedrooms or 2
+    bathrooms = bathrooms or 1.0
+
+    sqft_factor = max(1.0, sqft / 1500)
+    room_factor = 1.0 + (bedrooms + bathrooms - 3) * 0.1
+    room_factor = max(0.5, room_factor)  # floor at 0.5x
+    estimated = int(base_duration * sqft_factor * room_factor)
+    return estimated
+
+
+# ============================================
+# CLIENT CRUD
+# ============================================
+
+async def create_client(
+    db: Database,
+    business_id: str,
+    data: dict,
+) -> dict:
+    """
+    Create a new cleaning client.
+    - Checks plan limit (Basic 50, Intermediate 200, Maximum unlimited)
+    - Duplicate detection by phone or email (returns 409)
+    - Returns created client row
+    """
+    # 1. Check plan limit
+    current_count = await db.pool.fetchval(
+        "SELECT COUNT(*) FROM cleaning_clients WHERE business_id = $1 AND status != 'blocked'",
+        business_id,
+    )
+    await check_limit(business_id, "clients", current_count, db)
+
+    # 2. Duplicate detection
+    if data.get("phone"):
+        dup = await db.pool.fetchrow(
+            """SELECT id, first_name, last_name, phone, email
+               FROM cleaning_clients
+               WHERE business_id = $1 AND phone = $2 AND status != 'blocked'""",
+            business_id, data["phone"],
+        )
+        if dup:
+            return {"duplicate": True, "existing_client_id": str(dup["id"]), "match_field": "phone"}
+
+    if data.get("email"):
+        dup = await db.pool.fetchrow(
+            """SELECT id, first_name, last_name, phone, email
+               FROM cleaning_clients
+               WHERE business_id = $1 AND email = $2 AND status != 'blocked'""",
+            business_id, data["email"],
+        )
+        if dup:
+            return {"duplicate": True, "existing_client_id": str(dup["id"]), "match_field": "email"}
+
+    # 3. Handle tags and notes mapping
+    # tags and internal_notes are stored in the notes JSON or as JSONB
+    # Since DB has TEXT notes column, we merge internal_notes into notes
+    # and store tags as JSON in pet_details adjacent field or notes prefix
+    tags = data.pop("tags", [])
+    internal_notes = data.pop("internal_notes", None)
+    preferred_contact = data.pop("preferred_contact", None)
+    billing_address = data.pop("billing_address", None)
+
+    # Combine notes: store structured data as JSON prefix in notes
+    original_notes = data.get("notes", "") or ""
+    meta = {}
+    if tags:
+        meta["tags"] = tags
+    if internal_notes:
+        meta["internal_notes"] = internal_notes
+    if preferred_contact:
+        meta["preferred_contact"] = preferred_contact
+    if billing_address:
+        meta["billing_address"] = billing_address
+    if meta:
+        data["notes"] = f"__META__{json.dumps(meta)}__META__{original_notes}"
+    elif original_notes:
+        data["notes"] = original_notes
+
+    # 4. Build INSERT
+    # Filter to valid DB columns only
+    valid_columns = {
+        "first_name", "last_name", "email", "phone", "phone_secondary",
+        "address_line1", "address_line2", "city", "state", "zip_code",
+        "country", "latitude", "longitude", "property_type",
+        "bedrooms", "bathrooms", "square_feet", "has_pets", "pet_details",
+        "access_instructions", "preferred_day", "preferred_time_start",
+        "preferred_time_end", "notes", "source",
+    }
+
+    insert_data = {k: v for k, v in data.items() if k in valid_columns and v is not None}
+    insert_data["business_id"] = business_id
+
+    columns = list(insert_data.keys())
+    values = list(insert_data.values())
+    placeholders = [f"${i+1}" for i in range(len(columns))]
+
+    row = await db.pool.fetchrow(
+        f"""INSERT INTO cleaning_clients ({', '.join(columns)})
+            VALUES ({', '.join(placeholders)})
+            RETURNING *""",
+        *values,
+    )
+
+    return _row_to_dict(row)
+
+
+async def get_client(
+    db: Database,
+    business_id: str,
+    client_id: str,
+    include_schedules: bool = True,
+    include_financial: bool = True,
+) -> Optional[dict]:
+    """Get a single client with optional schedules and financial summary."""
+    row = await db.pool.fetchrow(
+        """SELECT * FROM cleaning_clients
+           WHERE id = $1 AND business_id = $2""",
+        client_id, business_id,
+    )
+    if not row:
+        return None
+
+    result = _row_to_dict(row)
+
+    # Active schedules count
+    sched_count = await db.pool.fetchval(
+        """SELECT COUNT(*) FROM cleaning_client_schedules
+           WHERE client_id = $1 AND business_id = $2 AND status = 'active'""",
+        client_id, business_id,
+    )
+    result["active_schedules_count"] = sched_count or 0
+
+    # Financial summary
+    if include_financial:
+        result["financial_summary"] = await _get_financial_summary(db, business_id, client_id)
+
+    return result
+
+
+async def update_client(
+    db: Database,
+    business_id: str,
+    client_id: str,
+    data: dict,
+) -> Optional[dict]:
+    """Update client fields. Returns updated row or None if not found."""
+    # Handle meta fields
+    tags = data.pop("tags", None)
+    internal_notes = data.pop("internal_notes", None)
+    preferred_contact = data.pop("preferred_contact", None)
+    billing_address = data.pop("billing_address", None)
+
+    # If meta fields changed, update the notes column
+    if any(v is not None for v in [tags, internal_notes, preferred_contact, billing_address]):
+        current = await db.pool.fetchrow(
+            "SELECT notes FROM cleaning_clients WHERE id = $1 AND business_id = $2",
+            client_id, business_id,
+        )
+        if not current:
+            return None
+
+        current_notes = current["notes"] or ""
+        meta, clean_notes = _parse_meta(current_notes)
+
+        if tags is not None:
+            meta["tags"] = tags
+        if internal_notes is not None:
+            meta["internal_notes"] = internal_notes
+        if preferred_contact is not None:
+            meta["preferred_contact"] = preferred_contact
+        if billing_address is not None:
+            meta["billing_address"] = billing_address
+
+        if meta:
+            data["notes"] = f"__META__{json.dumps(meta)}__META__{clean_notes}"
+        else:
+            data["notes"] = clean_notes
+
+    # Handle status change: paused -> suspend schedules
+    new_status = data.get("status")
+
+    valid_columns = {
+        "first_name", "last_name", "email", "phone", "phone_secondary",
+        "address_line1", "address_line2", "city", "state", "zip_code",
+        "country", "latitude", "longitude", "property_type",
+        "bedrooms", "bathrooms", "square_feet", "has_pets", "pet_details",
+        "access_instructions", "preferred_day", "preferred_time_start",
+        "preferred_time_end", "notes", "status",
+    }
+
+    update_data = {k: v for k, v in data.items() if k in valid_columns and v is not None}
+
+    if not update_data:
+        # Nothing to update, just return current
+        return await get_client(db, business_id, client_id)
+
+    # NOTE: 'paused' and 'former' are now valid DB statuses (migration 018).
+    # No mapping needed — values pass through directly.
+
+    set_clauses = [f"{col} = ${i+1}" for i, col in enumerate(update_data.keys())]
+    values = list(update_data.values())
+    values.extend([client_id, business_id])
+
+    row = await db.pool.fetchrow(
+        f"""UPDATE cleaning_clients
+            SET {', '.join(set_clauses)}, updated_at = NOW()
+            WHERE id = ${len(values) - 1} AND business_id = ${len(values)}
+            RETURNING *""",
+        *values,
+    )
+
+    if not row:
+        return None
+
+    # If paused, suspend all active schedules
+    if new_status == "paused":
+        await db.pool.execute(
+            """UPDATE cleaning_client_schedules
+               SET status = 'paused', updated_at = NOW()
+               WHERE client_id = $1 AND business_id = $2 AND status = 'active'""",
+            client_id, business_id,
+        )
+
+    result = _row_to_dict(row)
+    result["active_schedules_count"] = 0 if new_status == "paused" else await db.pool.fetchval(
+        "SELECT COUNT(*) FROM cleaning_client_schedules WHERE client_id = $1 AND business_id = $2 AND status = 'active'",
+        client_id, business_id,
+    ) or 0
+
+    return result
+
+
+async def delete_client(
+    db: Database,
+    business_id: str,
+    client_id: str,
+) -> bool:
+    """Soft delete: set status to 'blocked' and cancel schedules."""
+    result = await db.pool.execute(
+        """UPDATE cleaning_clients
+           SET status = 'blocked', updated_at = NOW()
+           WHERE id = $1 AND business_id = $2 AND status != 'blocked'""",
+        client_id, business_id,
+    )
+
+    if result == "UPDATE 0":
+        return False
+
+    # Cancel all active schedules
+    await db.pool.execute(
+        """UPDATE cleaning_client_schedules
+           SET status = 'cancelled', updated_at = NOW()
+           WHERE client_id = $1 AND business_id = $2 AND status IN ('active', 'paused')""",
+        client_id, business_id,
+    )
+
+    return True
+
+
+async def list_clients(
+    db: Database,
+    business_id: str,
+    search: Optional[str] = None,
+    status: Optional[str] = None,
+    frequency: Optional[str] = None,
+    team_id: Optional[str] = None,
+    tag: Optional[str] = None,
+    has_balance: Optional[bool] = None,
+    sort_by: str = "last_name",
+    sort_order: str = "asc",
+    page: int = 1,
+    per_page: int = 25,
+) -> dict:
+    """
+    List clients with search, filter, sort, and pagination.
+    Returns {clients: [...], total: N, page, per_page}.
+    """
+    conditions = ["c.business_id = $1", "c.status != 'blocked'"]
+    params = [business_id]
+    param_idx = 2
+
+    # Status filter
+    if status:
+        # Map API status to DB status
+        if status == "paused":
+            conditions.append(f"c.status = ${param_idx}")
+            params.append("inactive")
+        elif status == "former":
+            conditions.append(f"c.status = ${param_idx}")
+            params.append("inactive")
+        else:
+            conditions.append(f"c.status = ${param_idx}")
+            params.append(status)
+        param_idx += 1
+
+    # Search (name, email, phone, address)
+    if search:
+        conditions.append(f"""(
+            c.first_name ILIKE ${param_idx}
+            OR c.last_name ILIKE ${param_idx}
+            OR c.email ILIKE ${param_idx}
+            OR c.phone ILIKE ${param_idx}
+            OR c.address_line1 ILIKE ${param_idx}
+            OR c.city ILIKE ${param_idx}
+        )""")
+        params.append(f"%{search}%")
+        param_idx += 1
+
+    # Tag filter (stored in notes JSON meta)
+    if tag:
+        conditions.append(f"c.notes ILIKE ${param_idx}")
+        params.append(f"%{tag}%")
+        param_idx += 1
+
+    # Frequency filter (via client_schedules join)
+    frequency_join = ""
+    if frequency:
+        frequency_join = f"""
+            INNER JOIN cleaning_client_schedules cs
+            ON cs.client_id = c.id AND cs.business_id = c.business_id
+            AND cs.status = 'active' AND cs.frequency = ${param_idx}
+        """
+        params.append(frequency)
+        param_idx += 1
+
+    # Team filter (via client_schedules join)
+    team_join = ""
+    if team_id and not frequency:
+        team_join = f"""
+            INNER JOIN cleaning_client_schedules cs
+            ON cs.client_id = c.id AND cs.business_id = c.business_id
+            AND cs.status = 'active' AND cs.preferred_team_id = ${param_idx}
+        """
+        params.append(team_id)
+        param_idx += 1
+    elif team_id and frequency:
+        conditions.append(f"cs.preferred_team_id = ${param_idx}")
+        params.append(team_id)
+        param_idx += 1
+
+    where_clause = " AND ".join(conditions)
+
+    # Validate sort column
+    allowed_sorts = {
+        "first_name": "c.first_name",
+        "last_name": "c.last_name",
+        "email": "c.email",
+        "status": "c.status",
+        "lifetime_value": "c.lifetime_value",
+        "total_bookings": "c.total_bookings",
+        "last_service_date": "c.last_service_date",
+        "created_at": "c.created_at",
+    }
+    sort_col = allowed_sorts.get(sort_by, "c.last_name")
+    sort_dir = "DESC" if sort_order.lower() == "desc" else "ASC"
+
+    # Count
+    count_sql = f"""
+        SELECT COUNT(DISTINCT c.id)
+        FROM cleaning_clients c
+        {frequency_join}
+        {team_join}
+        WHERE {where_clause}
+    """
+    total = await db.pool.fetchval(count_sql, *params)
+
+    # Fetch
+    offset = (page - 1) * per_page
+    fetch_sql = f"""
+        SELECT DISTINCT c.*
+        FROM cleaning_clients c
+        {frequency_join}
+        {team_join}
+        WHERE {where_clause}
+        ORDER BY {sort_col} {sort_dir}
+        LIMIT {per_page} OFFSET {offset}
+    """
+    rows = await db.pool.fetch(fetch_sql, *params)
+
+    clients = []
+    for row in rows:
+        client = _row_to_dict(row)
+        # Get active schedule count
+        sched_count = await db.pool.fetchval(
+            "SELECT COUNT(*) FROM cleaning_client_schedules WHERE client_id = $1 AND business_id = $2 AND status = 'active'",
+            str(row["id"]), business_id,
+        )
+        client["active_schedules_count"] = sched_count or 0
+        clients.append(client)
+
+    return {
+        "clients": clients,
+        "total": total or 0,
+        "page": page,
+        "per_page": per_page,
+    }
+
+
+async def search_clients(
+    db: Database,
+    business_id: str,
+    query: str,
+    limit: int = 10,
+) -> list[dict]:
+    """Quick search for autocomplete / typeahead."""
+    rows = await db.pool.fetch(
+        """SELECT id, first_name, last_name, phone, email, address_line1, city, status
+           FROM cleaning_clients
+           WHERE business_id = $1
+             AND status != 'blocked'
+             AND (
+               first_name ILIKE $2
+               OR last_name ILIKE $2
+               OR email ILIKE $2
+               OR phone ILIKE $2
+               OR address_line1 ILIKE $2
+             )
+           ORDER BY last_name ASC, first_name ASC
+           LIMIT $3""",
+        business_id, f"%{query}%", limit,
+    )
+    return [dict(r) for r in rows]
+
+
+# ============================================
+# FINANCIAL SUMMARY
+# ============================================
+
+async def _get_financial_summary(db: Database, business_id: str, client_id: str) -> dict:
+    """Compute financial summary for a client."""
+    row = await db.pool.fetchrow(
+        """SELECT
+            COALESCE(SUM(CASE WHEN status = 'paid' THEN total ELSE 0 END), 0) AS total_spent,
+            COALESCE(SUM(CASE WHEN status IN ('sent', 'overdue') THEN total ELSE 0 END), 0) AS outstanding_balance,
+            COUNT(*) AS total_invoices,
+            COUNT(CASE WHEN status = 'overdue' THEN 1 END) AS overdue_invoices
+           FROM cleaning_invoices
+           WHERE client_id = $1 AND business_id = $2""",
+        client_id, business_id,
+    )
+    if row:
+        return {
+            "total_spent": float(row["total_spent"]),
+            "outstanding_balance": float(row["outstanding_balance"]),
+            "total_invoices": row["total_invoices"],
+            "overdue_invoices": row["overdue_invoices"],
+        }
+    return {"total_spent": 0.0, "outstanding_balance": 0.0, "total_invoices": 0, "overdue_invoices": 0}
+
+
+# ============================================
+# HELPERS
+# ============================================
+
+def _parse_meta(notes: str) -> tuple[dict, str]:
+    """Parse __META__{json}__META__ prefix from notes field."""
+    if notes and notes.startswith("__META__"):
+        parts = notes.split("__META__", 2)
+        if len(parts) >= 3:
+            try:
+                meta = json.loads(parts[1])
+                clean_notes = parts[2] if len(parts) > 2 else ""
+                return meta, clean_notes
+            except (json.JSONDecodeError, IndexError):
+                pass
+    return {}, notes or ""
+
+
+def _row_to_dict(row) -> dict:
+    """Convert asyncpg Record to dict with proper serialization."""
+    if not row:
+        return {}
+
+    d = dict(row)
+
+    # Parse meta from notes
+    notes_raw = d.get("notes", "") or ""
+    meta, clean_notes = _parse_meta(notes_raw)
+
+    # UUID to str
+    for key in ["id", "business_id", "user_id"]:
+        if d.get(key):
+            d[key] = str(d[key])
+
+    # Dates/times to str
+    for key in ["created_at", "updated_at", "last_service_date"]:
+        val = d.get(key)
+        if val is not None:
+            d[key] = str(val)
+
+    for key in ["preferred_time_start", "preferred_time_end"]:
+        val = d.get(key)
+        if val is not None:
+            d[key] = str(val)
+
+    # Numeric conversions
+    for key in ["lifetime_value"]:
+        val = d.get(key)
+        if val is not None:
+            d[key] = float(val)
+
+    for key in ["bathrooms"]:
+        val = d.get(key)
+        if val is not None:
+            d[key] = float(val)
+
+    for key in ["latitude", "longitude"]:
+        val = d.get(key)
+        if val is not None:
+            d[key] = float(val)
+
+    # Extract meta fields
+    d["tags"] = meta.get("tags", [])
+    d["internal_notes"] = meta.get("internal_notes")
+    d["preferred_contact"] = meta.get("preferred_contact")
+    d["billing_address"] = meta.get("billing_address")
+    d["notes"] = clean_notes if clean_notes else None
+
+    # Defaults
+    d.setdefault("active_schedules_count", 0)
+    d.setdefault("financial_summary", None)
+    d.setdefault("source", "manual")
+    d.setdefault("status", "active")
+
+    return d
