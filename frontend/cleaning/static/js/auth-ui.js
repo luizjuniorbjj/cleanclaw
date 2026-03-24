@@ -21,7 +21,7 @@ window.AuthUI = {
                 <path d="M16 24l5 5 11-11" stroke="var(--cc-primary-500)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <h2 class="cc-text-2xl" style="color:var(--cc-primary-500);margin-bottom:var(--cc-space-1);">Xcleaners</h2>
+            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:40px;margin-bottom:var(--cc-space-2);"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
             <p class="cc-text-sm cc-text-muted">Smart Cleaning Management</p>
           </div>
 
@@ -106,7 +106,7 @@ window.AuthUI = {
                 <path d="M16 24l5 5 11-11" stroke="var(--cc-primary-500)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <h2 class="cc-text-2xl" style="color:var(--cc-primary-500);margin-bottom:var(--cc-space-1);">Xcleaners</h2>
+            <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="height:40px;margin-bottom:var(--cc-space-2);"><h2 style="font-size:0;height:0;overflow:hidden;">Xcleaners</h2>
           </div>
 
           ${isInvite ? `
