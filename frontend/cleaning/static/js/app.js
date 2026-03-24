@@ -445,27 +445,39 @@ window.CleanClaw = {
     window.location.reload();
   },
 
-  // ----- Mobile Menu (smooth sidebar toggle) -----
+  // ----- Sidebar Toggle (collapse/expand) -----
 
-  toggleMobileMenu() {
+  toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
+    const contentArea = document.getElementById('content-area');
+    if (!sidebar) return;
+
+    // Desktop: toggle collapsed
+    if (window.innerWidth > 768) {
+      sidebar.classList.toggle('collapsed');
+      if (contentArea) {
+        contentArea.style.marginLeft = sidebar.classList.contains('collapsed')
+          ? 'var(--cc-sidebar-collapsed, 72px)' : 'var(--cc-sidebar-width)';
+      }
+      return;
+    }
+
+    // Mobile: slide in/out
     const overlay = document.getElementById('mobile-overlay');
     const isOpen = sidebar.classList.contains('open');
-
     if (isOpen) {
       this.closeMobileMenu();
     } else {
       sidebar.classList.add('open');
       overlay.classList.add('open');
-      // Animate sidebar in smoothly
-      sidebar.style.transition = 'transform var(--cc-duration-slow) var(--cc-ease-out)';
     }
   },
+
+  toggleMobileMenu() { this.toggleSidebar(); },
 
   closeMobileMenu() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('mobile-overlay');
-    sidebar.style.transition = 'transform var(--cc-duration-slow) var(--cc-ease-out)';
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
   },

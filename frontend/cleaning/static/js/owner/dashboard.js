@@ -28,7 +28,7 @@ window.OwnerDashboard = {
         <!-- Header -->
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--cc-space-3);">
           <div>
-            <h2 style="margin:0;">${t('dashboard.title')}</h2>
+            <h2 style="margin:0;font-size:var(--cc-text-xl);font-weight:var(--cc-font-bold);color:var(--cc-neutral-900);">Business Overview</h2>
             <span class="cc-text-sm cc-text-muted" id="dash-date"></span>
           </div>
         </div>
