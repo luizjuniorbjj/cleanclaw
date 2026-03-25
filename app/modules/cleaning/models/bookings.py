@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Booking Pydantic models.
+Xcleaners v3 — Booking Pydantic models.
 Maps to: cleaning_bookings table (migration 011 + 012 ALTER adds team_id).
 """
 

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Dashboard Service.
+Xcleaners v3 — Dashboard Service.
 
 Provides KPI summaries, revenue charts, team performance,
 booking stats, client stats, and daily analytics aggregation
@@ -15,7 +15,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.dashboard_service")
+logger = logging.getLogger("xcleaners.dashboard_service")
 
 
 # ============================================

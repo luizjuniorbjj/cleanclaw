@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Cleaner Service (Sprint 3).
+Xcleaners v3 — Cleaner Service (Sprint 3).
 
 Business logic for the cleaner/team-member experience:
   - Today's jobs for the cleaner's team
@@ -18,7 +18,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.cleaner_service")
+logger = logging.getLogger("xcleaners.cleaner_service")
 
 
 # ============================================

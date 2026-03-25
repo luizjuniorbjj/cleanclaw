@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Security Middleware Suite.
+Xcleaners v3 — Security Middleware Suite.
 
 Three middleware layers for defense-in-depth:
   1. SecurityHeadersMiddleware — OWASP security headers on every response
@@ -19,7 +19,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
-logger = logging.getLogger("cleanclaw.security")
+logger = logging.getLogger("xcleaners.security")
 
 
 # ============================================

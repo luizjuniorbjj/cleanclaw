@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Push Notification Routes (Sprint 4).
+Xcleaners v3 — Push Notification Routes (Sprint 4).
 
 Endpoints for Web Push subscription management.
 The frontend push-manager.js calls these to register/unregister
@@ -22,11 +22,11 @@ from pydantic import BaseModel, Field
 from app.database import get_db, Database
 from app.modules.cleaning.middleware.role_guard import require_role
 
-logger = logging.getLogger("cleanclaw.push_routes")
+logger = logging.getLogger("xcleaners.push_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}",
-    tags=["CleanClaw Push Notifications"],
+    tags=["Xcleaners Push Notifications"],
 )
 
 VAPID_PUBLIC_KEY = os.getenv("VAPID_PUBLIC_KEY", "")

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Role Resolution Middleware.
+Xcleaners v3 — Role Resolution Middleware.
 
 Intercepts all requests to /api/v1/clean/{slug}/* and resolves the user's
 cleaning role from the cleaning_user_roles table. Results are cached in Redis
@@ -25,7 +25,7 @@ from fastapi import Depends, HTTPException, Request
 from app.auth import get_current_user
 from app.database import get_db, Database
 
-logger = logging.getLogger("cleanclaw.auth_middleware")
+logger = logging.getLogger("xcleaners.auth_middleware")
 
 # Redis cache TTL for role lookups
 ROLE_CACHE_TTL = 3600  # 1 hour

@@ -67,19 +67,19 @@ window.DemoData = {
   _teams: [
     { id: 'team-1', name: 'Team Alpha', color: '#1A73E8', is_active: true, max_daily_jobs: 6, member_count: 3,
       members: [
-        { id: 'm1', name: 'Maria Santos', role: 'team_lead', email: 'maria@cleanclaw.com', phone: '(504) 555-0101', is_active: true },
-        { id: 'm2', name: 'Ana Rodriguez', role: 'cleaner', email: 'ana@cleanclaw.com', phone: '(504) 555-0102', is_active: true },
-        { id: 'm3', name: 'Carlos Mendez', role: 'cleaner', email: 'carlos@cleanclaw.com', phone: '(504) 555-0103', is_active: true },
+        { id: 'm1', name: 'Maria Santos', role: 'team_lead', email: 'maria@xcleaners.com', phone: '(504) 555-0101', is_active: true },
+        { id: 'm2', name: 'Ana Rodriguez', role: 'cleaner', email: 'ana@xcleaners.com', phone: '(504) 555-0102', is_active: true },
+        { id: 'm3', name: 'Carlos Mendez', role: 'cleaner', email: 'carlos@xcleaners.com', phone: '(504) 555-0103', is_active: true },
       ]},
     { id: 'team-2', name: 'Team Beta', color: '#10B981', is_active: true, max_daily_jobs: 5, member_count: 2,
       members: [
-        { id: 'm4', name: 'Rosa Martinez', role: 'team_lead', email: 'rosa@cleanclaw.com', phone: '(504) 555-0201', is_active: true },
-        { id: 'm5', name: 'Jorge Silva', role: 'cleaner', email: 'jorge@cleanclaw.com', phone: '(504) 555-0202', is_active: true },
+        { id: 'm4', name: 'Rosa Martinez', role: 'team_lead', email: 'rosa@xcleaners.com', phone: '(504) 555-0201', is_active: true },
+        { id: 'm5', name: 'Jorge Silva', role: 'cleaner', email: 'jorge@xcleaners.com', phone: '(504) 555-0202', is_active: true },
       ]},
     { id: 'team-3', name: 'Team Gamma', color: '#F59E0B', is_active: false, max_daily_jobs: 4, member_count: 2,
       members: [
-        { id: 'm6', name: 'Luis Perez', role: 'team_lead', email: 'luis@cleanclaw.com', phone: '(504) 555-0301', is_active: true },
-        { id: 'm7', name: 'Diana Cruz', role: 'cleaner', email: 'diana@cleanclaw.com', phone: '(504) 555-0302', is_active: false },
+        { id: 'm6', name: 'Luis Perez', role: 'team_lead', email: 'luis@xcleaners.com', phone: '(504) 555-0301', is_active: true },
+        { id: 'm7', name: 'Diana Cruz', role: 'cleaner', email: 'diana@xcleaners.com', phone: '(504) 555-0302', is_active: false },
       ]},
   ],
 
@@ -481,7 +481,7 @@ window.DemoData = {
   getPreferences() {
     return {
       name: 'John Smith',
-      email: 'donocasa@cleanclaw.com',
+      email: 'donocasa@xcleaners.com',
       phone: '(504) 555-9000',
       address: {
         line1: '1234 Magazine St',

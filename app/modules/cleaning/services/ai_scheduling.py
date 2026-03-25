@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — AI Scheduling Assistant Service.
+Xcleaners v3 — AI Scheduling Assistant Service.
 
 Uses Claude (via existing ClaWtoBusiness Anthropic integration) with tool_use
 to provide intelligent schedule optimization, team assignment suggestions,
@@ -29,14 +29,14 @@ from app.config import (
 from app.database import Database
 from app.modules.cleaning.services.ai_tools import AI_TOOLS, execute_tool
 
-logger = logging.getLogger("cleanclaw.ai_scheduling")
+logger = logging.getLogger("xcleaners.ai_scheduling")
 
 # Max tool-use iterations to prevent infinite loops
 MAX_TOOL_ITERATIONS = 8
 
 # System prompt for the scheduling AI
 SCHEDULING_SYSTEM_PROMPT = """\
-You are CleanClaw AI, an intelligent scheduling assistant for a residential cleaning business.
+You are Xcleaners AI, an intelligent scheduling assistant for a residential cleaning business.
 
 Your role is to analyze schedules, teams, and client data to provide actionable optimization suggestions. You have access to tools that let you query the business's scheduling data.
 

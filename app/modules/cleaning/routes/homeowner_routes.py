@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Homeowner Routes (Sprint 3).
+Xcleaners v3 — Homeowner Routes (Sprint 3).
 
 Endpoints for the homeowner experience:
   GET  /api/v1/clean/{slug}/my-bookings               — my bookings
@@ -33,11 +33,11 @@ from app.modules.cleaning.services.homeowner_service import (
     rate_service,
 )
 
-logger = logging.getLogger("cleanclaw.homeowner_routes")
+logger = logging.getLogger("xcleaners.homeowner_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}",
-    tags=["CleanClaw Homeowner"],
+    tags=["Xcleaners Homeowner"],
 )
 
 

@@ -1,4 +1,4 @@
 """
-CleanClaw v3 — Services package.
+Xcleaners v3 — Services package.
 Business logic services for cleaning module.
 """

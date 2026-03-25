@@ -27,7 +27,9 @@ REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 # ============================================
 # SECURITY
 # ============================================
-SECRET_KEY = os.getenv("SECRET_KEY", "clawin-chave-secreta-alterar-em-producao")
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("CRITICAL: SECRET_KEY not set. Set it in .env")
 
 # ENCRYPTION_KEY - CRITICO: Esta chave NUNCA pode mudar ou os dados serao perdidos!
 ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY")
@@ -213,15 +215,15 @@ VAPID_PRIVATE_KEY = os.getenv("VAPID_PRIVATE_KEY", "")
 VAPID_CLAIMS_EMAIL = os.getenv("VAPID_CLAIMS_EMAIL", "suporte@clawin1click.com")
 
 # ============================================
-# TWILIO (SMS for CleanClaw notifications)
+# TWILIO (SMS for Xcleaners notifications)
 # ============================================
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER", "")
 
 # ============================================
-# CLEANCLAW MODULE
+# XCLEANERS MODULE
 # ============================================
-CLEANCLAW_DEFAULT_PLAN = os.getenv("CLEANCLAW_DEFAULT_PLAN", "basic")
-CLEANCLAW_AUTO_SCHEDULE_TIME = os.getenv("CLEANCLAW_AUTO_SCHEDULE_TIME", "18:00")
-VAPID_SUBJECT = os.getenv("VAPID_SUBJECT", "mailto:suporte@clawin1click.com")
+XCLEANERS_DEFAULT_PLAN = os.getenv("XCLEANERS_DEFAULT_PLAN", "basic")
+XCLEANERS_AUTO_SCHEDULE_TIME = os.getenv("XCLEANERS_AUTO_SCHEDULE_TIME", "18:00")
+VAPID_SUBJECT = os.getenv("VAPID_SUBJECT", "mailto:suporte@xcleaners.com")

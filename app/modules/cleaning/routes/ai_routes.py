@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — AI Scheduling Routes.
+Xcleaners v3 — AI Scheduling Routes.
 
 Endpoints for AI-powered schedule optimization, team suggestions,
 duration predictions, and business insights.
@@ -23,11 +23,11 @@ from app.database import get_db, Database
 from app.modules.cleaning.middleware.plan_guard import require_minimum_plan
 from app.modules.cleaning.middleware.role_guard import require_role
 
-logger = logging.getLogger("cleanclaw.ai_routes")
+logger = logging.getLogger("xcleaners.ai_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/ai",
-    tags=["CleanClaw AI Scheduling"],
+    tags=["Xcleaners AI Scheduling"],
 )
 
 

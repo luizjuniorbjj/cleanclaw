@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Team & TeamAssignment Pydantic models.
+Xcleaners v3 — Team & TeamAssignment Pydantic models.
 Maps to: cleaning_teams (migration 012), cleaning_team_assignments (012),
          cleaning_team_members (011 + 012 ALTER).
 """

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Service Catalog Routes.
+Xcleaners v3 — Service Catalog Routes.
 
 CRUD endpoints for cleaning services and checklists.
 All endpoints require owner role unless noted.
@@ -36,11 +36,11 @@ from app.modules.cleaning.services.catalog_service import (
     update_service,
 )
 
-logger = logging.getLogger("cleanclaw.service_routes")
+logger = logging.getLogger("xcleaners.service_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/services",
-    tags=["CleanClaw Services"],
+    tags=["Xcleaners Services"],
 )
 
 

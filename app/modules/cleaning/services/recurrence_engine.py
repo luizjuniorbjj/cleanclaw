@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Recurrence Engine (S2.4).
+Xcleaners v3 — Recurrence Engine (S2.4).
 
 Updates next_occurrence for recurring schedules after they are matched
 by the schedule engine. Ensures that each schedule's next_occurrence
@@ -14,7 +14,7 @@ from app.database import Database
 from app.modules.cleaning.services.frequency_matcher import compute_next_occurrence
 from app.modules.cleaning.services._type_helpers import to_date
 
-logger = logging.getLogger("cleanclaw.recurrence_engine")
+logger = logging.getLogger("xcleaners.recurrence_engine")
 
 
 async def advance_next_occurrence(

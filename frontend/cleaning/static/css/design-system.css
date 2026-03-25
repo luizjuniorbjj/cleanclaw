@@ -1,5 +1,5 @@
 /**
- * CleanClaw Design System
+ * Xcleaners Design System
  * ========================
  * Foundation CSS loaded BEFORE app.css.
  * Provides design tokens, base reset, typography, and all component styles.
@@ -202,7 +202,7 @@
   --cc-on-surface: var(--cc-neutral-800);
 
   /* === GRADIENTS === */
-  --cc-gradient-brand: linear-gradient(135deg, #3B82F6, #2563EB);
+  --cc-gradient-brand: linear-gradient(135deg, #00B0B2, #0D7377);
   --cc-gradient-success: linear-gradient(135deg, #10B981, #059669);
   --cc-gradient-surface: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
   --cc-gradient-dark: linear-gradient(135deg, #1E3A8A, #1E40AF);

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Homeowner Service (Sprint 3).
+Xcleaners v3 — Homeowner Service (Sprint 3).
 
 Business logic for the homeowner experience:
   - My bookings (upcoming + past)
@@ -17,7 +17,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.homeowner_service")
+logger = logging.getLogger("xcleaners.homeowner_service")
 
 
 # ============================================

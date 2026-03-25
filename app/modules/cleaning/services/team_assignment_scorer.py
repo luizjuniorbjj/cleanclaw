@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Team Assignment Scorer (S2.4).
+Xcleaners v3 — Team Assignment Scorer (S2.4).
 
 Scores every team for every job using the 5-factor weighted formula
 from Architecture v3 Section 7.3.
@@ -18,7 +18,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.team_scorer")
+logger = logging.getLogger("xcleaners.team_scorer")
 
 # Maximum distance in miles for proximity scoring
 MAX_PROXIMITY_MILES = 30.0

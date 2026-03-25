@@ -1,5 +1,5 @@
 /**
- * CleanClaw Auth UI
+ * Xcleaners Auth UI
  *
  * Renders login and register screens.
  * Handles Google OAuth flow and email/password auth.
@@ -15,7 +15,6 @@ window.AuthUI = {
         <div class="cc-card cc-auth-card" style="max-width:420px;width:100%;margin:auto;padding:var(--cc-space-6);">
           <!-- Brand -->
           <div style="text-align:center;margin-bottom:var(--cc-space-5);">
-            
             <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:200px;max-width:65vw;margin-bottom:var(--cc-space-3);display:block;margin-left:auto;margin-right:auto;">
             <p class="cc-text-sm cc-text-muted">Smart Cleaning Management</p>
             <div style="display:flex;align-items:center;justify-content:center;gap:var(--cc-space-2);margin-top:var(--cc-space-2);">
@@ -99,7 +98,6 @@ window.AuthUI = {
         <div class="cc-card cc-auth-card" style="max-width:420px;width:100%;margin:auto;padding:var(--cc-space-6);">
           <!-- Brand -->
           <div style="text-align:center;margin-bottom:var(--cc-space-6);">
-            
             <img src="/cleaning/static/img/logo.png" alt="Xcleaners" style="width:200px;max-width:65vw;margin-bottom:var(--cc-space-3);display:block;margin-left:auto;margin-right:auto;">
           </div>
 
@@ -249,10 +247,10 @@ window.AuthUI = {
    */
   // Demo accounts for UI testing (bypass API when DB is unavailable)
   _demoAccounts: {
-    'superadmin@cleanclaw.com': { password: 'admin123', role: 'super_admin', name: 'Platform Admin' },
-    'admin@cleanclaw.com':    { password: 'admin123', role: 'owner',     name: 'Admin Xcleaners' },
-    'cleaner@cleanclaw.com':  { password: 'admin123', role: 'cleaner',   name: 'Maria Santos' },
-    'donocasa@cleanclaw.com': { password: 'admin123', role: 'homeowner', name: 'John Smith' },
+    'superadmin@xcleaners.com': { password: 'admin123', role: 'super_admin', name: 'Platform Admin' },
+    'admin@xcleaners.com':    { password: 'admin123', role: 'owner',     name: 'Admin Xcleaners' },
+    'cleaner@xcleaners.com':  { password: 'admin123', role: 'cleaner',   name: 'Maria Santos' },
+    'donocasa@xcleaners.com': { password: 'admin123', role: 'homeowner', name: 'John Smith' },
   },
 
   async handleLogin(event) {

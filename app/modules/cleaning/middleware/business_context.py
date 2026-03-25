@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Business Context Middleware.
+Xcleaners v3 — Business Context Middleware.
 
 Sets the PostgreSQL session variable `app.current_business_id` on each
 request so that Row-Level Security (RLS) policies can filter data
@@ -21,7 +21,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
 
-logger = logging.getLogger("cleanclaw.business_context")
+logger = logging.getLogger("xcleaners.business_context")
 
 # Paths that do not require business context
 _SKIP_PREFIXES = (

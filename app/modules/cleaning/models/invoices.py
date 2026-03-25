@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Invoice & InvoiceItem Pydantic models.
+Xcleaners v3 — Invoice & InvoiceItem Pydantic models.
 Maps to: cleaning_invoices + cleaning_invoice_items tables (migration 011).
 """
 

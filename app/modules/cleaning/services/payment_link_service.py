@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Payment Link Service (Sprint 4).
+Xcleaners v3 — Payment Link Service (Sprint 4).
 
 Stripe payment link generation for invoices and subscriptions.
 Handles Checkout Sessions, webhook verification, and payment status.
@@ -21,7 +21,7 @@ import stripe
 from app.config import STRIPE_SECRET_KEY, APP_URL
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.payment_link_service")
+logger = logging.getLogger("xcleaners.payment_link_service")
 
 if STRIPE_SECRET_KEY:
     stripe.api_key = STRIPE_SECRET_KEY
@@ -55,7 +55,7 @@ async def create_payment_link(
     Create a Stripe Checkout Session for a one-time payment.
 
     Args:
-        invoice_id: CleanClaw invoice UUID
+        invoice_id: Xcleaners invoice UUID
         amount_cents: Amount in cents (e.g. 15000 = $150.00)
         client_email: Pre-fill customer email
         description: Line item description
@@ -69,7 +69,7 @@ async def create_payment_link(
         raise ValueError("Stripe not configured (STRIPE_SECRET_KEY missing)")
 
     session_metadata = {
-        "cleanclaw_invoice_id": invoice_id,
+        "xcleaners_invoice_id": invoice_id,
         "type": "invoice_payment",
     }
     if metadata:
@@ -118,7 +118,7 @@ async def create_subscription_link(
     Create a Stripe Checkout Session for a subscription.
 
     Args:
-        business_id: CleanClaw business UUID
+        business_id: Xcleaners business UUID
         plan_tier: One of 'basic', 'intermediate', 'maximum'
         owner_email: Business owner email
 
@@ -146,7 +146,7 @@ async def create_subscription_link(
                 "quantity": 1,
             }],
             metadata={
-                "cleanclaw_business_id": business_id,
+                "xcleaners_business_id": business_id,
                 "plan_tier": plan_tier,
                 "type": "subscription",
             },
@@ -224,9 +224,9 @@ async def handle_payment_webhook(
 
 
 async def _handle_checkout_completed(db: Database, session: dict) -> dict:
-    """Handle checkout.session.completed — mark CleanClaw invoice as paid."""
+    """Handle checkout.session.completed — mark Xcleaners invoice as paid."""
     metadata = session.get("metadata", {})
-    invoice_id = metadata.get("cleanclaw_invoice_id")
+    invoice_id = metadata.get("xcleaners_invoice_id")
     payment_type = metadata.get("type", "")
 
     if payment_type == "invoice_payment" and invoice_id:
@@ -254,7 +254,7 @@ async def _handle_checkout_completed(db: Database, session: dict) -> dict:
         }
 
     elif payment_type == "subscription":
-        business_id = metadata.get("cleanclaw_business_id")
+        business_id = metadata.get("xcleaners_business_id")
         plan_tier = metadata.get("plan_tier")
         if business_id:
             await db.pool.execute(

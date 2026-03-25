@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Template Copy Service.
+Xcleaners v3 — Template Copy Service.
 
 Copies cleaning_service_templates and cleaning_checklist_templates
 into business-scoped tables during onboarding.
@@ -11,7 +11,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.template_copy_service")
+logger = logging.getLogger("xcleaners.template_copy_service")
 
 
 async def get_service_templates(db: Database) -> list[dict]:

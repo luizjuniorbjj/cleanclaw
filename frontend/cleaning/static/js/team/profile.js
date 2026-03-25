@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Team Profile Screen
+ * Xcleaners — Team Profile Screen
  * Shows cleaner/team_lead profile info and settings.
  * Persists to localStorage when API is unavailable (demo mode).
  */
@@ -151,7 +151,7 @@ window.TeamProfile = {
 
         <!-- Version -->
         <p class="cc-text-xs cc-text-muted" style="text-align:center;margin-top:var(--cc-space-4);">
-          CleanClaw v1.0.0
+          Xcleaners v1.0.0
         </p>
       </div>
     `;

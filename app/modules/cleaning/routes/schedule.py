@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Schedule Routes (S2.4 engine + S2.5 + S2.6).
+Xcleaners v3 — Schedule Routes (S2.4 engine + S2.5 + S2.6).
 
 Endpoints:
   POST /api/v1/clean/{slug}/schedule/generate/{date}         — S2.4: generate daily schedule (engine)
@@ -50,11 +50,11 @@ try:
 except ImportError:
     _S24_AVAILABLE = False
 
-logger = logging.getLogger("cleanclaw.schedule_routes")
+logger = logging.getLogger("xcleaners.schedule_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}",
-    tags=["CleanClaw Schedule"],
+    tags=["Xcleaners Schedule"],
 )
 
 
@@ -100,7 +100,7 @@ async def engine_generate_schedule(
     """
     S2.4 — Generate the daily schedule using the full 5-step engine.
 
-    This is THE core operation of CleanClaw. It:
+    This is THE core operation of Xcleaners. It:
     1. Collects all eligible jobs (recurring + manual one-offs)
     2. Computes team availability (members, time windows, exceptions)
     3. Scores and assigns teams to jobs (5-factor weighted algorithm)

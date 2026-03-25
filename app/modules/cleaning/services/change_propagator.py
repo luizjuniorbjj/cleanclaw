@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Change Propagator (S2.6).
+Xcleaners v3 — Change Propagator (S2.6).
 
 Publishes real-time schedule events via Redis PubSub.
 Events fan-out to both team-specific and business-level channels
@@ -21,7 +21,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Optional
 
-logger = logging.getLogger("cleanclaw.change_propagator")
+logger = logging.getLogger("xcleaners.change_propagator")
 
 
 def _get_redis():

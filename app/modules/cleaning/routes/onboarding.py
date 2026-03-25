@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Onboarding Routes.
+Xcleaners v3 — Onboarding Routes.
 
 5-step setup wizard for new cleaning businesses.
 
@@ -32,11 +32,11 @@ from app.modules.cleaning.services.template_copy_service import (
     get_service_templates,
 )
 
-logger = logging.getLogger("cleanclaw.onboarding_routes")
+logger = logging.getLogger("xcleaners.onboarding_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/onboarding",
-    tags=["CleanClaw Onboarding"],
+    tags=["Xcleaners Onboarding"],
 )
 
 

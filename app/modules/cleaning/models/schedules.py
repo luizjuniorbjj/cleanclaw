@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Schedule Pydantic models.
+Xcleaners v3 — Schedule Pydantic models.
 Maps to: cleaning_client_schedules (migration 012, new v3 table)
          cleaning_recurring_schedules (migration 011, legacy table)
          Schedule engine output models (S2.4)

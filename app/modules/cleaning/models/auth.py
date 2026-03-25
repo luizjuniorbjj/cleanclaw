@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Auth & Role Pydantic models.
+Xcleaners v3 — Auth & Role Pydantic models.
 Models for role resolution, invitation, and /me endpoint responses.
 """
 

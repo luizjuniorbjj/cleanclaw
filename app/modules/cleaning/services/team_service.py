@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Team Management Service.
+Xcleaners v3 — Team Management Service.
 
 CRUD operations for cleaning_teams, cleaning_team_members (members),
 cleaning_team_assignments (member-to-team mapping), and team invitations.
@@ -15,7 +15,7 @@ from typing import Optional
 from app.database import Database
 from app.modules.cleaning.middleware.plan_guard import check_limit
 
-logger = logging.getLogger("cleanclaw.team_service")
+logger = logging.getLogger("xcleaners.team_service")
 
 
 # ============================================

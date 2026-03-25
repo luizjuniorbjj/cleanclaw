@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — CleaningClient Pydantic models.
+Xcleaners v3 — CleaningClient Pydantic models.
 Maps to: cleaning_clients table (migration 011).
 
 Enhanced for S2.3: preferred_contact, tags, billing_address,

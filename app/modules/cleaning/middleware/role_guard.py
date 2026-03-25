@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Role Guard Middleware.
+Xcleaners v3 — Role Guard Middleware.
 
 Provides FastAPI dependencies that enforce cleaning role requirements
 on route handlers. Uses the cleaning_role set by auth_middleware.
@@ -19,7 +19,7 @@ from typing import Callable
 
 from fastapi import Depends, HTTPException, Request
 
-logger = logging.getLogger("cleanclaw.role_guard")
+logger = logging.getLogger("xcleaners.role_guard")
 
 
 def _get_cleaning_role_dep():

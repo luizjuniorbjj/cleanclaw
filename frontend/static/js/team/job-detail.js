@@ -469,7 +469,7 @@ window.TeamJobDetail = {
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--cc-warning-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
             <h3 style="margin:0 0 var(--cc-space-2);">GPS Unavailable</h3>
-            <p class="cc-text-sm" style="color:var(--cc-neutral-600);margin:0;">CleanClaw needs your location to verify check-in. Your check-in will be recorded without GPS.</p>
+            <p class="cc-text-sm" style="color:var(--cc-neutral-600);margin:0;">Xcleaners needs your location to verify check-in. Your check-in will be recorded without GPS.</p>
             <div class="cc-text-xs cc-text-muted" style="margin-top:var(--cc-space-3);text-align:left;">
               <p style="margin:0 0 var(--cc-space-1);">Tips:</p>
               <ul style="margin:0;padding-left:var(--cc-space-4);">

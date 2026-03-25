@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Settings Routes.
+Xcleaners v3 — Settings Routes.
 
 Endpoints:
   GET  /api/v1/clean/{slug}/settings                   — get all settings
@@ -35,11 +35,11 @@ from app.modules.cleaning.services.settings_service import (
     delete_pricing_rule,
 )
 
-logger = logging.getLogger("cleanclaw.settings_routes")
+logger = logging.getLogger("xcleaners.settings_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/settings",
-    tags=["CleanClaw Settings"],
+    tags=["Xcleaners Settings"],
 )
 
 

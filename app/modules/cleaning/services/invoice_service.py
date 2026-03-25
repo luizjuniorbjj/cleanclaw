@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Invoice Service (Sprint 4).
+Xcleaners v3 — Invoice Service (Sprint 4).
 
 Full invoice lifecycle: generate from booking, batch generate,
 list/filter, send, mark paid, Stripe payment links, auto-charge,
@@ -22,7 +22,7 @@ from app.modules.cleaning.models.invoices import (
 )
 from app.modules.cleaning.services._type_helpers import to_date
 
-logger = logging.getLogger("cleanclaw.invoice_service")
+logger = logging.getLogger("xcleaners.invoice_service")
 
 if STRIPE_SECRET_KEY:
     stripe.api_key = STRIPE_SECRET_KEY

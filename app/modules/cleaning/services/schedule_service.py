@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Client Schedule Service (S2.3).
+Xcleaners v3 — Client Schedule Service (S2.3).
 
 CRUD for cleaning_client_schedules (recurring service agreements).
 Handles next_occurrence computation, pause/resume, and
@@ -13,7 +13,7 @@ from typing import Optional
 from app.database import Database
 from app.modules.cleaning.services._type_helpers import to_date, to_time
 
-logger = logging.getLogger("cleanclaw.schedule_service")
+logger = logging.getLogger("xcleaners.schedule_service")
 
 
 # ============================================

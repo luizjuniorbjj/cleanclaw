@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Plan Guard Middleware.
+Xcleaners v3 — Plan Guard Middleware.
 
 Provides plan-based feature gating for cleaning API endpoints.
 Reads the business plan from the businesses table, caches in Redis,
@@ -27,7 +27,7 @@ from app.auth import get_current_user
 from app.database import get_db, Database
 from app.modules.cleaning.models.auth import PLAN_HIERARCHY, PLAN_LIMITS
 
-logger = logging.getLogger("cleanclaw.plan_guard")
+logger = logging.getLogger("xcleaners.plan_guard")
 
 # Redis cache TTL for plan lookups
 PLAN_CACHE_TTL = 3600  # 1 hour

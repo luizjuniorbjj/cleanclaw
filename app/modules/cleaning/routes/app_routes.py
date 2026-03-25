@@ -1,7 +1,7 @@
 """
-CleanClaw v3 — Frontend App Routes.
+Xcleaners v3 — Frontend App Routes.
 
-Serves the CleanClaw PWA shell and static assets.
+Serves the Xcleaners PWA shell and static assets.
 
 Routes:
   GET  /cleaning/app            — serves app.html (PWA entry point)
@@ -18,9 +18,9 @@ from pathlib import Path
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
 
-logger = logging.getLogger("cleanclaw.app_routes")
+logger = logging.getLogger("xcleaners.app_routes")
 
-router = APIRouter(tags=["CleanClaw Frontend"], include_in_schema=False)
+router = APIRouter(tags=["Xcleaners Frontend"], include_in_schema=False)
 
 # Resolve frontend/cleaning directory relative to project root
 _cleaning_dir = Path(__file__).resolve().parent.parent.parent.parent.parent / "frontend" / "cleaning"
@@ -28,7 +28,7 @@ _cleaning_dir = Path(__file__).resolve().parent.parent.parent.parent.parent / "f
 
 @router.get("/cleaning/app")
 async def serve_cleaning_app():
-    """Serve the CleanClaw PWA shell."""
+    """Serve the Xcleaners PWA shell."""
     return FileResponse(
         str(_cleaning_dir / "app.html"),
         media_type="text/html",

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Plan Routes.
+Xcleaners v3 — Plan Routes.
 
 Endpoints for plan information, usage limits, and plan upgrades.
 These routes use the plan_guard middleware for plan resolution.
@@ -24,11 +24,11 @@ from app.modules.cleaning.middleware.plan_guard import (
 from app.modules.cleaning.middleware.role_guard import require_role
 from app.modules.cleaning.routes.auth_middleware import get_cleaning_role
 
-logger = logging.getLogger("cleanclaw.plan_routes")
+logger = logging.getLogger("xcleaners.plan_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/plan",
-    tags=["CleanClaw Plan"],
+    tags=["Xcleaners Plan"],
 )
 
 # Feature gates per plan (what features are available)

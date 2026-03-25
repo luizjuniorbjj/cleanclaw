@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Team Member Routes.
+Xcleaners v3 — Team Member Routes.
 
 CRUD endpoints for cleaning team members (individual cleaners).
 Separated from teams.py for clarity as per S2.2 story.
@@ -32,11 +32,11 @@ from app.modules.cleaning.services.team_service import (
     update_member,
 )
 
-logger = logging.getLogger("cleanclaw.member_routes")
+logger = logging.getLogger("xcleaners.member_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/members",
-    tags=["CleanClaw Members"],
+    tags=["Xcleaners Members"],
 )
 
 

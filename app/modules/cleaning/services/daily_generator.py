@@ -1,7 +1,7 @@
 """
-CleanClaw v3 — Daily Schedule Generator (S2.4).
+Xcleaners v3 — Daily Schedule Generator (S2.4).
 
-THE CORE OF CLEANCLAW.
+THE CORE OF XCLEANERS.
 
 Orchestrates the 5-step schedule generation algorithm:
   1. COLLECT eligible jobs for target_date
@@ -33,7 +33,7 @@ from app.modules.cleaning.services.conflict_resolver import (
 from app.modules.cleaning.services.recurrence_engine import bulk_advance
 from app.modules.cleaning.services._type_helpers import to_time
 
-logger = logging.getLogger("cleanclaw.daily_generator")
+logger = logging.getLogger("xcleaners.daily_generator")
 
 # Configurable travel buffer (minutes)
 TRAVEL_BUFFER_DIFF_ZIP = int(os.environ.get("CLEANING_TRAVEL_BUFFER_MINUTES", "30"))
@@ -767,7 +767,7 @@ async def generate_daily_schedule(
     """
     Generate the full daily schedule for a business.
 
-    This is THE core algorithm of CleanClaw.
+    This is THE core algorithm of Xcleaners.
 
     Steps:
       1. Collect eligible jobs

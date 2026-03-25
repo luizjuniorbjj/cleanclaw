@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app/
 COPY frontend/ ./frontend/
-COPY cleanclaw_main.py .
+COPY xcleaners_main.py .
 COPY database/ ./database/
 
 RUN adduser --disabled-password --gecos "" appuser && chown -R appuser /app
@@ -23,4 +23,4 @@ EXPOSE 8003
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=5 \
     CMD python -c "import os,urllib.request; urllib.request.urlopen(f'http://localhost:{os.getenv(\"PORT\",\"8003\")}/health')"
 
-CMD ["sh", "-c", "uvicorn cleanclaw_main:app --host 0.0.0.0 --port ${PORT:-8003}"]
+CMD sh -c "uvicorn xcleaners_main:app --host 0.0.0.0 --port ${PORT:-8003}"

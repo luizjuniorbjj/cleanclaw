@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Team Management Routes.
+Xcleaners v3 — Team Management Routes.
 
 CRUD endpoints for teams, team members, assignments, and invitations.
 All endpoints require owner role.
@@ -39,11 +39,11 @@ from app.modules.cleaning.services.team_service import (
     update_team,
 )
 
-logger = logging.getLogger("cleanclaw.team_routes")
+logger = logging.getLogger("xcleaners.team_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}",
-    tags=["CleanClaw Teams"],
+    tags=["Xcleaners Teams"],
 )
 
 

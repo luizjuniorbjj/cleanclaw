@@ -1,10 +1,10 @@
-# ClaWin1Click - Dependencies
+# Xcleaners - Dependencies
 
 # Web Framework
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
 pydantic==2.5.3
-python-multipart==0.0.6
+python-multipart==0.0.7
 
 # Database
 asyncpg==0.29.0
@@ -14,9 +14,8 @@ redis[hiredis]>=5.0.0
 
 # Security
 bcrypt==4.1.2
-python-jose[cryptography]==3.3.0
 PyJWT==2.8.0
-cryptography==41.0.7
+cryptography>=43.0.0
 
 # AI Providers
 anthropic>=0.40.0
@@ -40,7 +39,7 @@ pywebpush==1.14.1
 # Payments
 stripe==7.0.0
 
-# SMS (Twilio for CleanClaw notifications)
+# SMS (Twilio for Xcleaners notifications)
 twilio>=8.0.0
 
 # Environment

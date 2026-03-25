@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Pydantic Models
+Xcleaners v3 — Pydantic Models
 All models for the cleaning business management module.
 """
 

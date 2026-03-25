@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — AI Scheduling Tool Definitions.
+Xcleaners v3 — AI Scheduling Tool Definitions.
 
 Tool definitions for Claude tool_use integration.
 These tools allow the AI scheduling assistant to query and manipulate
@@ -16,7 +16,7 @@ from typing import Optional
 from app.database import Database
 from app.modules.cleaning.services.team_assignment_scorer import haversine
 
-logger = logging.getLogger("cleanclaw.ai_tools")
+logger = logging.getLogger("xcleaners.ai_tools")
 
 
 # ============================================

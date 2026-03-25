@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Shared Pydantic base models.
+Xcleaners v3 — Shared Pydantic base models.
 All cleaning models inherit from CleaningBase which carries business_id.
 """
 

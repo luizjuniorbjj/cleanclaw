@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Notification Routes (Sprint 4).
+Xcleaners v3 — Notification Routes (Sprint 4).
 
 Endpoints:
   POST /api/v1/clean/{slug}/notifications/send         — manual notification
@@ -22,11 +22,11 @@ from app.modules.cleaning.services.notification_service import (
     get_notification_stats,
 )
 
-logger = logging.getLogger("cleanclaw.notification_routes")
+logger = logging.getLogger("xcleaners.notification_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}",
-    tags=["CleanClaw Notifications"],
+    tags=["Xcleaners Notifications"],
 )
 
 
@@ -44,7 +44,7 @@ class SendNotificationRequest(BaseModel):
 
 class TestSMSRequest(BaseModel):
     phone: str = Field(..., min_length=10)
-    message: str = Field(default="CleanClaw test SMS. If you received this, SMS is working!")
+    message: str = Field(default="Xcleaners test SMS. If you received this, SMS is working!")
 
 
 # ============================================

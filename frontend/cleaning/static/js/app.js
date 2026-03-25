@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Main App Entry Point
+ * Xcleaners — Main App Entry Point
  *
  * Initializes the PWA shell:
  *  1. Register service worker

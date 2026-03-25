@@ -1,5 +1,5 @@
 /**
- * CleanClaw Service Worker
+ * Xcleaners Service Worker
  *
  * Caching strategies:
  *   - App shell: Cache First (precached on install)
@@ -63,7 +63,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keys) => {
       return Promise.all(
         keys
-          .filter((key) => key.startsWith('xcleaners-') && key !== SHELL_CACHE && key !== DYNAMIC_CACHE && key !== API_CACHE)
+          .filter((key) => (key.startsWith('xcleaners-') || key.startsWith('cleanclaw-')) && key !== SHELL_CACHE && key !== DYNAMIC_CACHE && key !== API_CACHE)
           .map((key) => caches.delete(key))
       );
     })

@@ -1,5 +1,5 @@
 /**
- * CleanClaw Auth UI
+ * Xcleaners Auth UI
  *
  * Renders login and register screens.
  * Handles Google OAuth flow and email/password auth.
@@ -17,7 +17,7 @@ window.AuthUI = {
           <div style="text-align:center;margin-bottom:var(--cc-space-5);">
             
             </div>
-            <h2 class="cc-text-2xl" style="color:var(--cc-primary-500);margin-bottom:var(--cc-space-1);">CleanClaw</h2>
+            <h2 class="cc-text-2xl" style="color:var(--cc-primary-500);margin-bottom:var(--cc-space-1);">Xcleaners</h2>
             <p class="cc-text-sm cc-text-muted">Smart Cleaning Management</p>
           </div>
 
@@ -98,7 +98,7 @@ window.AuthUI = {
           <div style="text-align:center;margin-bottom:var(--cc-space-6);">
             
             </div>
-            <h2 class="cc-text-2xl" style="color:var(--cc-primary-500);margin-bottom:var(--cc-space-1);">CleanClaw</h2>
+            <h2 class="cc-text-2xl" style="color:var(--cc-primary-500);margin-bottom:var(--cc-space-1);">Xcleaners</h2>
           </div>
 
           ${isInvite ? `
@@ -247,10 +247,10 @@ window.AuthUI = {
    */
   // Demo accounts for UI testing (bypass API when DB is unavailable)
   _demoAccounts: {
-    'superadmin@cleanclaw.com': { password: 'admin123', role: 'super_admin', name: 'Platform Admin' },
-    'admin@cleanclaw.com':    { password: 'admin123', role: 'owner',     name: 'Admin CleanClaw' },
-    'cleaner@cleanclaw.com':  { password: 'admin123', role: 'cleaner',   name: 'Maria Santos' },
-    'donocasa@cleanclaw.com': { password: 'admin123', role: 'homeowner', name: 'John Smith' },
+    'superadmin@xcleaners.com': { password: 'admin123', role: 'super_admin', name: 'Platform Admin' },
+    'admin@xcleaners.com':    { password: 'admin123', role: 'owner',     name: 'Admin Xcleaners' },
+    'cleaner@xcleaners.com':  { password: 'admin123', role: 'cleaner',   name: 'Maria Santos' },
+    'donocasa@xcleaners.com': { password: 'admin123', role: 'homeowner', name: 'John Smith' },
   },
 
   async handleLogin(event) {

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Client Service (S2.3).
+Xcleaners v3 — Client Service (S2.3).
 
 CRUD for cleaning_clients with search, filter, pagination,
 client stats (LTV, total bookings), property details management,
@@ -14,7 +14,7 @@ from typing import Optional
 from app.database import Database
 from app.modules.cleaning.middleware.plan_guard import check_limit
 
-logger = logging.getLogger("cleanclaw.client_service")
+logger = logging.getLogger("xcleaners.client_service")
 
 
 # ============================================

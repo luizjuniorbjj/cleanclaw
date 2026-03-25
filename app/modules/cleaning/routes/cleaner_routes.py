@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Cleaner Routes (Sprint 3).
+Xcleaners v3 — Cleaner Routes (Sprint 3).
 
 Endpoints for the cleaner/team-member experience:
   GET  /api/v1/clean/{slug}/my-jobs/today             — today's jobs
@@ -36,11 +36,11 @@ from app.modules.cleaning.services.cleaner_service import (
     get_my_earnings,
 )
 
-logger = logging.getLogger("cleanclaw.cleaner_routes")
+logger = logging.getLogger("xcleaners.cleaner_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}",
-    tags=["CleanClaw Cleaner"],
+    tags=["Xcleaners Cleaner"],
 )
 
 

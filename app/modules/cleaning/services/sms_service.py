@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — SMS Service (Sprint 4).
+Xcleaners v3 — SMS Service (Sprint 4).
 
 Twilio integration for sending SMS notifications.
 Handles: send_sms, send_template, validate_phone, format_number,
@@ -17,7 +17,7 @@ from app.database import Database
 from app.modules.cleaning.middleware.plan_guard import get_business_plan
 from app.modules.cleaning.models.auth import PLAN_LIMITS
 
-logger = logging.getLogger("cleanclaw.sms_service")
+logger = logging.getLogger("xcleaners.sms_service")
 
 # Twilio client — lazy loaded
 _twilio_client = None
@@ -241,27 +241,27 @@ async def send_sms(
 # Template definitions
 SMS_TEMPLATES = {
     "booking_confirmation": (
-        "CleanClaw: Your cleaning is confirmed for {date} at {time}. "
+        "Xcleaners: Your cleaning is confirmed for {date} at {time}. "
         "Address: {address}. Questions? Reply to this message."
     ),
     "reminder_24h": (
-        "CleanClaw Reminder: Your cleaning is tomorrow ({date}) at {time}. "
+        "Xcleaners Reminder: Your cleaning is tomorrow ({date}) at {time}. "
         "Our team will arrive at {address}. See you then!"
     ),
     "invoice_sent": (
-        "CleanClaw: Invoice {invoice_number} for ${total} is ready. "
+        "Xcleaners: Invoice {invoice_number} for ${total} is ready. "
         "Due: {due_date}. Pay online: {payment_url}"
     ),
     "payment_reminder": (
-        "CleanClaw: Invoice {invoice_number} is {days_overdue} days overdue. "
+        "Xcleaners: Invoice {invoice_number} is {days_overdue} days overdue. "
         "Balance: ${balance_due}. Please pay at your earliest convenience."
     ),
     "schedule_changed": (
-        "CleanClaw: Your cleaning has been rescheduled to {new_date} at {new_time}. "
+        "Xcleaners: Your cleaning has been rescheduled to {new_date} at {new_time}. "
         "Contact us if you have questions."
     ),
     "checkin_alert": (
-        "CleanClaw: Your cleaning team has arrived at {address} and started working."
+        "Xcleaners: Your cleaning team has arrived at {address} and started working."
     ),
 }
 

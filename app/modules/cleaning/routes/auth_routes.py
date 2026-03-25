@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Auth Routes.
+Xcleaners v3 — Auth Routes.
 
 Endpoints for role resolution (/me), invitation management, and
 role listing. All use the existing ClaWtoBusiness auth system --
@@ -39,11 +39,11 @@ from app.modules.cleaning.routes.auth_middleware import (
     invalidate_role_cache,
 )
 
-logger = logging.getLogger("cleanclaw.auth_routes")
+logger = logging.getLogger("xcleaners.auth_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean",
-    tags=["CleanClaw Auth"],
+    tags=["Xcleaners Auth"],
 )
 
 # Invitation token expiry

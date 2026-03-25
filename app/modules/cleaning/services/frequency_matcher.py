@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Frequency Matcher (S2.4).
+Xcleaners v3 — Frequency Matcher (S2.4).
 
 Determines which recurring client schedules fall on a given date.
 Used by the daily schedule generator to collect jobs for a target date.
@@ -11,7 +11,7 @@ import logging
 from datetime import date, timedelta
 from typing import Optional
 
-logger = logging.getLogger("cleanclaw.frequency_matcher")
+logger = logging.getLogger("xcleaners.frequency_matcher")
 
 
 def matches_date(schedule: dict, target_date: date) -> bool:

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Notification Service (Sprint 4).
+Xcleaners v3 — Notification Service (Sprint 4).
 
 Omnichannel notification orchestrator.
 Routes notifications through the optimal channel:
@@ -19,7 +19,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.notification_service")
+logger = logging.getLogger("xcleaners.notification_service")
 
 # Channel priority (default): WhatsApp first (free), then push, SMS as fallback
 DEFAULT_CHANNEL_PRIORITY = ["whatsapp", "push", "sms"]
@@ -563,7 +563,7 @@ NOTIFICATION_TEMPLATES = {
 def _template_title(template_key: str) -> str:
     """Get the title for a template."""
     tmpl = NOTIFICATION_TEMPLATES.get(template_key, {})
-    return tmpl.get("title", "CleanClaw Notification")
+    return tmpl.get("title", "Xcleaners Notification")
 
 
 def _render_template(template_key: str, data: dict) -> str:

@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Conflict Resolver (S2.4).
+Xcleaners v3 — Conflict Resolver (S2.4).
 
 Detects scheduling conflicts within a team's daily assignments:
   - Time slot overlaps
@@ -14,7 +14,7 @@ import logging
 from datetime import time, timedelta, datetime
 from typing import Optional
 
-logger = logging.getLogger("cleanclaw.conflict_resolver")
+logger = logging.getLogger("xcleaners.conflict_resolver")
 
 
 # ============================================

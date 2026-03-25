@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Onboarding Service.
+Xcleaners v3 — Onboarding Service.
 
 Orchestrates the 5-step onboarding wizard for new cleaning businesses.
 
@@ -30,7 +30,7 @@ from app.modules.cleaning.services.template_copy_service import (
 )
 from app.modules.cleaning.services.setup_validator import validate_step
 
-logger = logging.getLogger("cleanclaw.onboarding_service")
+logger = logging.getLogger("xcleaners.onboarding_service")
 
 # State keys in cleaning_onboarding_state JSONB
 STATE_KEY = "cleaning_onboarding_state"

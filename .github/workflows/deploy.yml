@@ -1,4 +1,4 @@
-name: xCleaners Deploy
+name: Xcleaners Deploy
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run tests
-        run: python -m pytest tests/ -v --tb=short || true
+        run: python -m pytest tests/ -v --tb=short
 
   deploy:
     needs: test
@@ -27,6 +27,7 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
       - name: Deploy to Railway
-        run: railway up --service cleanclaw-api --detach
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        uses: bervProject/railway-deploy@v2.0.0
+        with:
+          railway_token: ${{ secrets.RAILWAY_TOKEN }}
+          service: xcleaners-api

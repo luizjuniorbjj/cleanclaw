@@ -1,7 +1,7 @@
 """
-CleanClaw — Standalone FastAPI Entry Point
+Xcleaners — Standalone FastAPI Entry Point
 
-Isolated CleanClaw service that ONLY loads cleaning-related routes.
+Isolated Xcleaners service that ONLY loads cleaning-related routes.
 Runs independently from the main ClaWtoBusiness monolith on port 8003.
 """
 
@@ -28,13 +28,13 @@ logging.basicConfig(
     level=getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO),
     format="%(levelname)s:%(name)s:%(message)s",
 )
-logger = logging.getLogger("cleanclaw.main")
+logger = logging.getLogger("xcleaners.main")
 
 # Database & Redis
 from app.database import init_db, close_db
 from app.redis_client import init_redis, close_redis
 
-# CleanClaw route imports (same as app/main.py cleaning section)
+# Xcleaners route imports (same as app/main.py cleaning section)
 from app.modules.cleaning.routes.app_routes import router as cleaning_app_router
 from app.modules.cleaning.routes.onboarding import router as cleaning_onboarding_router
 from app.modules.cleaning.routes.clients import router as cleaning_clients_router
@@ -61,7 +61,7 @@ from app.auth import router as auth_router
 # CONFIGURATION
 # ============================================
 
-CLEANCLAW_PORT = int(os.getenv("CLEANCLAW_PORT", "8003"))
+XCLEANERS_PORT = int(os.getenv("XCLEANERS_PORT", "8003"))
 DEBUG = os.getenv("DEBUG", "false").lower() in ("true", "1", "yes")
 
 
@@ -71,7 +71,7 @@ DEBUG = os.getenv("DEBUG", "false").lower() in ("true", "1", "yes")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Manage startup and shutdown for CleanClaw service."""
+    """Manage startup and shutdown for Xcleaners service."""
     logger.info("\n  Xcleaners API v1.0.0")
     logger.info("=" * 40)
 
@@ -94,8 +94,8 @@ async def lifespan(app: FastAPI):
 
     logger.info("[OK] Xcleaners API ready")
     logger.info("=" * 40)
-    logger.info(f"  http://localhost:{CLEANCLAW_PORT}")
-    logger.info(f"  http://localhost:{CLEANCLAW_PORT}/docs")
+    logger.info(f"  http://localhost:{XCLEANERS_PORT}")
+    logger.info(f"  http://localhost:{XCLEANERS_PORT}/docs")
 
     yield
 
@@ -124,7 +124,7 @@ app = FastAPI(
 
 def get_cors_origins():
     """Return CORS origins from env or defaults."""
-    env_origins = os.getenv("CLEANCLAW_CORS_ORIGINS", "")
+    env_origins = os.getenv("XCLEANERS_CORS_ORIGINS", "")
     if env_origins:
         return [o.strip() for o in env_origins.split(",") if o.strip()]
     return [
@@ -167,7 +167,7 @@ async def root_redirect():
 
 
 # ============================================
-# ROUTES — CleanClaw API (same prefixes as monolith)
+# ROUTES — Xcleaners API (same prefixes as monolith)
 # ============================================
 
 app.include_router(auth_router)
@@ -276,9 +276,9 @@ if _cleaning_dir.exists():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        "cleanclaw_main:app",
+        "xcleaners_main:app",
         host="0.0.0.0",
-        port=CLEANCLAW_PORT,
+        port=XCLEANERS_PORT,
         reload=DEBUG,
     )
 

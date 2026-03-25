@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Email Service (Sprint 4).
+Xcleaners v3 — Email Service (Sprint 4).
 
 Transactional emails for cleaning businesses via configurable SMTP.
 Templates: booking_confirmation, booking_reminder, booking_cancelled,
@@ -18,7 +18,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.email_service")
+logger = logging.getLogger("xcleaners.email_service")
 
 # ============================================
 # SMTP CONFIG (from env)
@@ -28,10 +28,10 @@ SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
-FROM_EMAIL = os.getenv("CLEANCLAW_FROM_EMAIL", "noreply@cleanclaw.com")
-FROM_NAME = os.getenv("CLEANCLAW_FROM_NAME", "CleanClaw")
+FROM_EMAIL = os.getenv("XCLEANERS_FROM_EMAIL", "noreply@xcleaners.com")
+FROM_NAME = os.getenv("XCLEANERS_FROM_NAME", "Xcleaners")
 
-# CleanClaw brand color
+# Xcleaners brand color
 BRAND_BLUE = "#1a73e8"
 BRAND_DARK = "#1557b0"
 
@@ -293,7 +293,7 @@ async def send_team_invite(
     )
     return await send_email(
         to=email,
-        subject=f"You're Invited to Join {html.escape(business_name)} on CleanClaw",
+        subject=f"You're Invited to Join {html.escape(business_name)} on Xcleaners",
         html_body=html,
     )
 
@@ -324,7 +324,7 @@ async def send_welcome(
     )
     return await send_email(
         to=user["email"],
-        subject="Welcome to CleanClaw!",
+        subject="Welcome to Xcleaners!",
         html_body=html,
     )
 
@@ -350,7 +350,7 @@ def _base_template(title: str, content: str) -> str:
           <!-- Header -->
           <tr>
             <td style="background-color:{BRAND_BLUE};padding:24px 32px;border-radius:8px 8px 0 0;">
-              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:600;">CleanClaw</h1>
+              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:600;">Xcleaners</h1>
             </td>
           </tr>
           <!-- Body -->
@@ -362,8 +362,8 @@ def _base_template(title: str, content: str) -> str:
           <!-- Footer -->
           <tr>
             <td style="padding:16px 32px;border-top:1px solid #e8eaed;color:#999;font-size:12px;text-align:center;">
-              <p style="margin:0;">Sent by CleanClaw &mdash; Smart Cleaning Business Management</p>
-              <p style="margin:4px 0 0 0;">You received this email because of your CleanClaw account.</p>
+              <p style="margin:0;">Sent by Xcleaners &mdash; Smart Cleaning Business Management</p>
+              <p style="margin:4px 0 0 0;">You received this email because of your Xcleaners account.</p>
             </td>
           </tr>
         </table>
@@ -532,12 +532,12 @@ def _template_team_invite(
     btn = _button("Accept Invitation", accept_link)
     content = f"""
 <h2 style="margin:0 0 16px;color:#333;font-size:20px;">You're Invited!</h2>
-<p style="color:#555;font-size:15px;line-height:1.6;"><strong>{inv}</strong> has invited you to join <strong>{bn}</strong> on CleanClaw as a <strong>{role_display}</strong>.</p>
-<p style="color:#555;font-size:15px;line-height:1.6;">CleanClaw helps cleaning businesses manage schedules, clients, invoices, and teams — all in one place.</p>
+<p style="color:#555;font-size:15px;line-height:1.6;"><strong>{inv}</strong> has invited you to join <strong>{bn}</strong> on Xcleaners as a <strong>{role_display}</strong>.</p>
+<p style="color:#555;font-size:15px;line-height:1.6;">Xcleaners helps cleaning businesses manage schedules, clients, invoices, and teams — all in one place.</p>
 {btn}
 <p style="color:#999;font-size:12px;line-height:1.6;">If you didn't expect this invitation, you can safely ignore this email.</p>
 """
-    return _base_template(f"Join {bn} on CleanClaw", content)
+    return _base_template(f"Join {bn} on Xcleaners", content)
 
 
 def _template_welcome(
@@ -547,7 +547,7 @@ def _template_welcome(
     un = html.escape(user_name)
     bn = html.escape(business_name)
     content = f"""
-<h2 style="margin:0 0 16px;color:#333;font-size:20px;">Welcome to CleanClaw!</h2>
+<h2 style="margin:0 0 16px;color:#333;font-size:20px;">Welcome to Xcleaners!</h2>
 <p style="color:#555;font-size:15px;line-height:1.6;">Hi {un},</p>
 <p style="color:#555;font-size:15px;line-height:1.6;">Your account for <strong>{bn}</strong> is all set up! Here's what you can do next:</p>
 <ul style="color:#555;font-size:15px;line-height:1.8;padding-left:20px;">
@@ -558,7 +558,7 @@ def _template_welcome(
 </ul>
 <p style="color:#555;font-size:15px;line-height:1.6;">We're here to help your cleaning business grow. Let's get started!</p>
 """
-    return _base_template("Welcome to CleanClaw", content)
+    return _base_template("Welcome to Xcleaners", content)
 
 
 # ============================================

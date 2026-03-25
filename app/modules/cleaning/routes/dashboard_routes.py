@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Dashboard Routes.
+Xcleaners v3 — Dashboard Routes.
 
 Endpoints:
   GET /api/v1/clean/{slug}/dashboard           — summary KPIs
@@ -27,11 +27,11 @@ from app.modules.cleaning.services.dashboard_service import (
     aggregate_daily_analytics,
 )
 
-logger = logging.getLogger("cleanclaw.dashboard_routes")
+logger = logging.getLogger("xcleaners.dashboard_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/dashboard",
-    tags=["CleanClaw Dashboard"],
+    tags=["Xcleaners Dashboard"],
 )
 
 

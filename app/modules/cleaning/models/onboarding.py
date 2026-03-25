@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Onboarding Wizard Pydantic models.
+Xcleaners v3 — Onboarding Wizard Pydantic models.
 Models for the 5-step onboarding wizard.
 """
 

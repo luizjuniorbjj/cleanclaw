@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — CleaningService Pydantic models.
+Xcleaners v3 — CleaningService Pydantic models.
 Maps to: cleaning_services table (migration 011).
 """
 

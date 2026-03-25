@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Client & Schedule Routes (S2.3).
+Xcleaners v3 — Client & Schedule Routes (S2.3).
 
 Endpoints:
   GET    /api/v1/clean/{slug}/clients             — list clients (paginated, searchable, filterable)
@@ -53,11 +53,11 @@ from app.modules.cleaning.services.schedule_service import (
     resume_schedule,
 )
 
-logger = logging.getLogger("cleanclaw.client_routes")
+logger = logging.getLogger("xcleaners.client_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/clients",
-    tags=["CleanClaw Clients"],
+    tags=["Xcleaners Clients"],
 )
 
 

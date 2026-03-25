@@ -1,12 +1,13 @@
 {
+  "id": "/cleaning/app",
   "name": "Xcleaners",
   "short_name": "Xcleaners",
-  "description": "Cleaning Business Management",
-  "start_url": "/",
+  "description": "Professional Cleaning Business Management",
+  "start_url": "/cleaning/app",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#FFFFFF",
-  "theme_color": "#1A73E8",
+  "background_color": "#F8FFFE",
+  "theme_color": "#00B0B2",
   "icons": [
     {
       "src": "/cleaning/static/icons/icon-192.png",

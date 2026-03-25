@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Service Catalog Service.
+Xcleaners v3 — Service Catalog Service.
 
 CRUD operations for cleaning_services (service types a business offers).
 Also manages checklists per service.
@@ -13,7 +13,7 @@ from typing import Optional
 
 from app.database import Database
 
-logger = logging.getLogger("cleanclaw.catalog_service")
+logger = logging.getLogger("xcleaners.catalog_service")
 
 
 def slugify(name: str) -> str:

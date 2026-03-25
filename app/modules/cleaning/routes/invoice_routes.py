@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Invoice Routes (Sprint 4).
+Xcleaners v3 — Invoice Routes (Sprint 4).
 
 Endpoints:
   GET  /api/v1/clean/{slug}/invoices                    — list (filterable, paginated)
@@ -36,11 +36,11 @@ from app.modules.cleaning.services.invoice_service import (
     get_payment_dashboard,
 )
 
-logger = logging.getLogger("cleanclaw.invoice_routes")
+logger = logging.getLogger("xcleaners.invoice_routes")
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}",
-    tags=["CleanClaw Invoices"],
+    tags=["Xcleaners Invoices"],
 )
 
 

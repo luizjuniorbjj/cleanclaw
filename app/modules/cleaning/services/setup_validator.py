@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Setup Validator.
+Xcleaners v3 — Setup Validator.
 
 Validates onboarding step data before saving.
 Returns (is_valid, errors) tuples.
@@ -9,7 +9,7 @@ import logging
 import re
 from typing import Optional
 
-logger = logging.getLogger("cleanclaw.setup_validator")
+logger = logging.getLogger("xcleaners.setup_validator")
 
 
 def validate_step1(data: dict) -> tuple[bool, list[str]]:

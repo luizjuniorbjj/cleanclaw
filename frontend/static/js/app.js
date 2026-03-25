@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Main App Entry Point
+ * Xcleaners — Main App Entry Point
  *
  * Initializes the PWA shell:
  *  1. Register service worker
@@ -266,7 +266,7 @@ window.CleanClaw = {
     const brand = topNav.querySelector('.cc-top-nav-brand');
     if (brand) {
       brand.innerHTML = `
-        <span style="font-weight:700;color:var(--cc-primary-500);">CleanClaw Admin</span>
+        <span style="font-weight:700;color:var(--cc-primary-500);">Xcleaners Admin</span>
       `;
     }
 
@@ -440,7 +440,7 @@ window.CleanClaw = {
     authContainer.innerHTML = `
       <div class="cc-auth-card">
         <div class="cc-auth-logo">
-          <h1>CleanClaw</h1>
+          <h1>Xcleaners</h1>
         </div>
         <h2 class="cc-auth-heading">No cleaning business found</h2>
         <p style="text-align:center;color:var(--cc-neutral-500);margin-bottom:24px;">

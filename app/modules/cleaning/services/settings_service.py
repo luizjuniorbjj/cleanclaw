@@ -1,5 +1,5 @@
 """
-CleanClaw v3 — Settings Service.
+Xcleaners v3 — Settings Service.
 
 Manages business settings, service areas, and pricing rules
 for the owner settings panel.
@@ -14,7 +14,7 @@ from typing import Optional
 from app.database import Database
 from app.modules.cleaning.services._type_helpers import to_date
 
-logger = logging.getLogger("cleanclaw.settings_service")
+logger = logging.getLogger("xcleaners.settings_service")
 
 
 # ============================================
