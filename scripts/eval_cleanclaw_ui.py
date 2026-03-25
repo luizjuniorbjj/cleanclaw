@@ -2,9 +2,9 @@
 CleanClaw UI Eval — Comprehensive test suite for all 3 roles.
 
 Tests login, navigation, rendering, and empty state handling for:
-- Owner (admin@cleanclaw.com)
-- Cleaner (cleaner@cleanclaw.com)
-- Homeowner (donocasa@cleanclaw.com)
+- Owner (admin@xcleaners.app)
+- Cleaner (cleaner@xcleaners.app)
+- Homeowner (donocasa@xcleaners.app)
 
 Usage:
     python scripts/eval_cleanclaw_ui.py [--url http://localhost:8003]
@@ -62,9 +62,9 @@ class EvalReport:
 
 
 DEMO_ACCOUNTS = {
-    "owner": {"email": "admin@cleanclaw.com", "password": "admin123"},
-    "cleaner": {"email": "cleaner@cleanclaw.com", "password": "admin123"},
-    "homeowner": {"email": "donocasa@cleanclaw.com", "password": "admin123"},
+    "owner": {"email": "admin@xcleaners.app", "password": "admin123"},
+    "cleaner": {"email": "cleaner@xcleaners.app", "password": "admin123"},
+    "homeowner": {"email": "donocasa@xcleaners.app", "password": "admin123"},
 }
 
 # Owner screens to test

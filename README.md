@@ -16,10 +16,10 @@ pip install -r requirements-dev.txt
 ## Demo Accounts
 | Email | Password | Role |
 |-------|----------|------|
-| superadmin@xcleaners.com | admin123 | Super Admin |
-| admin@xcleaners.com | admin123 | Owner |
-| cleaner@xcleaners.com | admin123 | Cleaner |
-| donocasa@xcleaners.com | admin123 | Homeowner |
+| superadmin@xcleaners.app | admin123 | Super Admin |
+| admin@xcleaners.app | admin123 | Owner |
+| cleaner@xcleaners.app | admin123 | Cleaner |
+| donocasa@xcleaners.app | admin123 | Homeowner |
 
 ## Tech Stack
 - Backend: Python 3.12 + FastAPI

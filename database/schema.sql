@@ -440,10 +440,10 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS followup_cooldown_until TIMESTAMPTZ;
 INSERT INTO users (id, email, senha_hash, nome, role, language)
 VALUES (
     uuid_generate_v4(),
-    'admin@clawin1click.com',
+    'admin@xcleaners.app',
     -- bcrypt hash of 'admin123' (CHANGE IN PRODUCTION!)
     '$2b$12$LJ3m4ys3Lp9TZJKR8CxJNeF9V.I80OfGKFDR2bWYtYb8/VQ6S6dHi',
-    'ClaWin Admin',
+    'Xcleaners Admin',
     'admin',
     'pt'
 ) ON CONFLICT (email) DO NOTHING;

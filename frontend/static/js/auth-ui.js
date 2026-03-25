@@ -247,10 +247,10 @@ window.AuthUI = {
    */
   // Demo accounts for UI testing (bypass API when DB is unavailable)
   _demoAccounts: {
-    'superadmin@xcleaners.com': { password: 'admin123', role: 'super_admin', name: 'Platform Admin' },
-    'admin@xcleaners.com':    { password: 'admin123', role: 'owner',     name: 'Admin Xcleaners' },
-    'cleaner@xcleaners.com':  { password: 'admin123', role: 'cleaner',   name: 'Maria Santos' },
-    'donocasa@xcleaners.com': { password: 'admin123', role: 'homeowner', name: 'John Smith' },
+    'superadmin@xcleaners.app': { password: 'admin123', role: 'super_admin', name: 'Platform Admin' },
+    'admin@xcleaners.app':    { password: 'admin123', role: 'owner',     name: 'Admin Xcleaners' },
+    'cleaner@xcleaners.app':  { password: 'admin123', role: 'cleaner',   name: 'Maria Santos' },
+    'donocasa@xcleaners.app': { password: 'admin123', role: 'homeowner', name: 'John Smith' },
   },
 
   async handleLogin(event) {

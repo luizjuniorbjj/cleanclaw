@@ -231,4 +231,4 @@ TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER", "")
 # ============================================
 XCLEANERS_DEFAULT_PLAN = os.getenv("XCLEANERS_DEFAULT_PLAN", "basic")
 XCLEANERS_AUTO_SCHEDULE_TIME = os.getenv("XCLEANERS_AUTO_SCHEDULE_TIME", "18:00")
-VAPID_SUBJECT = os.getenv("VAPID_SUBJECT", "mailto:suporte@xcleaners.com")
+VAPID_SUBJECT = os.getenv("VAPID_SUBJECT", "mailto:suporte@xcleaners.app")
