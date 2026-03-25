@@ -217,6 +217,15 @@ if _cleaning_dir.exists():
     async def serve_sw():
         return FileResponse(str(_cleaning_dir / "sw.js"), media_type="application/javascript")
 
+    # SEO files — must be served at root, before SPA catch-all
+    @app.get("/robots.txt", tags=["SEO"], include_in_schema=False)
+    async def serve_robots():
+        return FileResponse(str(_frontend_dir / "robots.txt"), media_type="text/plain")
+
+    @app.get("/sitemap.xml", tags=["SEO"], include_in_schema=False)
+    async def serve_sitemap():
+        return FileResponse(str(_frontend_dir / "sitemap.xml"), media_type="application/xml")
+
     # Temporary DB admin endpoints
     @app.get("/admin/db-check", tags=["Admin"], include_in_schema=False)
     async def db_check_inline(key: str = ""):
@@ -262,8 +271,8 @@ if _cleaning_dir.exists():
     # This MUST be the last route registered
     @app.get("/{path:path}", tags=["Frontend"], include_in_schema=False)
     async def serve_spa_catchall(request: Request, path: str = ""):
-        # Skip API and static paths
-        if path.startswith("api/") or path.startswith("cleaning/static") or path.startswith("docs") or path.startswith("openapi"):
+        # Skip API, static, and SEO paths
+        if path in ("robots.txt", "sitemap.xml") or path.startswith("api/") or path.startswith("cleaning/static") or path.startswith("docs") or path.startswith("openapi"):
             from fastapi.responses import JSONResponse
             return JSONResponse({"error": "not found"}, status_code=404)
         return FileResponse(str(_cleaning_dir / "app.html"))

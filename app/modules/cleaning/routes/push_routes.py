@@ -13,12 +13,12 @@ Endpoints:
 
 import json
 import logging
-import os
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 
+from app.config import VAPID_PUBLIC_KEY
 from app.database import get_db, Database
 from app.modules.cleaning.middleware.role_guard import require_role
 
@@ -28,8 +28,6 @@ router = APIRouter(
     prefix="/api/v1/clean/{slug}",
     tags=["Xcleaners Push Notifications"],
 )
-
-VAPID_PUBLIC_KEY = os.getenv("VAPID_PUBLIC_KEY", "")
 
 
 # ============================================

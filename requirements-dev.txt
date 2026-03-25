@@ -1,0 +1,9 @@
+# Xcleaners - Dev/Test Dependencies
+-r requirements.txt
+
+# Testing
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+
+# Data / Config
+PyYAML>=6.0.0

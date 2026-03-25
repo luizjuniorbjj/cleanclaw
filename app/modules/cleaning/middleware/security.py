@@ -11,15 +11,23 @@ All middlewares degrade gracefully when Redis is unavailable.
 
 import html
 import logging
+import os
 import re
 import time
-from typing import Callable, Optional, Set
+from typing import Callable, List, Optional, Set
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
 logger = logging.getLogger("xcleaners.security")
+
+# Trusted reverse-proxy IPs (comma-separated in env var).
+# Only requests arriving from these IPs will have X-Forwarded-For trusted.
+# Empty by default — trust only the direct TCP connection.
+TRUSTED_PROXIES: List[str] = [
+    ip.strip() for ip in os.getenv("TRUSTED_PROXIES", "").split(",") if ip.strip()
+]
 
 
 # ============================================
@@ -36,11 +44,13 @@ def _get_redis():
 
 
 def _client_ip(request: Request) -> str:
-    """Extract client IP, respecting X-Forwarded-For behind a reverse proxy."""
-    forwarded = request.headers.get("x-forwarded-for")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
-    return request.client.host if request.client else "unknown"
+    """Extract client IP, only trusting X-Forwarded-For from known proxies."""
+    direct_ip = request.client.host if request.client else None
+    if direct_ip and TRUSTED_PROXIES and direct_ip in TRUSTED_PROXIES:
+        forwarded = request.headers.get("x-forwarded-for", "")
+        if forwarded:
+            return forwarded.split(",")[0].strip()
+    return direct_ip if direct_ip else "unknown"
 
 
 # ============================================
@@ -63,7 +73,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Content-Security-Policy": (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://accounts.google.com; "
+            "script-src 'self' 'unsafe-inline' 'strict-dynamic' https://cdn.jsdelivr.net https://accounts.google.com; "
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
             "font-src 'self' https://fonts.gstatic.com; "
             "img-src 'self' data: https:; "
@@ -74,7 +84,6 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
         response = await call_next(request)
-        import os
         # Skip CSP in debug mode to avoid blocking CDN/fonts during development
         is_debug = os.getenv("DEBUG", "false").lower() in ("true", "1", "yes")
         for header, value in self.HEADERS.items():

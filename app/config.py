@@ -127,6 +127,11 @@ STRIPE_BUSINESS_PRICE_ID = os.getenv("STRIPE_BUSINESS_PRICE_ID", "")  # Stripe P
 STRIPE_SETUP_PRICE_ID = os.getenv("STRIPE_SETUP_PRICE_ID", "price_1TAOKeP8Hos97mNkANWMYkjt")  # $200 one-time setup
 STRIPE_MONTHLY_PRICE_ID = os.getenv("STRIPE_MONTHLY_PRICE_ID", "price_1T98fsP8Hos97mNkyplI6yUU")  # $199/mo recurring
 
+# Xcleaners subscription plan price IDs
+STRIPE_PRICE_BASIC = os.getenv("STRIPE_PRICE_BASIC", "")
+STRIPE_PRICE_INTERMEDIATE = os.getenv("STRIPE_PRICE_INTERMEDIATE", "")
+STRIPE_PRICE_MAXIMUM = os.getenv("STRIPE_PRICE_MAXIMUM", "")
+
 # ============================================
 # INSTANCE PROVISIONING (Hostinger VPS API)
 # ============================================

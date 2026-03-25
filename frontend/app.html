@@ -18,6 +18,29 @@
   <meta name="twitter:description" content="Professional platform to manage your cleaning business.">
 
   <title>Xcleaners — Cleaning Business Management</title>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Xcleaners",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Professional platform to manage your cleaning business — scheduling, invoicing, team management, and client portal.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "0",
+    "highPrice": "99",
+    "offerCount": "3"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "LPJ Services LLC"
+  }
+}
+</script>
+
   <!-- Force clear stale service workers on load -->
   <script>
     if ('serviceWorker' in navigator) {
@@ -157,6 +180,14 @@
   <script src="/cleaning/static/js/auth-ui.js?v=11"></script>
   <script src="/cleaning/static/js/router.js?v=11"></script>
   <script src="/cleaning/static/js/app.js?v=11"></script>
+
+  <noscript>
+    <div style="padding:2rem;text-align:center;font-family:Inter,sans-serif;">
+      <h1>Xcleaners</h1>
+      <p>Professional Cleaning Business Management Platform</p>
+      <p>JavaScript is required to use this application.</p>
+    </div>
+  </noscript>
 
 </body>
 </html>

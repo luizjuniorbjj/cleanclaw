@@ -61,7 +61,7 @@ class CheckOutRequest(BaseModel):
 
 class JobNoteRequest(BaseModel):
     note: Optional[str] = None
-    photo_url: Optional[str] = None
+    photo_url: Optional[str] = Field(None, max_length=2048, pattern=r'^https?://')
 
 
 class ReportIssueRequest(BaseModel):

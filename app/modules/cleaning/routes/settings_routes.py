@@ -17,8 +17,10 @@ All endpoints require the 'owner' role.
 """
 
 import logging
+from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, Field
 
 from app.database import get_db, Database
 from app.modules.cleaning.middleware.role_guard import require_role
@@ -36,6 +38,46 @@ from app.modules.cleaning.services.settings_service import (
 )
 
 logger = logging.getLogger("xcleaners.settings_routes")
+
+
+# ============================================
+# REQUEST MODELS
+# ============================================
+
+class BusinessSettingsUpdate(BaseModel):
+    """
+    Validated body for PUT /settings.
+
+    Fields mirror what update_business_settings accepts:
+      - business_table_keys: name, timezone  (written to businesses table)
+      - contact_keys: phone, email, address, city, state, zip_code
+                      (written to cleaning_settings.business_info)
+      - everything else goes into cleaning_settings as-is (JSONB merge)
+    """
+    # Business table fields
+    name: Optional[str] = Field(None, max_length=255)
+    timezone: Optional[str] = Field(None, max_length=50)
+
+    # Contact info (stored in cleaning_settings.business_info)
+    phone: Optional[str] = Field(None, max_length=30)
+    email: Optional[str] = Field(None, max_length=255)
+    address: Optional[str] = Field(None, max_length=500)
+    city: Optional[str] = Field(None, max_length=100)
+    state: Optional[str] = Field(None, max_length=50)
+    zip_code: Optional[str] = Field(None, max_length=20)
+
+    # Operational settings (merged into cleaning_settings JSONB)
+    business_hours: Optional[Dict[str, Any]] = None
+    cancellation_policy: Optional[Dict[str, Any]] = None
+    travel_buffer_minutes: Optional[int] = Field(None, ge=0, le=240)
+    auto_generate_schedule: Optional[bool] = None
+    auto_generate_time: Optional[str] = Field(None, max_length=5)
+    default_service_duration: Optional[int] = Field(None, ge=15, le=480)
+    notification_preferences: Optional[Dict[str, Any]] = None
+
+    class Config:
+        extra = "allow"  # Forward unknown keys to the JSONB merge (open-ended settings)
+
 
 router = APIRouter(
     prefix="/api/v1/clean/{slug}/settings",
@@ -63,12 +105,14 @@ async def get_settings(
 @router.put("")
 async def put_settings(
     slug: str,
-    body: dict,
+    body: BusinessSettingsUpdate,
     user: dict = Depends(require_role("owner")),
     db: Database = Depends(get_db),
 ):
     """Update business settings (partial merge)."""
-    return await update_business_settings(db, user["business_id"], body)
+    return await update_business_settings(
+        db, user["business_id"], body.model_dump(exclude_none=True)
+    )
 
 
 # ============================================

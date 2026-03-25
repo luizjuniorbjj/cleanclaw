@@ -271,13 +271,9 @@ async def init_db():
         except Exception as e:
             logger.warning(f"[DB] Social tables creation: {e}")
 
-        # Persona structured data (Migration 016 - Story 1.1)
-        try:
-            await conn.execute("ALTER TABLE business_personas ADD COLUMN IF NOT EXISTS structured_data JSONB DEFAULT NULL")
-            await conn.execute("ALTER TABLE business_personas ADD COLUMN IF NOT EXISTS prompt_manually_edited BOOLEAN DEFAULT FALSE")
-            logger.info("[DB] Persona structured_data columns ensured (migration 016)")
-        except Exception as e:
-            logger.warning(f"[DB] Persona migration 016: {e}")
+        # Schema managed by database/migrations/ — do not add inline DDL here
+        # business_personas.structured_data and .prompt_manually_edited
+        # are managed by migration 016.
 
     return _pool
 

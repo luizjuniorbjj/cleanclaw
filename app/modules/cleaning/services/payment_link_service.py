@@ -4,7 +4,7 @@ Xcleaners v3 — Payment Link Service (Sprint 4).
 Stripe payment link generation for invoices and subscriptions.
 Handles Checkout Sessions, webhook verification, and payment status.
 
-Env vars:
+Env vars (centralized in app.config):
   STRIPE_SECRET_KEY         — Stripe API key
   STRIPE_WEBHOOK_SECRET     — Webhook endpoint secret
   STRIPE_PRICE_BASIC        — Price ID for Basic plan
@@ -13,25 +13,24 @@ Env vars:
 """
 
 import logging
-import os
 from typing import Dict, Optional
 
 import stripe
 
-from app.config import STRIPE_SECRET_KEY, APP_URL
+from app.config import (
+    APP_URL,
+    STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET,
+    STRIPE_PRICE_BASIC,
+    STRIPE_PRICE_INTERMEDIATE,
+    STRIPE_PRICE_MAXIMUM,
+)
 from app.database import Database
 
 logger = logging.getLogger("xcleaners.payment_link_service")
 
 if STRIPE_SECRET_KEY:
     stripe.api_key = STRIPE_SECRET_KEY
-
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
-
-# Plan tier -> Stripe Price ID mapping
-STRIPE_PRICE_BASIC = os.getenv("STRIPE_PRICE_BASIC", "")
-STRIPE_PRICE_INTERMEDIATE = os.getenv("STRIPE_PRICE_INTERMEDIATE", "")
-STRIPE_PRICE_MAXIMUM = os.getenv("STRIPE_PRICE_MAXIMUM", "")
 
 PLAN_PRICE_MAP = {
     "basic": STRIPE_PRICE_BASIC,

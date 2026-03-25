@@ -1,20 +1,25 @@
-# CleanClaw
+# Xcleaners
 
 Smart Cleaning Business Management PWA
 
 ## Quick Start
-1. Copy `.env.example` to `.env` and fill in values
+1. `cp .env.example .env` and fill in values
 2. `pip install -r requirements.txt`
-3. `python cleanclaw_main.py`
+3. `python xcleaners_main.py`
 4. Open http://localhost:8003/cleaning/app
+
+## Dev Setup (with test dependencies)
+```bash
+pip install -r requirements-dev.txt
+```
 
 ## Demo Accounts
 | Email | Password | Role |
 |-------|----------|------|
-| superadmin@cleanclaw.com | admin123 | Super Admin |
-| admin@cleanclaw.com | admin123 | Owner |
-| cleaner@cleanclaw.com | admin123 | Cleaner |
-| donocasa@cleanclaw.com | admin123 | Homeowner |
+| superadmin@xcleaners.com | admin123 | Super Admin |
+| admin@xcleaners.com | admin123 | Owner |
+| cleaner@xcleaners.com | admin123 | Cleaner |
+| donocasa@xcleaners.com | admin123 | Homeowner |
 
 ## Tech Stack
 - Backend: Python 3.12 + FastAPI
