@@ -27,10 +27,10 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
       - name: List Railway services
-        run: railway status || true
+        run: railway service list 2>&1 || railway status 2>&1 || echo "Could not list services"
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       - name: Deploy to Railway
-        run: railway up --detach
+        run: railway up --service xcleaners --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
