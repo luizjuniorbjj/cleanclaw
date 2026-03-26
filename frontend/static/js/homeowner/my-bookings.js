@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Homeowner My Bookings Module (Sprint 3)
+ * Xcleaners — Homeowner My Bookings Module (Sprint 3)
  *
  * Bookings list with next cleaning hero card, upcoming and past tabs.
  */
@@ -118,7 +118,7 @@ window.HomeownerMyBookings = {
       } else {
         heroEl.innerHTML = `
           <div class="cc-card cc-empty-state cc-animate-fade-in" style="padding:var(--cc-space-8) var(--cc-space-5);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.booking : '&#128197;'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.booking : '&#128197;'}</div>
             <div class="cc-empty-state-title" style="font-size:var(--cc-text-lg);">No upcoming cleanings</div>
             <div class="cc-empty-state-description">Your cleaning company hasn't scheduled your next visit yet. Check back soon or contact them directly.</div>
           </div>
@@ -131,7 +131,7 @@ window.HomeownerMyBookings = {
       console.error('[MyBookings] Error:', err);
       document.getElementById('cc-bookings-list').innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">Could not load bookings</div>
           <div class="cc-empty-state-description">Please check your connection and try again.</div>
         </div>
@@ -147,7 +147,7 @@ window.HomeownerMyBookings = {
     if (bookings.length === 0) {
       listEl.innerHTML = `
         <div class="cc-card cc-empty-state cc-animate-fade-in" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? (tab === 'upcoming' ? CleanClawIllustrations.booking : CleanClawIllustrations.calendar) : '&#128197;'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? (tab === 'upcoming' ? XcleanersIllustrations.booking : XcleanersIllustrations.calendar) : '&#128197;'}</div>
           <div class="cc-empty-state-title" style="font-size:var(--cc-text-lg);">No ${tab} cleanings</div>
           <div class="cc-empty-state-description">${tab === 'upcoming' ? 'Your cleaning company hasn\'t scheduled your next visit yet. Check back soon or contact them directly.' : 'Your completed cleanings will appear here after your first visit.'}</div>
         </div>
@@ -269,15 +269,15 @@ window.HomeownerMyBookings = {
     const notes = document.getElementById('req-notes')?.value;
 
     if (!date) {
-      CleanClaw.showToast('Please choose a future date for your cleaning.', 'error');
+      Xcleaners.showToast('Please choose a future date for your cleaning.', 'error');
       return;
     }
 
     try {
       await CleanAPI.cleanPost('/my-bookings/request', { service_id: service, date, time, notes });
-      CleanClaw.showToast('Cleaning request submitted. You\'ll be notified once it\'s confirmed.', 'success');
+      Xcleaners.showToast('Cleaning request submitted. You\'ll be notified once it\'s confirmed.', 'success');
     } catch {
-      CleanClaw.showToast('Cleaning request submitted. You\'ll be notified once it\'s confirmed.', 'success');
+      Xcleaners.showToast('Cleaning request submitted. You\'ll be notified once it\'s confirmed.', 'success');
     }
 
     document.getElementById('request-modal')?.remove();
@@ -333,7 +333,7 @@ window.HomeownerMyBookings = {
     const reason = document.getElementById('resched-reason')?.value;
 
     if (!date) {
-      CleanClaw.showToast('Please select a new date to reschedule.', 'error');
+      Xcleaners.showToast('Please select a new date to reschedule.', 'error');
       return;
     }
 
@@ -341,7 +341,7 @@ window.HomeownerMyBookings = {
       await CleanAPI.cleanPatch(`/my-bookings/${bookingId}/reschedule`, { date, time, reason });
     } catch { /* demo mode */ }
 
-    CleanClaw.showToast('Booking rescheduled. Your cleaning team has been notified.', 'success');
+    Xcleaners.showToast('Booking rescheduled. Your cleaning team has been notified.', 'success');
     document.getElementById('reschedule-modal')?.remove();
     await this._loadBookings();
   },
@@ -386,7 +386,7 @@ window.HomeownerMyBookings = {
       await CleanAPI.cleanPatch(`/my-bookings/${bookingId}/cancel`, { reason });
     } catch { /* demo mode */ }
 
-    CleanClaw.showToast('Booking cancelled. Your cleaning team has been notified.', 'warning');
+    Xcleaners.showToast('Booking cancelled. Your cleaning team has been notified.', 'warning');
     document.getElementById('cancel-modal')?.remove();
     await this._loadBookings();
   },

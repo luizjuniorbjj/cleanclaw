@@ -1,4 +1,4 @@
-# CleanClaw Brand Copy
+# Xcleaners Brand Copy
 
 **Version:** 1.0
 **Author:** @copywriter (Mouse)
@@ -37,9 +37,9 @@
 
 | Benefit | Supporting Copy |
 |---------|----------------|
-| **Get 15 hours back every week** | You started a cleaning business, not a scheduling business. CleanClaw builds your weekly schedule in minutes, not hours. Drag, drop, done. When a cleaner calls out sick, reassign their houses in seconds — not 45 minutes of phone calls and texts. |
+| **Get 15 hours back every week** | You started a cleaning business, not a scheduling business. Xcleaners builds your weekly schedule in minutes, not hours. Drag, drop, done. When a cleaner calls out sick, reassign their houses in seconds — not 45 minutes of phone calls and texts. |
 | **Get paid without chasing anyone** | Send invoices in one tap. Clients pay online. Recurring clients get charged automatically. No more "Can you Venmo me?" awkwardness. See every dollar owed, paid, and overdue in one dashboard. |
-| **Grow without hiring an office manager** | Most owners hit a wall at 5 teams because scheduling gets too complex. CleanClaw handles the complexity so you can scale to 8, 10, 15 teams without drowning in spreadsheets. AI suggests the best team for each job based on location, history, and workload. |
+| **Grow without hiring an office manager** | Most owners hit a wall at 5 teams because scheduling gets too complex. Xcleaners handles the complexity so you can scale to 8, 10, 15 teams without drowning in spreadsheets. AI suggests the best team for each job based on location, history, and workload. |
 
 **CTA:** Start your free trial — no credit card required.
 
@@ -53,7 +53,7 @@
 | **Check in and out in 5 seconds** | Arrive at the house. Tap "Check In." Clean. Tap "Check Out." That's it. Your hours are tracked, your boss sees you're on site, and you move to the next job. No timesheets, no texts, no hassle. |
 | **Every house detail in one place** | Alarm codes, gate codes, pet names, which products to use, which rooms to skip. Everything is right there on the job card. No more calling the office to ask "What's the code again?" |
 
-**CTA:** Ask your boss to set up CleanClaw.
+**CTA:** Ask your boss to set up Xcleaners.
 
 ### 2.3 For the Homeowner
 
@@ -78,10 +78,10 @@ Schedule, manage, and grow your cleaning business — all in one app.
 
 **Long Description (4000 characters):**
 
-CleanClaw is the schedule management app built for cleaning businesses. Whether you manage 5 teams and 120 clients or you're a solo cleaner with 25 houses, CleanClaw replaces your spreadsheets, paper calendars, WhatsApp groups, and Venmo requests with one simple app.
+Xcleaners is the schedule management app built for cleaning businesses. Whether you manage 5 teams and 120 clients or you're a solo cleaner with 25 houses, Xcleaners replaces your spreadsheets, paper calendars, WhatsApp groups, and Venmo requests with one simple app.
 
 THREE USERS, ONE APP
-CleanClaw works for everyone in your cleaning business:
+Xcleaners works for everyone in your cleaning business:
 
 -- Business Owner: Build weekly schedules, manage teams, track payments, and grow your client list.
 -- Cleaning Team: See daily jobs, navigate to houses, check in and out, and view client notes.
@@ -101,7 +101,7 @@ MANAGE YOUR TEAMS
 Add cleaners, organize them into teams, set availability. See real-time check-in and check-out for every job. Track hours automatically. When the schedule changes, your team gets a push notification instantly.
 
 BUILT FOR CLEANING BUSINESSES
-CleanClaw is not a general field service app adapted for cleaning. It is built specifically for residential cleaning operations: recurring frequencies, house profiles with access codes, cleaning preferences, team-based scheduling, and multi-language support (English, Spanish, Portuguese).
+Xcleaners is not a general field service app adapted for cleaning. It is built specifically for residential cleaning operations: recurring frequencies, house profiles with access codes, cleaning preferences, team-based scheduling, and multi-language support (English, Spanish, Portuguese).
 
 FLAT PRICING. NO PER-SEAT FEES.
 Basic: $29/month — Manual scheduling, up to 50 clients, 1 team
@@ -111,7 +111,7 @@ Business: $99/month — Everything plus a professional website, AI chat, and lea
 No per-user charges. No hidden fees. Add as many cleaners as you need.
 
 WORKS ON ANY DEVICE
-CleanClaw is a Progressive Web App. Install it on any phone, tablet, or computer directly from your browser. No app store download required. Works on Android, iOS, and desktop.
+Xcleaners is a Progressive Web App. Install it on any phone, tablet, or computer directly from your browser. No app store download required. Works on Android, iOS, and desktop.
 
 MULTI-LANGUAGE
 Full support for English, Spanish, and Portuguese. Your cleaners can use the app in their preferred language. Your clients see everything in English.
@@ -125,11 +125,11 @@ Schedule, manage, and grow your cleaning business — all in one app.
 
 **Long Description (4000 characters):**
 
-CleanClaw is the schedule management platform designed specifically for cleaning businesses. One app serves your entire operation: you manage schedules and payments, your clients book and pay, and your cleaning team sees their daily jobs.
+Xcleaners is the schedule management platform designed specifically for cleaning businesses. One app serves your entire operation: you manage schedules and payments, your clients book and pay, and your cleaning team sees their daily jobs.
 
-WHY CLEANING BUSINESSES CHOOSE CLEANCLAW
+WHY CLEANING BUSINESSES CHOOSE XCLEANERS
 
-Most scheduling apps are built for general contractors and adapted for cleaning. That means features you don't need and missing features you do. CleanClaw is built from the ground up for how cleaning businesses actually work: recurring appointments, house-specific preferences, multi-team coordination, and clients who need a simple way to reschedule and pay.
+Most scheduling apps are built for general contractors and adapted for cleaning. That means features you don't need and missing features you do. Xcleaners is built from the ground up for how cleaning businesses actually work: recurring appointments, house-specific preferences, multi-team coordination, and clients who need a simple way to reschedule and pay.
 
 FOR BUSINESS OWNERS
 - Drag-and-drop schedule builder for daily, weekly, and monthly views
@@ -157,7 +157,7 @@ FOR YOUR CLIENTS
 - Get reminders before each cleaning
 
 PRICING THAT MAKES SENSE
-Unlike competitors that charge per user, CleanClaw uses flat monthly pricing:
+Unlike competitors that charge per user, Xcleaners uses flat monthly pricing:
 
 Basic ($29/mo): Manual scheduling, up to 50 clients, 1 team with up to 3 cleaners. Perfect for solo operators and small teams getting organized.
 
@@ -168,7 +168,7 @@ Business ($99/mo): Everything in Pro plus a professional business website, AI ch
 Add cleaners without adding cost. Your monthly price stays the same.
 
 NO APP STORE REQUIRED
-CleanClaw is a Progressive Web App. Your clients and cleaners install it directly from your business link — no App Store search, no download wait, no storage complaints. It works like a native app with offline support, push notifications, and home screen installation.
+Xcleaners is a Progressive Web App. Your clients and cleaners install it directly from your business link — no App Store search, no download wait, no storage complaints. It works like a native app with offline support, push notifications, and home screen installation.
 
 SECURITY AND PRIVACY
 - All data encrypted in transit and at rest
@@ -254,7 +254,7 @@ Clients get their own view. They see upcoming cleanings, reschedule with two tap
 
 **Section Headline:** Flat pricing. No per-user fees. No surprises.
 
-**Pricing Philosophy:** Most cleaning software charges per user. Add 5 cleaners at $29 each and you're paying $145/month before you even start. CleanClaw charges one flat price. Add as many cleaners as your plan allows — your price stays the same.
+**Pricing Philosophy:** Most cleaning software charges per user. Add 5 cleaners at $29 each and you're paying $145/month before you even start. Xcleaners charges one flat price. Add as many cleaners as your plan allows — your price stays the same.
 
 **Basic — $29/month**
 *Get organized*
@@ -311,7 +311,7 @@ All plans include a 14-day free trial. No credit card required. Cancel anytime. 
 **Section Headline:** Hear from cleaning business owners like you.
 
 **Testimonial 1:**
-"I used to spend every Sunday night building my schedule in Google Sheets. Now I open CleanClaw, and the AI has already built my week. I just review it and make a few tweaks. I got my Sunday nights back."
+"I used to spend every Sunday night building my schedule in Google Sheets. Now I open Xcleaners, and the AI has already built my week. I just review it and make a few tweaks. I got my Sunday nights back."
 — **James T., Denver, CO** | 5 teams, 120 clients | Pro plan
 
 **Testimonial 2:**
@@ -328,29 +328,29 @@ All plans include a 14-day free trial. No credit card required. Cancel anytime. 
 
 **Section Headline:** Questions? We've got answers.
 
-**Q1: Is CleanClaw an app I download from the App Store?**
-CleanClaw is a Progressive Web App (PWA). You install it directly from your browser — just visit the link and tap "Add to Home Screen." It works like a regular app with push notifications and offline access. No App Store or Google Play download needed. We will also be available on both stores soon.
+**Q1: Is Xcleaners an app I download from the App Store?**
+Xcleaners is a Progressive Web App (PWA). You install it directly from your browser — just visit the link and tap "Add to Home Screen." It works like a regular app with push notifications and offline access. No App Store or Google Play download needed. We will also be available on both stores soon.
 
 **Q2: Do I pay per user?**
-No. CleanClaw uses flat monthly pricing. The Basic plan is $29/month whether you have 1 cleaner or 3. The Pro plan is $49/month whether you have 5 cleaners or 15. No per-seat surprises.
+No. Xcleaners uses flat monthly pricing. The Basic plan is $29/month whether you have 1 cleaner or 3. The Pro plan is $49/month whether you have 5 cleaners or 15. No per-seat surprises.
 
 **Q3: Can my cleaners use the app in Spanish or Portuguese?**
-Yes. CleanClaw supports English, Spanish, and Portuguese. Each user chooses their language. Your cleaners see the app in their preferred language; your clients see it in theirs.
+Yes. Xcleaners supports English, Spanish, and Portuguese. Each user chooses their language. Your cleaners see the app in their preferred language; your clients see it in theirs.
 
 **Q4: How does the AI scheduling work?**
-On the Pro and Business plans, CleanClaw's AI analyzes your clients' cleaning frequencies, your teams' availability, and house locations. It builds an optimized weekly schedule that minimizes travel time and balances workload across teams. When a cleaner calls out sick, AI suggests how to redistribute their jobs in seconds.
+On the Pro and Business plans, Xcleaners's AI analyzes your clients' cleaning frequencies, your teams' availability, and house locations. It builds an optimized weekly schedule that minimizes travel time and balances workload across teams. When a cleaner calls out sick, AI suggests how to redistribute their jobs in seconds.
 
 **Q5: Can my clients pay through the app?**
 Yes. Clients pay online with their credit or debit card. Payments are processed securely through Stripe. On Pro and Business plans, you can set up auto-charge for recurring clients — they pay automatically each month.
 
-**Q6: I'm a solo cleaner with 25 clients. Is CleanClaw worth it?**
+**Q6: I'm a solo cleaner with 25 clients. Is Xcleaners worth it?**
 Absolutely. The Basic plan ($29/month) gives you a professional scheduling system with drag-and-drop scheduling, email notifications, and manual invoicing for up to 50 clients. That means less time on spreadsheets and more time cleaning. Most solo cleaners upgrade to Pro within the first 3 months to unlock the client portal and AI scheduling.
 
 **Q7: Can I switch plans later?**
 Yes. Upgrade or downgrade anytime. Your data carries over. If you start on Basic and grow to 5 teams, upgrade to Pro and the AI takes over your scheduling.
 
 **Q8: What happens when my internet is spotty?**
-CleanClaw works offline for essential features. Your cleaners can view their daily schedule, check in, and check out even without a connection. Data syncs automatically when they're back online.
+Xcleaners works offline for essential features. Your cleaners can view their daily schedule, check in, and check out even without a connection. Data syncs automatically when they're back online.
 
 ---
 
@@ -369,13 +369,13 @@ CleanClaw works offline for essential features. Your cleaners can view their dai
 
 ### 5.1 Welcome Email (New Business Signs Up)
 
-**Subject:** Welcome to CleanClaw — let's get you organized
+**Subject:** Welcome to Xcleaners — let's get you organized
 
 **Body:**
 
 Hi {owner_name},
 
-Welcome to CleanClaw. You just took the first step toward getting your cleaning business organized.
+Welcome to Xcleaners. You just took the first step toward getting your cleaning business organized.
 
 Here's what to do in your first 10 minutes:
 
@@ -390,7 +390,7 @@ That's it. Your team will see their daily jobs. Your clients can view their upco
 Need help? Reply to this email and a real person will answer within 24 hours.
 
 Your schedule is waiting,
-The CleanClaw Team
+The Xcleaners Team
 
 **P.S.** Your 14-day free trial started today. You won't be charged until {trial_end_date}.
 
@@ -404,7 +404,7 @@ The CleanClaw Team
 
 Hi {owner_name},
 
-Your CleanClaw free trial ends on {trial_end_date}. Here's what you've built so far:
+Your Xcleaners free trial ends on {trial_end_date}. Here's what you've built so far:
 
 - {num_clients} clients added
 - {num_cleaners} team members set up
@@ -418,12 +418,12 @@ To keep your schedules, client data, and team setup, choose a plan before {trial
 
 Pick your plan: {pricing_link}
 
-If CleanClaw isn't the right fit, no hard feelings. Your data will be available for export for 30 days after your trial ends.
+If Xcleaners isn't the right fit, no hard feelings. Your data will be available for export for 30 days after your trial ends.
 
 Questions? Reply to this email — we'll help you decide.
 
 Best,
-The CleanClaw Team
+The Xcleaners Team
 
 ---
 
@@ -441,7 +441,7 @@ No text reminders. No Venmo requests. No awkward follow-ups.
 
 That's how it works from now on:
 - You clean the house
-- CleanClaw sends the invoice
+- Xcleaners sends the invoice
 - The client pays online
 
 You can see all your payments at {payments_dashboard_link}.
@@ -449,7 +449,7 @@ You can see all your payments at {payments_dashboard_link}.
 Want to save even more time? Set up auto-charge for your recurring clients — they'll be billed automatically each month. Here's how: {auto_charge_guide_link}
 
 Here's to getting paid without asking,
-The CleanClaw Team
+The Xcleaners Team
 
 ---
 
@@ -489,7 +489,7 @@ NEXT WEEK
 See full details: {dashboard_link}
 
 Have a great week,
-The CleanClaw Team
+The Xcleaners Team
 
 ---
 
@@ -512,7 +512,7 @@ YOUR PREFERENCES (on file):
 {preferences_summary}
 
 NEED TO RESCHEDULE?
-Open CleanClaw and tap "Reschedule" — pick a new date and you're done: {reschedule_link}
+Open Xcleaners and tap "Reschedule" — pick a new date and you're done: {reschedule_link}
 
 PAYMENT
 {payment_info}
@@ -520,7 +520,7 @@ PAYMENT
 If you have any questions, contact {business_name} at {business_contact}.
 
 See you on {date},
-{business_name} via CleanClaw
+{business_name} via Xcleaners
 
 ---
 
@@ -588,7 +588,7 @@ See you on {date},
 |---------|---------|
 | **AI Schedule Optimization** | AI analyzes your clients' locations, frequencies, and your teams' availability to build the most efficient weekly schedule. Available on Pro and Business plans. |
 | **Recurring Schedule** | Set a cleaning to repeat automatically. Choose weekly, biweekly (every 2 weeks), monthly, or a custom pattern. |
-| **Conflict Detection** | CleanClaw checks for time overlaps when you add or move a job. If a team is already booked, you'll see a warning before saving. |
+| **Conflict Detection** | Xcleaners checks for time overlaps when you add or move a job. If a team is already booked, you'll see a warning before saving. |
 | **Auto-Charge** | Automatically charge your recurring clients' saved card on the same day each month. Available on Pro and Business plans. |
 | **Check-In / Check-Out** | Your cleaners tap Check In when they arrive and Check Out when they leave. You see real-time status on your dashboard. |
 | **House Preferences** | Notes that your cleaning team sees on every job: access codes, pet info, product preferences, rooms to skip. Clients can also edit these from their own view. |
@@ -601,19 +601,19 @@ See you on {date},
 
 ### 7.1 Instagram Bio
 
-**CleanClaw**
+**Xcleaners**
 Schedule, manage, and grow your cleaning business.
 One app for owners, cleaners, and clients.
 No per-user fees. Free 14-day trial.
-cleanclaw.com/start
+xcleaners.com/start
 
 ### 7.2 LinkedIn Company Description
 
-**CleanClaw** is the schedule management platform built for residential cleaning businesses. One app serves three users: business owners build and manage schedules, cleaning teams see their daily jobs, and homeowners book, reschedule, and pay online.
+**Xcleaners** is the schedule management platform built for residential cleaning businesses. One app serves three users: business owners build and manage schedules, cleaning teams see their daily jobs, and homeowners book, reschedule, and pay online.
 
-Unlike general field service software that charges per user, CleanClaw uses flat monthly pricing — add as many cleaners as you need without adding cost. AI-powered scheduling (available on paid tiers) optimizes team assignments based on client locations, cleaning frequencies, and workload balance.
+Unlike general field service software that charges per user, Xcleaners uses flat monthly pricing — add as many cleaners as you need without adding cost. AI-powered scheduling (available on paid tiers) optimizes team assignments based on client locations, cleaning frequencies, and workload balance.
 
-CleanClaw supports English, Spanish, and Portuguese, reflecting the multilingual reality of the cleaning industry. As a Progressive Web App, it works on any device without app store downloads.
+Xcleaners supports English, Spanish, and Portuguese, reflecting the multilingual reality of the cleaning industry. As a Progressive Web App, it works on any device without app store downloads.
 
 Built by LPJ Services LLC. Part of the ClaWtoBusiness platform.
 
@@ -621,15 +621,15 @@ Built by LPJ Services LLC. Part of the ClaWtoBusiness platform.
 
 **Post 1 — LinkedIn (Launch Day)**
 
-We just launched CleanClaw.
+We just launched Xcleaners.
 
 Cleaning business owners spend 15+ hours a week on scheduling alone. Sunday nights building next week in Google Sheets. Monday mornings rearranging everything because someone called out sick. Every day texting addresses and codes to WhatsApp groups.
 
-CleanClaw is one app where the owner builds schedules, cleaners see their daily jobs, and clients book and pay — all in the same place.
+Xcleaners is one app where the owner builds schedules, cleaners see their daily jobs, and clients book and pay — all in the same place.
 
 No per-user fees. Starts at $29/month. 14-day free trial.
 
-If you run a cleaning business (or know someone who does), check it out at cleanclaw.com.
+If you run a cleaning business (or know someone who does), check it out at xcleaners.com.
 
 #CleaningBusiness #SaaS #Scheduling #SmallBusiness
 
@@ -638,12 +638,12 @@ If you run a cleaning business (or know someone who does), check it out at clean
 **Post 2 — Instagram (Carousel: Before vs After)**
 
 Caption:
-Before CleanClaw: spreadsheets, WhatsApp chaos, payment chasing.
-After CleanClaw: one app, one schedule, automatic payments.
+Before Xcleaners: spreadsheets, WhatsApp chaos, payment chasing.
+After Xcleaners: one app, one schedule, automatic payments.
 
 Your cleaning business deserves better than a paper calendar and a group chat. Link in bio.
 
-#CleanClaw #CleaningBusiness #BusinessOwner #ScheduleSmarter #GrowYourBusiness
+#Xcleaners #CleaningBusiness #BusinessOwner #ScheduleSmarter #GrowYourBusiness
 
 ---
 
@@ -651,11 +651,11 @@ Your cleaning business deserves better than a paper calendar and a group chat. L
 
 Cleaning business owners: you didn't start your business to spend 15 hours a week on scheduling.
 
-CleanClaw builds your schedule, tracks your teams, and collects payments — in one app.
+Xcleaners builds your schedule, tracks your teams, and collects payments — in one app.
 
 No per-user fees. Starts at $29/mo.
 
-cleanclaw.com
+xcleaners.com
 
 ---
 
@@ -665,13 +665,13 @@ A cleaning business owner told us:
 
 "When a cleaner calls out sick at 6 AM, I spend 45 minutes on the phone reassigning 4 houses. By the time I finish, another team is running late and a client is asking why nobody showed up."
 
-That's why we built CleanClaw. When a cleaner calls out, the owner reassigns their houses in seconds — drag, drop, done. AI suggests the best redistribution based on which teams are nearby and have capacity.
+That's why we built Xcleaners. When a cleaner calls out, the owner reassigns their houses in seconds — drag, drop, done. AI suggests the best redistribution based on which teams are nearby and have capacity.
 
 45 minutes becomes 30 seconds.
 
 That's the difference between a spreadsheet and a system built for your business.
 
-Try it free for 14 days: cleanclaw.com
+Try it free for 14 days: xcleaners.com
 
 ---
 
@@ -680,7 +680,7 @@ Try it free for 14 days: cleanclaw.com
 Caption:
 52% of cleaning workers in the US speak Spanish or Portuguese at home.
 
-CleanClaw supports English, Spanish, and Portuguese — because your team should use business tools in the language they think in.
+Xcleaners supports English, Spanish, and Portuguese — because your team should use business tools in the language they think in.
 
 Your cleaners see their jobs in their language. Your clients see theirs in English. Everyone gets the info they need without translation headaches.
 
@@ -688,7 +688,7 @@ One app. Three languages. Zero confusion.
 
 Link in bio.
 
-#CleanClaw #MultiLanguage #CleaningIndustry #Inclusion #SmallBusinessTech
+#Xcleaners #MultiLanguage #CleaningIndustry #Inclusion #SmallBusinessTech
 
 ---
 
@@ -701,7 +701,7 @@ Link in bio.
 | **Clear** | "Build your schedule in minutes." | "Leverage our innovative scheduling paradigm." |
 | **Direct** | "Add your cleaners. They'll see their daily jobs." | "Empower your workforce with a cutting-edge mobile experience." |
 | **Empathetic** | "We know Sunday nights are for family, not spreadsheets." | "Our platform maximizes operational throughput." |
-| **Confident** | "CleanClaw handles the complexity." | "We believe we might be able to help simplify things." |
+| **Confident** | "Xcleaners handles the complexity." | "We believe we might be able to help simplify things." |
 
 ### Tone by Channel
 

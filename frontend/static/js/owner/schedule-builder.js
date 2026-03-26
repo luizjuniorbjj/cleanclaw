@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Schedule Builder Module (S2.5 + S2.6)
+ * Xcleaners — Owner Schedule Builder Module (S2.5 + S2.6)
  *
  * Native calendar implementation (no external dependencies):
  * - Weekly view (7 days, 7am–6pm, 30-min slots)
@@ -1081,7 +1081,7 @@ window.OwnerScheduleBuilder = {
     } catch (err) {
       console.error('[Schedule] Move failed:', err);
       await this._renderCalendar(); // revert visual
-      CleanClaw.showToast(err.detail || 'Could not move booking. The time slot may overlap with another job.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not move booking. The time slot may overlap with another job.', 'error');
     }
   },
 
@@ -1195,11 +1195,11 @@ window.OwnerScheduleBuilder = {
     const notes = document.getElementById('add-booking-notes')?.value;
 
     if (!clientId) {
-      CleanClaw.showToast('Please select a client.', 'warning');
+      Xcleaners.showToast('Please select a client.', 'warning');
       return;
     }
     if (!date || !startTime) {
-      CleanClaw.showToast('Please select date and start time.', 'warning');
+      Xcleaners.showToast('Please select date and start time.', 'warning');
       return;
     }
 
@@ -1216,16 +1216,16 @@ window.OwnerScheduleBuilder = {
     try {
       if (this._editingBookingId) {
         await CleanAPI.cleanPatch(`/bookings/${this._editingBookingId}`, payload);
-        CleanClaw.showToast('Booking updated.', 'success');
+        Xcleaners.showToast('Booking updated.', 'success');
       } else {
         await CleanAPI.cleanPost('/bookings', payload);
-        CleanClaw.showToast('Booking added.', 'success');
+        Xcleaners.showToast('Booking added.', 'success');
       }
       this._closeAddBookingModal();
       await this._renderCalendar();
       this._loadSummary();
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not save booking. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not save booking. Please try again.', 'error');
     }
   },
 
@@ -1462,9 +1462,9 @@ window.OwnerScheduleBuilder = {
       this._closeSidePanel();
       await this._renderCalendar();
       this._loadSummary();
-      CleanClaw.showToast('Booking cancelled. The client has been notified.', 'success');
+      Xcleaners.showToast('Booking cancelled. The client has been notified.', 'success');
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not cancel booking. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not cancel booking. Please try again.', 'error');
     }
   },
 
@@ -1536,12 +1536,12 @@ window.OwnerScheduleBuilder = {
       await this._renderCalendar();
       this._loadSummary();
 
-      CleanClaw.showToast(result.message || `Generated schedule for ${targetDate}`, 'success');
+      Xcleaners.showToast(result.message || `Generated schedule for ${targetDate}`, 'success');
     } catch (err) {
       if (err.status === 409) {
-        CleanClaw.showToast(err.detail || 'A schedule already exists for this date. Check "Force regenerate" to replace it.', 'warning');
+        Xcleaners.showToast(err.detail || 'A schedule already exists for this date. Check "Force regenerate" to replace it.', 'warning');
       } else {
-        CleanClaw.showToast(err.detail || 'Could not generate schedule. Please check your teams and clients, then try again.', 'error');
+        Xcleaners.showToast(err.detail || 'Could not generate schedule. Please check your teams and clients, then try again.', 'error');
       }
     }
   },
@@ -1560,7 +1560,7 @@ window.OwnerScheduleBuilder = {
       this._loadSummary();
       const action = data?.data?.action || 'changed';
       const clientName = data?.data?.client_name || '';
-      CleanClaw.showToast(`Schedule updated: ${clientName} (${action})`, 'info');
+      Xcleaners.showToast(`Schedule updated: ${clientName} (${action})`, 'info');
     });
 
     // Schedule generated -> full refetch
@@ -1568,7 +1568,7 @@ window.OwnerScheduleBuilder = {
       this._renderCalendar();
       this._loadSummary();
       const dateStr = data?.data?.scheduled_date || '';
-      CleanClaw.showToast(`Schedule generated for ${dateStr}`, 'success');
+      Xcleaners.showToast(`Schedule generated for ${dateStr}`, 'success');
     });
 
     // Booking cancelled -> refetch
@@ -1576,7 +1576,7 @@ window.OwnerScheduleBuilder = {
       this._renderCalendar();
       this._loadSummary();
       const clientName = data?.data?.client_name || '';
-      CleanClaw.showToast(`Booking cancelled: ${clientName}`, 'warning');
+      Xcleaners.showToast(`Booking cancelled: ${clientName}`, 'warning');
     });
 
     // Booking confirmed -> refetch

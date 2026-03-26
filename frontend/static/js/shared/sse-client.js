@@ -1,5 +1,5 @@
 /**
- * CleanClaw — SSE Client (S2.6)
+ * Xcleaners — SSE Client (S2.6)
  *
  * EventSource wrapper with auto-reconnect, exponential backoff,
  * event dispatch, and fallback polling.
@@ -184,8 +184,8 @@ window.SSEClient = {
     this._updateStatusUI('polling');
 
     // Show polling banner ONCE only
-    if (!this._pollingToastShown && typeof CleanClaw !== 'undefined' && CleanClaw.showToast) {
-      CleanClaw.showToast('Live updates unavailable. Refreshing every 30s.', 'warning');
+    if (!this._pollingToastShown && typeof Xcleaners !== 'undefined' && Xcleaners.showToast) {
+      Xcleaners.showToast('Live updates unavailable. Refreshing every 30s.', 'warning');
       this._pollingToastShown = true;
     }
 

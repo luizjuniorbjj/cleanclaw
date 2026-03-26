@@ -1,5 +1,5 @@
 """
-Verify CleanClaw database setup is complete and correct.
+Verify Xcleaners database setup is complete and correct.
 
 Checks all tables, RLS, indexes, roles, and seed data.
 Outputs green checkmarks for PASS, red X for FAIL, with summary counts.
@@ -8,7 +8,7 @@ Usage:
     python scripts/verify_cleanclaw_setup.py
 
 Requires:
-    - DATABASE_URL or CLEANCLAW_DATABASE_URL env var set
+    - DATABASE_URL or XCLEANERS_DATABASE_URL env var set
     - asyncpg installed
 """
 
@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncpg
 
-DATABASE_URL = os.getenv("CLEANCLAW_DATABASE_URL", os.getenv("DATABASE_URL"))
+DATABASE_URL = os.getenv("XCLEANERS_DATABASE_URL", os.getenv("DATABASE_URL"))
 
 BUSINESS_ID = uuid.uuid5(uuid.NAMESPACE_DNS, "cleanneworleans.business")
 
@@ -160,7 +160,7 @@ async def check_indexes_019(conn):
 
 
 async def check_app_role(conn):
-    """Check cleanclaw_app role exists."""
+    """Check cleanclaw_app role exists (legacy DB role name from migration 019)."""
     print("\n[4] Application role")
 
     role = await conn.fetchrow("""
@@ -360,11 +360,11 @@ async def check_extensions(conn):
 
 async def verify():
     if not DATABASE_URL:
-        print("[ERROR] DATABASE_URL or CLEANCLAW_DATABASE_URL not set.")
+        print("[ERROR] DATABASE_URL or XCLEANERS_DATABASE_URL not set.")
         sys.exit(1)
 
     print("=" * 60)
-    print("CleanClaw — Setup Verification")
+    print("Xcleaners — Setup Verification")
     print("=" * 60)
 
     conn = await asyncpg.connect(DATABASE_URL)
@@ -405,7 +405,7 @@ async def verify():
         print("    - Run seed: python scripts/seed_clean_new_orleans.py")
         sys.exit(1)
     else:
-        print("\n  All checks passed! CleanClaw is ready.")
+        print("\n  All checks passed! Xcleaners is ready.")
         sys.exit(0)
 
 

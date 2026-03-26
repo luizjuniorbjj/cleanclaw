@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Demo Data Provider
+ * Xcleaners — Demo Data Provider
  * Provides realistic mock data when API is unavailable (demo mode).
  * Intercepts CleanAPI responses and returns mock data for empty responses.
  */
@@ -1497,7 +1497,7 @@ window.DemoData = {
     if (p.includes('/plan')) return { plan: 'maximum', limits: {} };
     if (p.includes('/notifications')) return [];
     if (p.includes('/schedule/stream')) return null; // SSE, skip
-    if (p.endsWith('/me')) return { email: CleanClaw._user?.email, name: CleanClaw._user?.name };
+    if (p.endsWith('/me')) return { email: Xcleaners._user?.email, name: Xcleaners._user?.name };
     if (p.includes('/earnings')) return this.getEarnings(qs.period || 'month');
     if (p.includes('/schedule/weekly') || p.includes('/schedule/daily')) return this.getWeekSchedule();
 

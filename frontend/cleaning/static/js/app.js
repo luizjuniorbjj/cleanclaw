@@ -10,7 +10,7 @@
  *  6. Page transitions, toast system, skeleton loading, pull-to-refresh
  */
 
-window.CleanClaw = {
+window.Xcleaners = {
   // State
   _user: null,
   _roles: [],
@@ -24,7 +24,7 @@ window.CleanClaw = {
   // ----- Initialization -----
 
   async init() {
-    console.log('[CleanClaw] Initializing...');
+    console.log('[Xcleaners] Initializing...');
 
     // Apply theme preference (localStorage → system preference)
     this._applyTheme();
@@ -40,7 +40,7 @@ window.CleanClaw = {
     const urlParams = new URLSearchParams(window.location.search);
     const previewRole = urlParams.get('preview');
     if (previewRole && ['owner', 'homeowner', 'cleaner', 'team_lead', 'super_admin'].includes(previewRole)) {
-      console.log(`[CleanClaw] PREVIEW MODE: ${previewRole}`);
+      console.log(`[Xcleaners] PREVIEW MODE: ${previewRole}`);
       this._user = { id: 'preview', email: 'preview@demo.com', nome: 'Preview User', name: 'Preview User' };
       this._roles = [{ role: previewRole, business_slug: 'demo-business', plan: 'maximum' }];
       this._currentRole = previewRole;
@@ -67,7 +67,7 @@ window.CleanClaw = {
       try {
         const session = JSON.parse(demoSession);
         if (session.role && session.slug) {
-          console.log(`[CleanClaw] Restoring demo session: ${session.role}`);
+          console.log(`[Xcleaners] Restoring demo session: ${session.role}`);
           this._user = session.user;
           this._roles = session.roles;
           this._currentRole = session.role;
@@ -101,7 +101,7 @@ window.CleanClaw = {
       const urlToken = urlParams.get('access_token');
       const urlRefresh = urlParams.get('refresh_token');
       if (urlToken) {
-        console.log('[CleanClaw] OAuth tokens found in URL (fallback) — storing');
+        console.log('[Xcleaners] OAuth tokens found in URL (fallback) — storing');
         CleanAPI.setTokens(urlToken, urlRefresh);
         window.history.replaceState({}, '', window.location.pathname);
       }
@@ -201,10 +201,10 @@ window.CleanClaw = {
       this._initPullToRefresh();
 
       this._initialized = true;
-      console.log(`[CleanClaw] Ready. Role: ${this._currentRole}, Slug: ${this._currentSlug}, Plan: ${this._currentPlan}`);
+      console.log(`[Xcleaners] Ready. Role: ${this._currentRole}, Slug: ${this._currentSlug}, Plan: ${this._currentPlan}`);
 
     } catch (err) {
-      console.error('[CleanClaw] Init failed:', err);
+      console.error('[Xcleaners] Init failed:', err);
       loadingScreen.style.display = 'none';
       this._showLogin();
     }
@@ -316,7 +316,7 @@ window.CleanClaw = {
     // User / logout
     topNavUser.innerHTML = `
       <span class="cc-text-sm" style="margin-right:var(--cc-space-3);color:var(--cc-neutral-600);">${this._user?.name || 'Admin'}</span>
-      <button class="cc-btn cc-btn-sm cc-btn-ghost" onclick="CleanClaw.logout()">Log Out</button>
+      <button class="cc-btn cc-btn-sm cc-btn-ghost" onclick="Xcleaners.logout()">Log Out</button>
     `;
   },
 
@@ -361,7 +361,7 @@ window.CleanClaw = {
       <div class="cc-nav-group">
         <div class="cc-nav-group-label">${group.label}</div>
         ${group.items.map(item => `
-          <button class="cc-nav-item" data-route="${item.route}" onclick="CleanRouter.navigate('${item.route}');CleanClaw.closeMobileMenu();">
+          <button class="cc-nav-item" data-route="${item.route}" onclick="CleanRouter.navigate('${item.route}');Xcleaners.closeMobileMenu();">
             ${this._getIcon(item.icon)}
             <span>${item.label}</span>
           </button>
@@ -396,7 +396,7 @@ window.CleanClaw = {
 
     topNavUser.innerHTML = `
       <span class="cc-top-nav-username">${this._user?.name || this._user?.nome || 'User'}</span>
-      <button class="cc-btn-icon" onclick="CleanClaw.logout()" title="Log out">
+      <button class="cc-btn-icon" onclick="Xcleaners.logout()" title="Log out">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </button>
     `;
@@ -487,7 +487,7 @@ window.CleanClaw = {
           You don't have access to any cleaning business yet.
           If you were invited, check your email for an invitation link.
         </p>
-        <button class="cc-btn cc-btn-primary cc-btn-block" onclick="CleanClaw.logout()">Log Out</button>
+        <button class="cc-btn cc-btn-primary cc-btn-block" onclick="Xcleaners.logout()">Log Out</button>
       </div>
     `;
   },
@@ -557,7 +557,7 @@ window.CleanClaw = {
       <label class="cc-role-option ${r.role === this._currentRole && r.business_slug === this._currentSlug ? 'active' : ''}">
         <input type="radio" name="role" value="${r.role}:${r.business_slug}"
           ${r.role === this._currentRole && r.business_slug === this._currentSlug ? 'checked' : ''}
-          onchange="CleanClaw.switchRole('${r.role}', '${r.business_slug}')">
+          onchange="Xcleaners.switchRole('${r.role}', '${r.business_slug}')">
         <div>
           <strong>${r.role.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())}</strong>
           ${r.team_name ? ` (${r.team_name})` : ''}
@@ -912,7 +912,7 @@ window.CleanClaw = {
       html += `<div class="cc-search-results-category">${categoryLabels[type]}</div>`;
       for (const item of items) {
         html += `
-          <a class="cc-search-result-item" href="${item.route}" onclick="CleanClaw._closeSearchResults();CleanRouter.navigate('${item.route}');return false;">
+          <a class="cc-search-result-item" href="${item.route}" onclick="Xcleaners._closeSearchResults();CleanRouter.navigate('${item.route}');return false;">
             <div class="cc-search-result-icon ${type}">${typeIcons[type]}</div>
             <div class="cc-search-result-info">
               <div class="cc-search-result-name">${this._escHtml(item.name)}</div>
@@ -963,4 +963,4 @@ window.CleanClaw = {
 };
 
 // ----- Boot -----
-document.addEventListener('DOMContentLoaded', () => CleanClaw.init());
+document.addEventListener('DOMContentLoaded', () => Xcleaners.init());

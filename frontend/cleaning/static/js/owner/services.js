@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Services Management Module
+ * Xcleaners — Owner Services Management Module
  *
  * CRUD for cleaning service catalog. Lists services as cards with
  * name, category, price, duration, team size, and active toggle.
@@ -66,7 +66,7 @@ window.OwnerServices = {
         ${this._services.length === 0 ? `
           <div class="cc-card">
             <div class="cc-empty-state">
-              <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.cleaning : '&#128230;'}</div>
+              <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.cleaning : '&#128230;'}</div>
               <div class="cc-empty-state-title">Your schedule is empty</div>
               <div class="cc-empty-state-description">Add your cleaning service types to get started. You can set prices, durations, and team sizes for each service.</div>
               <button class="cc-btn cc-btn-primary" onclick="OwnerServices._showCreateModal()">+ Add Service</button>
@@ -238,10 +238,10 @@ window.OwnerServices = {
     try {
       if (this._editingId) {
         await CleanAPI.cleanPatch(`/services/${this._editingId}`, body);
-        CleanClaw.showToast('Service updated successfully.', 'success');
+        Xcleaners.showToast('Service updated successfully.', 'success');
       } else {
         await CleanAPI.cleanPost('/services', body);
-        CleanClaw.showToast('Service created successfully.', 'success');
+        Xcleaners.showToast('Service created successfully.', 'success');
       }
       this._closeModal();
       await this.render(this._container);
@@ -260,15 +260,15 @@ window.OwnerServices = {
       if (!active) {
         // Deactivate = soft delete
         await CleanAPI.cleanDel(`/services/${id}`);
-        CleanClaw.showToast('Service deactivated. It will no longer appear in booking options.', 'success');
+        Xcleaners.showToast('Service deactivated. It will no longer appear in booking options.', 'success');
       } else {
         // Reactivate
         await CleanAPI.cleanPatch(`/services/${id}`, { is_active: true });
-        CleanClaw.showToast('Service activated and available for booking.', 'success');
+        Xcleaners.showToast('Service activated and available for booking.', 'success');
       }
       await this.render(this._container);
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not update service. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not update service. Please try again.', 'error');
       await this.render(this._container);
     }
   },
@@ -407,7 +407,7 @@ window.OwnerServices = {
           sort_order: i,
         })),
       });
-      CleanClaw.showToast('Checklist saved. Your team will see these tasks on every job.', 'success');
+      Xcleaners.showToast('Checklist saved. Your team will see these tasks on every job.', 'success');
       this._closeModal();
     } catch (err) {
       const errEl = document.getElementById('checklist-error');

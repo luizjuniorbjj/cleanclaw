@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Team Earnings Module (Sprint 3)
+ * Xcleaners — Team Earnings Module (Sprint 3)
  *
  * Earnings summary: hours, jobs, daily breakdown.
  */
@@ -188,7 +188,7 @@ window.TeamEarnings = {
         </div>
         ` : `
         <div class="cc-card cc-empty-state cc-animate-fade-in" style="padding:var(--cc-space-6);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.chart : '&#128200;'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.chart : '&#128200;'}</div>
           <div class="cc-empty-state-title" style="font-size:var(--cc-text-lg);">No activity yet</div>
           <div class="cc-empty-state-description">Your earnings breakdown will appear here once you start completing jobs. Check back after your next shift.</div>
         </div>
@@ -198,7 +198,7 @@ window.TeamEarnings = {
       console.error('[Earnings] Error:', err);
       contentEl.innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">Could not load earnings</div>
           <div class="cc-empty-state-description">Please check your connection and try again.</div>
         </div>

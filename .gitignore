@@ -22,4 +22,4 @@ htmlcov/
 .mypy_cache/
 *.sqlite
 *.db
-.env.cleanclaw
+.env.xcleaners

@@ -1,5 +1,5 @@
 /**
- * CleanClaw — i18n Module
+ * Xcleaners — i18n Module
  *
  * Internationalization for EN/ES/PT.
  * All UI strings use t('key') pattern.

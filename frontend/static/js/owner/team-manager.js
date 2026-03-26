@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Team Manager Module
+ * Xcleaners — Owner Team Manager Module
  *
  * Team management page: create/edit teams, assign members,
  * invite cleaners, set team lead. Shows team cards with
@@ -70,7 +70,7 @@ window.OwnerTeamManager = {
         ${this._teams.length === 0 && this._members.length === 0 ? `
           <div class="cc-card">
             <div class="cc-empty-state">
-              <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.team : '&#128101;'}</div>
+              <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.team : '&#128101;'}</div>
               <div class="cc-empty-state-title">No team members yet</div>
               <div class="cc-empty-state-description">Add your cleaners so they can see their daily jobs and check in on site.</div>
               <button class="cc-btn cc-btn-primary" onclick="OwnerTeamManager._showCreateTeamModal()">+ Add Team Member</button>
@@ -356,10 +356,10 @@ window.OwnerTeamManager = {
     try {
       if (this._editingTeamId) {
         await CleanAPI.cleanPatch(`/teams/${this._editingTeamId}`, body);
-        CleanClaw.showToast('Team updated successfully.', 'success');
+        Xcleaners.showToast('Team updated successfully.', 'success');
       } else {
         await CleanAPI.cleanPost('/teams', body);
-        CleanClaw.showToast('Team created successfully.', 'success');
+        Xcleaners.showToast('Team created successfully.', 'success');
       }
       this._closeModal();
       await this.render(this._container);
@@ -420,7 +420,7 @@ window.OwnerTeamManager = {
         member_id: memberId,
         role_in_team: 'member',
       });
-      CleanClaw.showToast('Member assigned to team.', 'success');
+      Xcleaners.showToast('Member assigned to team.', 'success');
       this._closeModal();
       this._expandedTeam = teamId;
       await this.render(this._container);
@@ -429,7 +429,7 @@ window.OwnerTeamManager = {
       this._renderPage();
       this._toggleExpand(teamId);
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not assign member. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not assign member. Please try again.', 'error');
     }
   },
 
@@ -437,28 +437,28 @@ window.OwnerTeamManager = {
     if (!confirm('Remove this member from the team?')) return;
     try {
       await CleanAPI.cleanDel(`/teams/${teamId}/members/${memberId}`);
-      CleanClaw.showToast('Member removed from team.', 'success');
+      Xcleaners.showToast('Member removed from team.', 'success');
       this._expandedTeam = teamId;
       await this.render(this._container);
       this._expandedTeam = teamId;
       this._renderPage();
       this._toggleExpand(teamId);
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not remove member. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not remove member. Please try again.', 'error');
     }
   },
 
   async _setLead(teamId, memberId) {
     try {
       await CleanAPI.cleanPost(`/teams/${teamId}/lead/${memberId}`, {});
-      CleanClaw.showToast('Team lead updated successfully.', 'success');
+      Xcleaners.showToast('Team lead updated successfully.', 'success');
       this._expandedTeam = teamId;
       await this.render(this._container);
       this._expandedTeam = teamId;
       this._renderPage();
       this._toggleExpand(teamId);
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not update team lead. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not update team lead. Please try again.', 'error');
     }
   },
 
@@ -466,11 +466,11 @@ window.OwnerTeamManager = {
     if (!confirm('Deactivate this team? Members will become unassigned.')) return;
     try {
       await CleanAPI.cleanDel(`/teams/${teamId}`);
-      CleanClaw.showToast('Team deactivated. Members are now unassigned.', 'success');
+      Xcleaners.showToast('Team deactivated. Members are now unassigned.', 'success');
       this._expandedTeam = null;
       await this.render(this._container);
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not deactivate team. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not deactivate team. Please try again.', 'error');
     }
   },
 
@@ -572,7 +572,7 @@ window.OwnerTeamManager = {
         });
       }
 
-      CleanClaw.showToast('Member created. They\'ll receive an invite to set up their account.', 'success');
+      Xcleaners.showToast('Member created. They\'ll receive an invite to set up their account.', 'success');
       this._closeModal();
       this._expandedTeam = teamId || null;
       await this.render(this._container);
@@ -771,7 +771,7 @@ window.OwnerTeamManager = {
       this._saveAvailability(m.id, { days, start, end });
     }
 
-    CleanClaw.showToast('Availability updated.', 'success');
+    Xcleaners.showToast('Availability updated.', 'success');
     this._closeModal();
 
     // Re-expand to show updated availability
@@ -898,10 +898,10 @@ window.OwnerTeamManager = {
 
     try {
       await CleanAPI.cleanPost('/bookings', booking);
-      CleanClaw.showToast(`Job assigned to ${team?.name || 'team'}!`, 'success');
+      Xcleaners.showToast(`Job assigned to ${team?.name || 'team'}!`, 'success');
       this._closeModal();
     } catch {
-      CleanClaw.showToast(`Job assigned to ${team?.name || 'team'}!`, 'success');
+      Xcleaners.showToast(`Job assigned to ${team?.name || 'team'}!`, 'success');
       this._closeModal();
     }
   },
@@ -910,7 +910,7 @@ window.OwnerTeamManager = {
     if (!input.files || !input.files[0]) return;
     const file = input.files[0];
     if (file.size > 2 * 1024 * 1024) {
-      CleanClaw.showToast('Photo must be under 2MB.', 'error');
+      Xcleaners.showToast('Photo must be under 2MB.', 'error');
       return;
     }
     const reader = new FileReader();

@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Super Admin Dashboard
+ * Xcleaners — Super Admin Dashboard
  *
  * Platform-level admin panel for managing ALL businesses.
  * Role: super_admin
@@ -253,15 +253,15 @@ window.AdminSuperAdmin = {
     const contentView = document.getElementById('content-view');
     if (contentView) this.render(contentView);
 
-    if (typeof CleanClaw !== 'undefined' && CleanClaw.toast) {
-      CleanClaw.toast(`Business "${name}" created`, 'success');
+    if (typeof Xcleaners !== 'undefined' && Xcleaners.toast) {
+      Xcleaners.toast(`Business "${name}" created`, 'success');
     }
     return false;
   },
 
   _editBusiness(bizId) {
-    if (typeof CleanClaw !== 'undefined' && CleanClaw.toast) {
-      CleanClaw.toast('Edit business — coming soon', 'info');
+    if (typeof Xcleaners !== 'undefined' && Xcleaners.toast) {
+      Xcleaners.toast('Edit business — coming soon', 'info');
     }
   },
 
@@ -279,8 +279,8 @@ window.AdminSuperAdmin = {
     const tbody = document.getElementById('sa-businesses-tbody');
     if (tbody) tbody.innerHTML = this._renderRows();
 
-    if (typeof CleanClaw !== 'undefined' && CleanClaw.toast) {
-      CleanClaw.toast(`${biz.name} ${biz.status === 'suspended' ? 'suspended' : 'activated'}`, biz.status === 'suspended' ? 'warning' : 'success');
+    if (typeof Xcleaners !== 'undefined' && Xcleaners.toast) {
+      Xcleaners.toast(`${biz.name} ${biz.status === 'suspended' ? 'suspended' : 'activated'}`, biz.status === 'suspended' ? 'warning' : 'success');
     }
   },
 
@@ -299,8 +299,8 @@ window.AdminSuperAdmin = {
     const contentView = document.getElementById('content-view');
     if (contentView) this.render(contentView);
 
-    if (typeof CleanClaw !== 'undefined' && CleanClaw.toast) {
-      CleanClaw.toast(`${biz.name} deleted`, 'success');
+    if (typeof Xcleaners !== 'undefined' && Xcleaners.toast) {
+      Xcleaners.toast(`${biz.name} deleted`, 'success');
     }
   },
 

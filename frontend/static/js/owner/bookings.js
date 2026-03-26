@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Bookings List Module
+ * Xcleaners — Owner Bookings List Module
  *
  * ZenMaid-style "All Bookings" page: filterable list of ALL bookings.
  * Separate from the calendar view — table-based, searchable, tabbed.
@@ -362,11 +362,11 @@ window.OwnerBookings = {
       // Also update local data
       const idx = this._allBookings.findIndex(b => b.id === bookingId);
       if (idx >= 0) this._allBookings[idx].status = 'cancelled';
-      CleanClaw.showToast('Booking cancelled.', 'success');
+      Xcleaners.showToast('Booking cancelled.', 'success');
       this._applyFilters();
       this._renderPage();
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not cancel booking.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not cancel booking.', 'error');
     }
   },
 

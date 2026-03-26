@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner AI Chat Monitor Module (stub) — Intermediate+ plan
+ * Xcleaners — Owner AI Chat Monitor Module (stub) — Intermediate+ plan
  */
 window.OwnerChatMonitor = {
   render(container, params) {

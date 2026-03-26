@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Dashboard Module
+ * Xcleaners — Owner Dashboard Module
  *
  * Displays KPI cards, team progress bars (SSE-driven),
  * revenue chart (pure CSS bars), overdue payments,
@@ -20,7 +20,7 @@ window.OwnerDashboard = {
     // Greeting logic
     const _hour = new Date().getHours();
     const _greeting = _hour < 12 ? 'Good morning' : _hour < 18 ? 'Good afternoon' : 'Good evening';
-    const _userName = CleanClaw._user?.name || CleanClaw._user?.nome || 'Admin';
+    const _userName = Xcleaners._user?.name || Xcleaners._user?.nome || 'Admin';
 
     container.innerHTML = `
       <div class="cc-animate-fade-in" style="display:flex;flex-direction:column;gap:var(--cc-space-6);">
@@ -200,7 +200,7 @@ window.OwnerDashboard = {
       } else {
         el.innerHTML = `
           <div class="cc-empty-state" style="padding:var(--cc-space-6) var(--cc-space-4);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.payment : '&#10003;'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.payment : '&#10003;'}</div>
             <div class="cc-empty-state-title cc-text-sm">All caught up</div>
           </div>
         `;
@@ -300,7 +300,7 @@ window.OwnerDashboard = {
     if (!this._teams || this._teams.length === 0) {
       el.innerHTML = `
         <div class="cc-empty-state">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.welcome : '&#128101;'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.welcome : '&#128101;'}</div>
           <div class="cc-empty-state-title">Welcome to your dashboard</div>
           <div class="cc-empty-state-description">Complete your setup to see your business stats here. Add clients, teams, and your first week's schedule.</div>
           <button class="cc-btn cc-btn-primary" onclick="location.hash='#/owner/teams'">Start Setup</button>
@@ -351,7 +351,7 @@ window.OwnerDashboard = {
     if (!data || !data.data || data.data.length === 0) {
       el.innerHTML = `
         <div class="cc-empty-state" style="padding:var(--cc-space-8) var(--cc-space-4);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.chart : '&#128200;'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.chart : '&#128200;'}</div>
           <div class="cc-empty-state-title cc-text-sm">No revenue data yet</div>
         </div>
       `;
@@ -401,7 +401,7 @@ window.OwnerDashboard = {
     if (!invoiceList || invoiceList.length === 0) {
       el.innerHTML = `
         <div class="cc-empty-state" style="padding:var(--cc-space-6) var(--cc-space-4);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.payment : '&#10003;'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.payment : '&#10003;'}</div>
           <div class="cc-empty-state-title cc-text-sm">No overdue payments</div>
         </div>
       `;
@@ -458,9 +458,9 @@ window.OwnerDashboard = {
         const msg = jobCount
           ? `Schedule generated! ${jobCount} jobs assigned${teamCount ? ` to ${teamCount} teams` : ''}.`
           : 'Schedule generated for tomorrow. Your team has been notified.';
-        CleanClaw.showToast(msg, 'success');
+        Xcleaners.showToast(msg, 'success');
       } catch (err) {
-        CleanClaw.showToast(err.detail || 'Could not generate the schedule. Please check your teams and clients, then try again.', 'error');
+        Xcleaners.showToast(err.detail || 'Could not generate the schedule. Please check your teams and clients, then try again.', 'error');
       } finally {
         if (btn) { btn.disabled = false; btn.textContent = typeof I18n !== 'undefined' ? I18n.t('dashboard.generate_schedule') : 'Generate Tomorrow\'s Schedule'; }
       }
@@ -475,10 +475,10 @@ window.OwnerDashboard = {
       if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
       try {
         await CleanAPI.cleanPost('/invoices/send-reminders', {});
-        CleanClaw.showToast('Payment reminders sent to clients with overdue invoices.', 'success');
+        Xcleaners.showToast('Payment reminders sent to clients with overdue invoices.', 'success');
       } catch (err) {
         // Fallback: navigate to invoices if endpoint not available
-        CleanClaw.showToast('Redirecting to invoices...', 'info');
+        Xcleaners.showToast('Redirecting to invoices...', 'info');
         location.hash = '#/owner/invoices';
       } finally {
         if (btn) { btn.disabled = false; btn.textContent = typeof I18n !== 'undefined' ? I18n.t('dashboard.send_reminders') : 'Send Reminders'; }

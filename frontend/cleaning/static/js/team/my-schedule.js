@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Team My Schedule Module (Sprint 3)
+ * Xcleaners — Team My Schedule Module (Sprint 3)
  *
  * Week view of the team's schedule.
  */

@@ -1,5 +1,5 @@
 /**
- * CleanClaw v3 -- Owner Client Detail Module (S2.3)
+ * Xcleaners v3 -- Owner Client Detail Module (S2.3)
  *
  * Client profile view with:
  * - Contact info, property details, access instructions
@@ -207,10 +207,10 @@ window.OwnerClientDetail = {
     try {
       const slug = CleanAPI._slug;
       await CleanAPI.request('POST', `/api/v1/clean/${slug}/clients/${this._clientId}/schedules/${schedId}/pause`);
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Schedule paused. No new bookings will be generated.', 'success');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Schedule paused. No new bookings will be generated.', 'success');
       await this._loadClient();
     } catch (e) {
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(e.detail || 'Could not pause schedule. Please try again.', 'error');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(e.detail || 'Could not pause schedule. Please try again.', 'error');
     }
   },
 
@@ -218,10 +218,10 @@ window.OwnerClientDetail = {
     try {
       const slug = CleanAPI._slug;
       await CleanAPI.request('POST', `/api/v1/clean/${slug}/clients/${this._clientId}/schedules/${schedId}/resume`);
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Schedule resumed. New bookings will be generated.', 'success');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Schedule resumed. New bookings will be generated.', 'success');
       await this._loadClient();
     } catch (e) {
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(e.detail || 'Could not resume schedule. Please try again.', 'error');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(e.detail || 'Could not resume schedule. Please try again.', 'error');
     }
   },
 
@@ -230,10 +230,10 @@ window.OwnerClientDetail = {
     try {
       const slug = CleanAPI._slug;
       await CleanAPI.request('DELETE', `/api/v1/clean/${slug}/clients/${this._clientId}/schedules/${schedId}`);
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Schedule cancelled.', 'success');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Schedule cancelled.', 'success');
       await this._loadClient();
     } catch (e) {
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(e.detail || 'Could not cancel schedule. Please try again.', 'error');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(e.detail || 'Could not cancel schedule. Please try again.', 'error');
     }
   },
 
@@ -375,17 +375,17 @@ window.OwnerClientDetail = {
       const slug = CleanAPI._slug;
       if (schedId) {
         await CleanAPI.request('PATCH', `/api/v1/clean/${slug}/clients/${this._clientId}/schedules/${schedId}`, data);
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Schedule updated successfully.', 'success');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Schedule updated successfully.', 'success');
       } else {
         // client_id is set by the route, but we also send it in the body for the model
         data.client_id = this._clientId;
         await CleanAPI.request('POST', `/api/v1/clean/${slug}/clients/${this._clientId}/schedules`, data);
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Schedule created. Bookings will be generated automatically.', 'success');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Schedule created. Bookings will be generated automatically.', 'success');
       }
       document.getElementById('ccScheduleModal').remove();
       await this._loadClient();
     } catch (err) {
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(err.detail || 'Could not save schedule. Please check the details and try again.', 'error');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(err.detail || 'Could not save schedule. Please check the details and try again.', 'error');
     } finally {
       btn.disabled = false;
     }
@@ -498,11 +498,11 @@ window.OwnerClientDetail = {
       if (resp) {
         this._client = resp;
         this._editing = false;
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Client details updated.', 'success');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Client details updated.', 'success');
         await this._loadClient();
       }
     } catch (err) {
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(err.detail || 'Could not update client. Please try again.', 'error');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(err.detail || 'Could not update client. Please try again.', 'error');
     } finally {
       btn.disabled = false;
       btn.textContent = 'Save Changes';
@@ -513,7 +513,7 @@ window.OwnerClientDetail = {
 
   async _inviteClient() {
     if (!this._client?.email) {
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Add an email address first so we can send the invitation.', 'warning');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Add an email address first so we can send the invitation.', 'warning');
       return;
     }
     if (!confirm(`Invite ${this._client.first_name} (${this._client.email}) to access the app as a homeowner?`)) return;
@@ -522,10 +522,10 @@ window.OwnerClientDetail = {
       const slug = CleanAPI._slug;
       const resp = await CleanAPI.request('POST', `/api/v1/clean/${slug}/clients/${this._clientId}/invite`);
       if (resp) {
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(resp.message || 'Invitation sent. They\'ll receive an email to set up their account.', 'success');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(resp.message || 'Invitation sent. They\'ll receive an email to set up their account.', 'success');
       }
     } catch (err) {
-      if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(err.detail || 'Could not send invitation. Please try again.', 'error');
+      if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(err.detail || 'Could not send invitation. Please try again.', 'error');
     }
   },
 

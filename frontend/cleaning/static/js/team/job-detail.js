@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Team Job Detail Module (Sprint 3)
+ * Xcleaners — Team Job Detail Module (Sprint 3)
  *
  * Job execution view: client info, timer, room-by-room checklist,
  * photo capture, notes, report issue, check-out.
@@ -15,7 +15,7 @@ window.TeamJobDetail = {
     if (!bookingId) {
       container.innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">No job ID specified</div>
         </div>
       `;
@@ -48,7 +48,7 @@ window.TeamJobDetail = {
       if (!this._job) {
         container.innerHTML = `
           <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '?'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '?'}</div>
             <div class="cc-empty-state-title">Job not found</div>
             <button onclick="window.location.hash='#/team/today'" class="cc-btn cc-btn-secondary" style="margin-top:var(--cc-space-4);">Back to Today</button>
           </div>
@@ -60,7 +60,7 @@ window.TeamJobDetail = {
       console.error('[JobDetail] Error:', err);
       container.innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">Could not load job details</div>
           <button onclick="window.location.hash='#/team/today'" class="cc-btn cc-btn-secondary" style="margin-top:var(--cc-space-4);">Back to Today</button>
         </div>
@@ -382,7 +382,7 @@ window.TeamJobDetail = {
       if (gpsNote) payload.gps_note = gpsNote;
       const result = await CleanAPI.cleanPost(`/my-jobs/${bookingId}/checkin`, payload);
       if (result && (result.success || result.status === 'in_progress' || result.checkin_at)) {
-        CleanClaw.showToast('Checked in. Have a great cleaning!', 'success');
+        Xcleaners.showToast('Checked in. Have a great cleaning!', 'success');
         // Update local job data so timer starts
         if (this._job) {
           this._job.status = 'in_progress';
@@ -391,7 +391,7 @@ window.TeamJobDetail = {
         this.render(this._container, { id: bookingId });
       }
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Check-in failed. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Check-in failed. Please try again.', 'error');
       if (btn) { btn.disabled = false; btn.textContent = 'Check In'; }
     }
   },
@@ -446,7 +446,7 @@ window.TeamJobDetail = {
       document.getElementById('cc-prox-confirm').addEventListener('click', () => {
         if (requireNote) {
           const note = document.getElementById('cc-proximity-note').value.trim();
-          if (!note) { CleanClaw.showToast('Please provide a reason.', 'warning'); return; }
+          if (!note) { Xcleaners.showToast('Please provide a reason.', 'warning'); return; }
           modal.remove();
           resolve({ note });
         } else {
@@ -514,7 +514,7 @@ window.TeamJobDetail = {
         // Calculate duration
         const checkinTime = this._job?.checkin_at ? new Date(this._job.checkin_at) : null;
         const duration = checkinTime ? Math.round((Date.now() - checkinTime.getTime()) / 60000) : 0;
-        CleanClaw.showToast(`Checked out. Job completed in ${duration || result.actual_duration_minutes || '?'} minutes.`, 'success');
+        Xcleaners.showToast(`Checked out. Job completed in ${duration || result.actual_duration_minutes || '?'} minutes.`, 'success');
         if (this._job) {
           this._job.status = 'completed';
           this._job.checkout_at = result.checkout_at || new Date().toISOString();
@@ -522,7 +522,7 @@ window.TeamJobDetail = {
         this.render(this._container, { id: bookingId });
       }
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Check-out failed. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Check-out failed. Please try again.', 'error');
       if (btn) { btn.disabled = false; btn.textContent = 'Check Out'; }
     }
   },
@@ -543,7 +543,7 @@ window.TeamJobDetail = {
       }
     } catch (err) {
       checkbox.checked = false;
-      CleanClaw.showToast(err.detail || 'Could not complete checklist item. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not complete checklist item. Please try again.', 'error');
     }
   },
 
@@ -551,7 +551,7 @@ window.TeamJobDetail = {
     const input = document.getElementById('cc-note-input');
     const note = input ? input.value.trim() : '';
     if (!note) {
-      CleanClaw.showToast('Please enter a note.', 'warning');
+      Xcleaners.showToast('Please enter a note.', 'warning');
       return;
     }
 
@@ -559,12 +559,12 @@ window.TeamJobDetail = {
       const result = await CleanAPI.cleanPost(`/my-jobs/${bookingId}/note`, { note });
       if (result && result.success) {
         input.value = '';
-        CleanClaw.showToast('Note added to this job.', 'success');
+        Xcleaners.showToast('Note added to this job.', 'success');
         // Refresh notes list
         this.render(this._container, { id: bookingId });
       }
     } catch (err) {
-      CleanClaw.showToast(err.detail || 'Could not add note. Please try again.', 'error');
+      Xcleaners.showToast(err.detail || 'Could not add note. Please try again.', 'error');
     }
   },
 
@@ -579,11 +579,11 @@ window.TeamJobDetail = {
       try {
         const result = await CleanAPI.cleanPost(`/my-jobs/${bookingId}/note`, { photo_url: photoUrl });
         if (result && result.success) {
-          CleanClaw.showToast('Photo added to this job.', 'success');
+          Xcleaners.showToast('Photo added to this job.', 'success');
           this.render(this._container, { id: bookingId });
         }
       } catch (err) {
-        CleanClaw.showToast('Could not upload photo. Please try again.', 'error');
+        Xcleaners.showToast('Could not upload photo. Please try again.', 'error');
       }
     };
     reader.readAsDataURL(file);
@@ -627,7 +627,7 @@ window.TeamJobDetail = {
       const issueType = document.getElementById('cc-issue-type').value;
       const description = document.getElementById('cc-issue-desc').value.trim();
       if (!description) {
-        CleanClaw.showToast('Please describe the issue.', 'warning');
+        Xcleaners.showToast('Please describe the issue.', 'warning');
         return;
       }
       try {
@@ -636,11 +636,11 @@ window.TeamJobDetail = {
           description,
         });
         if (result && result.success) {
-          CleanClaw.showToast('Issue reported. Your manager has been notified.', 'success');
+          Xcleaners.showToast('Issue reported. Your manager has been notified.', 'success');
           modal.remove();
         }
       } catch (err) {
-        CleanClaw.showToast(err.detail || 'Could not report issue. Please try again.', 'error');
+        Xcleaners.showToast(err.detail || 'Could not report issue. Please try again.', 'error');
       }
     });
   },

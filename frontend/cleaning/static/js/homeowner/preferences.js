@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Homeowner Preferences Module (Sprint 3)
+ * Xcleaners — Homeowner Preferences Module (Sprint 3)
  *
  * Edit house details, access codes, pet info, and cleaning instructions.
  */
@@ -33,7 +33,7 @@ window.HomeownerPreferences = {
       if (!this._prefs) {
         container.innerHTML = `
           <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
             <div class="cc-empty-state-title">Could not load your home details</div>
           </div>
         `;
@@ -44,7 +44,7 @@ window.HomeownerPreferences = {
       console.error('[Preferences] Error:', err);
       container.innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">Could not load preferences</div>
         </div>
       `;
@@ -327,7 +327,7 @@ window.HomeownerPreferences = {
       // API unavailable (demo mode) — localStorage save is sufficient
     }
 
-    CleanClaw.showToast('House preferences updated. Your cleaning team will see these on their next visit.', 'success');
+    Xcleaners.showToast('House preferences updated. Your cleaning team will see these on their next visit.', 'success');
     if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Save Preferences'; }
   },
 

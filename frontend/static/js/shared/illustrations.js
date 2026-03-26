@@ -1,5 +1,5 @@
 /**
- * CleanClaw SVG Illustrations
+ * Xcleaners SVG Illustrations
  * Line art style, one accent color via .cc-ill-accent class
  * Strokes use currentColor to inherit text color
  * 120x120 viewBox, 2px stroke, minimal professional design
@@ -13,7 +13,7 @@ if (!document.getElementById('cc-ill-styles')) {
   document.head.appendChild(style);
 }
 
-window.CleanClawIllustrations = {
+window.XcleanersIllustrations = {
 
   // 1. Calendar with checkmark — schedule empty states
   calendar: `<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">

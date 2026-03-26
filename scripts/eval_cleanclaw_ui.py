@@ -1,5 +1,5 @@
 """
-CleanClaw UI Eval — Comprehensive test suite for all 3 roles.
+Xcleaners UI Eval — Comprehensive test suite for all 3 roles.
 
 Tests login, navigation, rendering, and empty state handling for:
 - Owner (admin@xcleaners.app)
@@ -100,7 +100,7 @@ HOMEOWNER_SCREENS = [
 # EVAL ENGINE
 # ============================================
 
-class CleanClawEval:
+class XcleanersEval:
     def __init__(self, base_url: str):
         self.base_url = base_url
         self.report = EvalReport()
@@ -108,7 +108,7 @@ class CleanClawEval:
     async def run(self):
         self.report.start_time = time.time()
         print("\n" + "=" * 60)
-        print("  CleanClaw UI Eval — Comprehensive Test Suite")
+        print("  Xcleaners UI Eval — Comprehensive Test Suite")
         print("=" * 60)
         print(f"  URL: {self.base_url}")
         print(f"  Roles: Owner, Cleaner, Homeowner")
@@ -188,11 +188,11 @@ class CleanClawEval:
             await AuthUI.handleLogin(new Event('submit', {{cancelable: true}}));
             await new Promise(r => setTimeout(r, 2000));
             return {{
-                role: CleanClaw._currentRole,
+                role: Xcleaners._currentRole,
                 hash: location.hash,
                 auth: document.getElementById('auth-container')?.style?.display,
                 main: document.getElementById('main-layout')?.style?.display,
-                user: CleanClaw._user?.name || CleanClaw._user?.nome || CleanClaw._user?.email,
+                user: Xcleaners._user?.name || Xcleaners._user?.nome || Xcleaners._user?.email,
             }};
         }}""")
         return result
@@ -501,7 +501,7 @@ class CleanClawEval:
             ],
         }
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        report_path = f"scripts/eval_results_cleanclaw_{timestamp}.json"
+        report_path = f"scripts/eval_results_xcleaners_{timestamp}.json"
         with open(report_path, "w") as f:
             json.dump(report_data, f, indent=2)
         print(f"  Report saved: {report_path}")
@@ -512,11 +512,11 @@ class CleanClawEval:
 # ============================================
 
 async def main():
-    parser = argparse.ArgumentParser(description="CleanClaw UI Eval")
+    parser = argparse.ArgumentParser(description="Xcleaners UI Eval")
     parser.add_argument("--url", default="http://localhost:8003", help="Base URL")
     args = parser.parse_args()
 
-    eval_suite = CleanClawEval(args.url)
+    eval_suite = XcleanersEval(args.url)
     report = await eval_suite.run()
 
     sys.exit(0 if report.failed == 0 else 1)

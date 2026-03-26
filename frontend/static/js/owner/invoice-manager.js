@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Invoice Manager Module (Sprint 4)
+ * Xcleaners — Owner Invoice Manager Module (Sprint 4)
  *
  * Full invoice management:
  * - Invoice list with status tabs (All/Draft/Sent/Paid/Overdue)
@@ -302,7 +302,7 @@ window.OwnerInvoiceManager = {
       listEl.innerHTML = `
         <div class="cc-card">
           <div class="cc-empty-state">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.invoice : '&#128196;'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.invoice : '&#128196;'}</div>
             <div class="cc-empty-state-title">No invoices yet</div>
             <div class="cc-empty-state-description">${emptyMsg}</div>
           </div>
@@ -547,12 +547,12 @@ window.OwnerInvoiceManager = {
     try {
       const result = await CleanAPI.request('POST', `/api/v1/clean/${slug}/invoices/${invoiceId}/send`);
       if (result) {
-        CleanClaw.showToast(`Invoice sent. ${result.payment_url ? 'The client will receive an email with a payment link.' : ''}`, 'success');
+        Xcleaners.showToast(`Invoice sent. ${result.payment_url ? 'The client will receive an email with a payment link.' : ''}`, 'success');
         await this._loadInvoices();
         await this._loadDashboard();
       }
     } catch (err) {
-      CleanClaw.showToast('Could not send invoice. ' + (err.message || 'Please check the client\'s email address and try again.'), 'error');
+      Xcleaners.showToast('Could not send invoice. ' + (err.message || 'Please check the client\'s email address and try again.'), 'error');
     }
   },
 
@@ -562,12 +562,12 @@ window.OwnerInvoiceManager = {
       const result = await CleanAPI.request('POST', `/api/v1/clean/${slug}/invoices/${invoiceId}/payment-link`);
       if (result?.payment_url) {
         await navigator.clipboard.writeText(result.payment_url);
-        CleanClaw.showToast('Payment link copied to clipboard.', 'success');
+        Xcleaners.showToast('Payment link copied to clipboard.', 'success');
       } else {
-        CleanClaw.showToast('Could not create payment link. Please try again.', 'error');
+        Xcleaners.showToast('Could not create payment link. Please try again.', 'error');
       }
     } catch (err) {
-      CleanClaw.showToast('Error: ' + (err.message || 'Unknown error'), 'error');
+      Xcleaners.showToast('Error: ' + (err.message || 'Unknown error'), 'error');
     }
   },
 
@@ -596,7 +596,7 @@ window.OwnerInvoiceManager = {
     const reference = document.getElementById('cc-pay-reference')?.value || '';
 
     if (!amount || amount <= 0) {
-      CleanClaw.showToast('Please enter a valid amount', 'warning');
+      Xcleaners.showToast('Please enter a valid amount', 'warning');
       return;
     }
 
@@ -608,7 +608,7 @@ window.OwnerInvoiceManager = {
       );
       if (result) {
         this._closeMarkPaidModal();
-        CleanClaw.showToast('Payment recorded successfully.', 'success');
+        Xcleaners.showToast('Payment recorded successfully.', 'success');
         await this._loadInvoices();
         await this._loadDashboard();
         // Refresh detail if open
@@ -618,7 +618,7 @@ window.OwnerInvoiceManager = {
         }
       }
     } catch (err) {
-      CleanClaw.showToast('Error: ' + (err.message || 'Unknown error'), 'error');
+      Xcleaners.showToast('Error: ' + (err.message || 'Unknown error'), 'error');
     }
   },
 
@@ -645,7 +645,7 @@ window.OwnerInvoiceManager = {
     const dateFrom = document.getElementById('cc-batch-from')?.value;
     const dateTo = document.getElementById('cc-batch-to')?.value;
     if (!dateFrom || !dateTo) {
-      CleanClaw.showToast('Please select both dates', 'warning');
+      Xcleaners.showToast('Please select both dates', 'warning');
       return;
     }
 
@@ -689,10 +689,10 @@ window.OwnerInvoiceManager = {
     try {
       const result = await CleanAPI.request('POST', `/api/v1/clean/${slug}/invoices/remind-overdue`);
       if (result) {
-        CleanClaw.showToast(`Payment reminders sent to ${result.reminded} clients with overdue invoices.`, 'success');
+        Xcleaners.showToast(`Payment reminders sent to ${result.reminded} clients with overdue invoices.`, 'success');
       }
     } catch (err) {
-      CleanClaw.showToast('Error: ' + (err.message || 'Unknown error'), 'error');
+      Xcleaners.showToast('Error: ' + (err.message || 'Unknown error'), 'error');
     }
   },
 

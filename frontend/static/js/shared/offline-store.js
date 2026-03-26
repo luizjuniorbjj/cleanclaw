@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Offline Store (Sprint 3)
+ * Xcleaners — Offline Store (Sprint 3)
  *
  * IndexedDB wrapper for offline support (cleaner role).
  * Stores: today's jobs, checklists, queued actions for sync.
@@ -171,11 +171,11 @@ window.OfflineStore = {
         }
       }
 
-      if (synced > 0 && typeof CleanClaw !== 'undefined' && CleanClaw.showToast) {
-        CleanClaw.showToast(`${synced} queued action(s) synced.`, 'success');
+      if (synced > 0 && typeof Xcleaners !== 'undefined' && Xcleaners.showToast) {
+        Xcleaners.showToast(`${synced} queued action(s) synced.`, 'success');
       }
-      if (failed > 0 && typeof CleanClaw !== 'undefined' && CleanClaw.showToast) {
-        CleanClaw.showToast(`${failed} action(s) failed to sync. Will retry later.`, 'warning');
+      if (failed > 0 && typeof Xcleaners !== 'undefined' && Xcleaners.showToast) {
+        Xcleaners.showToast(`${failed} action(s) failed to sync. Will retry later.`, 'warning');
       }
 
       this._updateBadge();

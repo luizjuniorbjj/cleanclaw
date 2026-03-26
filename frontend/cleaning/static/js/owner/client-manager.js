@@ -1,5 +1,5 @@
 /**
- * CleanClaw v3 -- Owner Client Manager Module (S2.3)
+ * Xcleaners v3 -- Owner Client Manager Module (S2.3)
  *
  * Client list view with:
  * - Table with search, filters (frequency, status, team), pagination
@@ -154,7 +154,7 @@ window.OwnerClientManager = {
       return `
         <div class="cc-card">
           <div class="cc-empty-state">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? (this._search || Object.values(this._filters).some(v => v) ? CleanClawIllustrations.search : CleanClawIllustrations.clients) : '&#128100;'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? (this._search || Object.values(this._filters).some(v => v) ? XcleanersIllustrations.search : XcleanersIllustrations.clients) : '&#128100;'}</div>
             <div class="cc-empty-state-title">${this._search || Object.values(this._filters).some(v => v) ? 'No results found' : 'No clients yet'}</div>
             <div class="cc-empty-state-description">${this._search || Object.values(this._filters).some(v => v) ? 'Try different keywords or check the spelling.' : 'Add your clients and their house details. They\'ll be able to see their bookings and pay online.'}</div>
           </div>
@@ -241,7 +241,7 @@ window.OwnerClientManager = {
       return `
         <div class="cc-card">
           <div class="cc-empty-state">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.clients : '&#128100;'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.clients : '&#128100;'}</div>
             <div class="cc-empty-state-title">No clients yet</div>
             <div class="cc-empty-state-description">Add your clients and their house details to get started.</div>
           </div>
@@ -374,7 +374,7 @@ window.OwnerClientManager = {
     a.download = 'clients-export.csv';
     a.click();
     URL.revokeObjectURL(a.href);
-    if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(`${clients.length} clients exported to CSV.`, 'success');
+    if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(`${clients.length} clients exported to CSV.`, 'success');
   },
 
   // === ADD CLIENT MODAL ===
@@ -559,20 +559,20 @@ window.OwnerClientManager = {
       // Note: In demo mode, DemoData.handleWrite already adds the client to _clients
       // and emits a dataChanged event. No need to duplicate that here.
 
-      if (resp || CleanClaw._user?.id?.startsWith('demo-')) {
+      if (resp || Xcleaners._user?.id?.startsWith('demo-')) {
         this._closeAddModal();
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('Client added. They can now sign in to see their bookings.', 'success');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('Client added. They can now sign in to see their bookings.', 'success');
         this._page = 1;
         await this._loadAndRender();
       }
     } catch (err) {
       if (err.status === 409) {
         const detail = typeof err.detail === 'string' ? err.detail : (err.detail?.message || 'Duplicate client detected');
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(detail, 'warning');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(detail, 'warning');
       } else if (err.status === 403) {
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast('You\'ve reached the client limit on your current plan. Upgrade to add more clients.', 'warning');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast('You\'ve reached the client limit on your current plan. Upgrade to add more clients.', 'warning');
       } else {
-        if (typeof CleanClaw !== 'undefined') CleanClaw.showToast(err.detail || 'Could not add client. Please check the details and try again.', 'error');
+        if (typeof Xcleaners !== 'undefined') Xcleaners.showToast(err.detail || 'Could not add client. Please check the details and try again.', 'error');
       }
     } finally {
       btn.disabled = false;

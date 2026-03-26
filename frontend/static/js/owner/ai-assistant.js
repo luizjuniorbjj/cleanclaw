@@ -1,5 +1,5 @@
 /**
- * CleanClaw — AI Scheduling Assistant Module
+ * Xcleaners — AI Scheduling Assistant Module
  *
  * Provides:
  * - "AI Optimize" button on schedule builder
@@ -7,7 +7,7 @@
  * - Insights dashboard card
  * - Plan gate: upgrade prompt for Basic plan users
  *
- * Requires: CleanAPI, CleanClaw (app shell)
+ * Requires: CleanAPI, Xcleaners (app shell)
  */
 
 window.AIAssistant = {
@@ -356,10 +356,10 @@ window.AIAssistant = {
         if (result?.checkout_url) {
           window.location.href = result.checkout_url;
         } else {
-          CleanClaw.showToast('Plan upgrade will be available soon. Contact support.', 'info');
+          Xcleaners.showToast('Plan upgrade will be available soon. Contact support.', 'info');
         }
       } catch (err) {
-        CleanClaw.showToast(err?.detail || 'Upgrade failed.', 'error');
+        Xcleaners.showToast(err?.detail || 'Upgrade failed.', 'error');
       }
       modal.remove();
     });

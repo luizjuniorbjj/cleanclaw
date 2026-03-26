@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Reports Module
+ * Xcleaners — Owner Reports Module
  *
  * Displays revenue summaries, job stats, top clients,
  * team performance, and charts (weekly revenue bars, jobs by day).

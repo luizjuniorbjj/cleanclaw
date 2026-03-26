@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Onboarding Wizard (5-Step Setup)
+ * Xcleaners — Owner Onboarding Wizard (5-Step Setup)
  *
  * Guides new cleaning business owners through initial configuration:
  *   Step 1: Business Info
@@ -611,7 +611,7 @@ window.OwnerOnboarding = {
       const errors = typeof detail === 'object' && detail.errors
         ? detail.errors.join(', ')
         : (typeof detail === 'string' ? detail : 'Failed to save. Please try again.');
-      CleanClaw.showToast(errors, 'error');
+      Xcleaners.showToast(errors, 'error');
     } finally {
       if (btn) btn.disabled = false;
     }
@@ -652,7 +652,7 @@ window.OwnerOnboarding = {
         this._completed = true;
         this._renderComplete();
       } catch (err) {
-        CleanClaw.showToast('Could not complete setup. Please try again.', 'error');
+        Xcleaners.showToast('Could not complete setup. Please try again.', 'error');
       }
       return;
     }
@@ -668,7 +668,7 @@ window.OwnerOnboarding = {
       await CleanAPI.cleanPost('/onboarding/skip', {});
       CleanRouter.navigate('/dashboard');
     } catch (err) {
-      CleanClaw.showToast('Could not skip setup. Please try again.', 'error');
+      Xcleaners.showToast('Could not skip setup. Please try again.', 'error');
     }
   },
 
@@ -691,9 +691,9 @@ window.OwnerOnboarding = {
     const address = (document.getElementById('ob-address')?.value || '').trim();
 
     if (!silent) {
-      if (!name) { CleanClaw.showToast('Business name is required.', 'error'); return null; }
-      if (!phone) { CleanClaw.showToast('Phone number is required.', 'error'); return null; }
-      if (!address) { CleanClaw.showToast('Address is required.', 'error'); return null; }
+      if (!name) { Xcleaners.showToast('Business name is required.', 'error'); return null; }
+      if (!phone) { Xcleaners.showToast('Phone number is required.', 'error'); return null; }
+      if (!address) { Xcleaners.showToast('Address is required.', 'error'); return null; }
     }
 
     return {
@@ -712,7 +712,7 @@ window.OwnerOnboarding = {
     const selected = this._selectedServices.filter(s => s.is_selected);
 
     if (!silent && selected.length === 0) {
-      CleanClaw.showToast('Select at least one service.', 'error');
+      Xcleaners.showToast('Select at least one service.', 'error');
       const errEl = document.getElementById('ob-step2-error');
       if (errEl) {
         errEl.textContent = 'Select at least one service.';
@@ -808,7 +808,7 @@ window.OwnerOnboarding = {
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const invalid = emails.filter(e => !emailRe.test(e));
       if (invalid.length > 0) {
-        CleanClaw.showToast(`Invalid email(s): ${invalid.join(', ')}`, 'error');
+        Xcleaners.showToast(`Invalid email(s): ${invalid.join(', ')}`, 'error');
         return null;
       }
     }
@@ -851,7 +851,7 @@ window.OwnerOnboarding = {
     const desc = document.getElementById('ob-custom-desc')?.value?.trim();
 
     if (!name) {
-      CleanClaw.showToast('Service name is required.', 'error');
+      Xcleaners.showToast('Service name is required.', 'error');
       return;
     }
 
@@ -869,7 +869,7 @@ window.OwnerOnboarding = {
 
     // Re-render step 2
     this._renderStep2(document.getElementById('onboarding-step-content'));
-    CleanClaw.showToast(`"${name}" added.`, 'success');
+    Xcleaners.showToast(`"${name}" added.`, 'success');
   },
 
   // ----- Area Helpers -----
@@ -899,7 +899,7 @@ window.OwnerOnboarding = {
         if (unitSelect) unitSelect.value = svc.price_unit || 'flat';
       }
     });
-    CleanClaw.showToast('Default prices restored.', 'info');
+    Xcleaners.showToast('Default prices restored.', 'info');
   },
 
   _addExtraRow() {

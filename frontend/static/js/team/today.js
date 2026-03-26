@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Team Today Module (Sprint 3)
+ * Xcleaners — Team Today Module (Sprint 3)
  *
  * Today's jobs for the cleaner's team, ordered by time.
  * Features: job cards with status, navigate button, check-in/out, pull-to-refresh.
@@ -97,7 +97,7 @@ window.TeamToday = {
       if (this._jobs.length === 0) {
         listEl.innerHTML = `
           <div class="cc-card cc-empty-state cc-animate-fade-in" style="padding:var(--cc-space-8);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.noJobs : '&#128197;'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.noJobs : '&#128197;'}</div>
             <div class="cc-empty-state-title" style="font-size:var(--cc-text-lg);">No jobs today</div>
             <div class="cc-empty-state-description">You don't have any jobs scheduled for today. Enjoy your day off.</div>
           </div>
@@ -154,7 +154,7 @@ window.TeamToday = {
       } else {
         listEl.innerHTML = `
           <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
             <div class="cc-empty-state-title">Could not load today's jobs</div>
             <div class="cc-empty-state-description">Please check your connection and try again.</div>
             <button onclick="TeamToday.loadJobs()" class="cc-btn cc-btn-primary" style="margin-top:var(--cc-space-4);">Retry</button>
@@ -276,8 +276,8 @@ window.TeamToday = {
       const result = await CleanAPI.cleanPost(`/my-jobs/${bookingId}/checkin`, { lat, lng });
 
       if (result && !result._queued) {
-        if (typeof CleanClaw !== 'undefined' && CleanClaw.showToast) {
-          CleanClaw.showToast('Checked in. Have a great cleaning!', 'success');
+        if (typeof Xcleaners !== 'undefined' && Xcleaners.showToast) {
+          Xcleaners.showToast('Checked in. Have a great cleaning!', 'success');
         }
         // Navigate to job detail
         window.location.hash = `#/team/job/${bookingId}`;
@@ -287,8 +287,8 @@ window.TeamToday = {
       }
     } catch (err) {
       console.error('[TeamToday] Check-in error:', err);
-      if (typeof CleanClaw !== 'undefined' && CleanClaw.showToast) {
-        CleanClaw.showToast(err.detail || 'Check-in failed. Please try again.', 'error');
+      if (typeof Xcleaners !== 'undefined' && Xcleaners.showToast) {
+        Xcleaners.showToast(err.detail || 'Check-in failed. Please try again.', 'error');
       }
       if (btn) {
         btn.disabled = false;

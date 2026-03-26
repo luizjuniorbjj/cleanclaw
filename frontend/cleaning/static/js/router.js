@@ -113,7 +113,7 @@ window.CleanRouter = {
   async _loadAndRender(route,params) {
     const cv=document.getElementById('content-view'),cl=document.getElementById('content-loading');
     if(!route.module) return;
-    if(typeof CleanClaw!=='undefined'&&CleanClaw.showContentSkeleton)CleanClaw.showContentSkeleton();
+    if(typeof Xcleaners!=='undefined'&&Xcleaners.showContentSkeleton)Xcleaners.showContentSkeleton();
     else{cl.style.display='flex';cv.innerHTML='';}
     this._updateNavActive();
     document.title=route.title+' \u2014 Xcleaners';

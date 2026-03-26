@@ -81,7 +81,7 @@
       <!-- Owner sidebar (desktop) -->
       <aside class="cc-sidebar" id="sidebar" style="display:none;">
         <div class="cc-sidebar-header">
-          <button class="cc-sidebar-toggle" id="sidebar-toggle" onclick="CleanClaw.toggleSidebar()" aria-label="Toggle sidebar" style="display:flex;background:none;border:none;padding:8px;border-radius:6px;color:rgba(255,255,255,0.7);cursor:pointer;">
+          <button class="cc-sidebar-toggle" id="sidebar-toggle" onclick="Xcleaners.toggleSidebar()" aria-label="Toggle sidebar" style="display:flex;background:none;border:none;padding:8px;border-radius:6px;color:rgba(255,255,255,0.7);cursor:pointer;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
               <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
@@ -96,23 +96,23 @@
         </nav>
         <div class="cc-sidebar-footer">
           <div class="cc-sidebar-user" id="sidebar-user"></div>
-          <button class="cc-sidebar-role-switch" id="role-switch-btn" style="display:none;" onclick="CleanClaw.showRoleSwitcher()">
+          <button class="cc-sidebar-role-switch" id="role-switch-btn" style="display:none;" onclick="Xcleaners.showRoleSwitcher()">
             Switch Role
           </button>
-          <button class="cc-sidebar-logout" onclick="CleanClaw.logout()">Log Out</button>
+          <button class="cc-sidebar-logout" onclick="Xcleaners.logout()">Log Out</button>
         </div>
       </aside>
 
       <!-- Mobile top bar (owner) -->
       <div class="cc-mobile-header cc-hidden" id="mobile-header">
-        <button class="cc-mobile-hamburger" id="mobile-hamburger" onclick="CleanClaw.toggleMobileMenu()" aria-label="Open menu">
+        <button class="cc-mobile-hamburger" id="mobile-hamburger" onclick="Xcleaners.toggleMobileMenu()" aria-label="Open menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
             <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
         <span class="cc-mobile-page-title" id="mobile-page-title">Dashboard</span>
       </div>
-      <div class="cc-mobile-overlay" id="mobile-overlay" onclick="CleanClaw.closeMobileMenu()"></div>
+      <div class="cc-mobile-overlay" id="mobile-overlay" onclick="Xcleaners.closeMobileMenu()"></div>
 
       <!-- Global search bar (owner only) -->
       <div class="cc-global-search" id="global-search" style="display:none;">
@@ -155,11 +155,11 @@
   <div class="cc-toast-container" id="toast-container" aria-live="polite"></div>
 
   <!-- Role switcher modal -->
-  <div class="cc-modal-overlay" id="role-modal" style="display:none;" onclick="CleanClaw.closeRoleSwitcher(event)">
+  <div class="cc-modal-overlay" id="role-modal" style="display:none;" onclick="Xcleaners.closeRoleSwitcher(event)">
     <div class="cc-modal" onclick="event.stopPropagation()">
       <h3>Switch Role</h3>
       <div id="role-modal-content"></div>
-      <button class="cc-btn cc-btn-secondary" onclick="CleanClaw.closeRoleSwitcher()">Cancel</button>
+      <button class="cc-btn cc-btn-secondary" onclick="Xcleaners.closeRoleSwitcher()">Cancel</button>
     </div>
   </div>
 

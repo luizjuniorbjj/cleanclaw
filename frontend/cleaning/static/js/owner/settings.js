@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner Settings Module
+ * Xcleaners — Owner Settings Module
  *
  * Tabbed layout: General, Services, Areas, Pricing, Notifications, Plan.
  * Each tab loads its own data and renders inline.
@@ -371,14 +371,14 @@ window.OwnerSettings = {
     try {
       this._settings = await CleanAPI.cleanPut('/settings', payload);
       this._dirty = false;
-      CleanClaw.showToast(t('settings.saved'), 'success');
+      Xcleaners.showToast(t('settings.saved'), 'success');
       // Update sidebar business name if changed
       if (payload.name) {
         const sidebarName = document.getElementById('sidebar-business-name') || document.querySelector('.cc-sidebar-business-name, .cc-sidebar-header h3, [data-business-name]');
         if (sidebarName) sidebarName.textContent = payload.name;
       }
     } catch (err) {
-      CleanClaw.showToast(err.detail || t('settings.save_error'), 'error');
+      Xcleaners.showToast(err.detail || t('settings.save_error'), 'error');
     }
   },
 
@@ -507,15 +507,15 @@ window.OwnerSettings = {
       try {
         if (areaId) {
           await CleanAPI.cleanPut(`/settings/areas/${areaId}`, data);
-          CleanClaw.showToast(t('settings.area_updated'), 'success');
+          Xcleaners.showToast(t('settings.area_updated'), 'success');
         } else {
           await CleanAPI.cleanPost('/settings/areas', data);
-          CleanClaw.showToast(t('settings.area_added'), 'success');
+          Xcleaners.showToast(t('settings.area_added'), 'success');
         }
         await this._loadAreas();
         this._renderAreas(document.getElementById('settings-content'));
       } catch (err) {
-        CleanClaw.showToast(err.detail || t('settings.save_error'), 'error');
+        Xcleaners.showToast(err.detail || t('settings.save_error'), 'error');
       }
     });
   },
@@ -530,11 +530,11 @@ window.OwnerSettings = {
     if (!confirm(t('settings.confirm_delete_area'))) return;
     try {
       await CleanAPI.cleanDel(`/settings/areas/${id}`);
-      CleanClaw.showToast(t('settings.area_deleted'), 'success');
+      Xcleaners.showToast(t('settings.area_deleted'), 'success');
       await this._loadAreas();
       this._renderAreas(document.getElementById('settings-content'));
     } catch (err) {
-      CleanClaw.showToast(err.detail || t('settings.save_error'), 'error');
+      Xcleaners.showToast(err.detail || t('settings.save_error'), 'error');
     }
   },
 
@@ -677,15 +677,15 @@ window.OwnerSettings = {
       try {
         if (ruleId) {
           await CleanAPI.cleanPut(`/settings/pricing/${ruleId}`, data);
-          CleanClaw.showToast(t('settings.rule_updated'), 'success');
+          Xcleaners.showToast(t('settings.rule_updated'), 'success');
         } else {
           await CleanAPI.cleanPost('/settings/pricing', data);
-          CleanClaw.showToast(t('settings.rule_added'), 'success');
+          Xcleaners.showToast(t('settings.rule_added'), 'success');
         }
         await this._loadPricing();
         this._renderPricing(document.getElementById('settings-content'));
       } catch (err) {
-        CleanClaw.showToast(err.detail || t('settings.save_error'), 'error');
+        Xcleaners.showToast(err.detail || t('settings.save_error'), 'error');
       }
     });
   },
@@ -700,11 +700,11 @@ window.OwnerSettings = {
     if (!confirm(t('settings.confirm_delete_rule'))) return;
     try {
       await CleanAPI.cleanDel(`/settings/pricing/${id}`);
-      CleanClaw.showToast(t('settings.rule_deleted'), 'success');
+      Xcleaners.showToast(t('settings.rule_deleted'), 'success');
       await this._loadPricing();
       this._renderPricing(document.getElementById('settings-content'));
     } catch (err) {
-      CleanClaw.showToast(err.detail || t('settings.save_error'), 'error');
+      Xcleaners.showToast(err.detail || t('settings.save_error'), 'error');
     }
   },
 
@@ -761,9 +761,9 @@ window.OwnerSettings = {
       }
       try {
         this._settings = await CleanAPI.cleanPut('/settings', payload);
-        CleanClaw.showToast(t('settings.saved'), 'success');
+        Xcleaners.showToast(t('settings.saved'), 'success');
       } catch (err) {
-        CleanClaw.showToast(err.detail || t('settings.save_error'), 'error');
+        Xcleaners.showToast(err.detail || t('settings.save_error'), 'error');
       }
     });
   },
@@ -866,10 +866,10 @@ window.OwnerSettings = {
   },
 
   _setTheme(theme) {
-    if (typeof CleanClaw !== 'undefined' && CleanClaw.setTheme) {
-      CleanClaw.setTheme(theme);
+    if (typeof Xcleaners !== 'undefined' && Xcleaners.setTheme) {
+      Xcleaners.setTheme(theme);
     } else {
-      // Fallback if CleanClaw not yet initialized
+      // Fallback if Xcleaners not yet initialized
       if (theme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('xcleaners-theme', 'dark');
@@ -891,12 +891,12 @@ window.OwnerSettings = {
 
   _handleUpgrade(plan) {
     // Redirect to Stripe checkout for the new plan
-    CleanClaw.showToast('Redirecting to checkout...', 'info');
+    Xcleaners.showToast('Redirecting to checkout...', 'info');
     // In production, this would create a Stripe checkout session
     CleanAPI.cleanPost('/billing/checkout', { plan }).then(data => {
       if (data?.url) window.location.href = data.url;
     }).catch(err => {
-      CleanClaw.showToast(err.detail || 'Failed to start checkout.', 'error');
+      Xcleaners.showToast(err.detail || 'Failed to start checkout.', 'error');
     });
   },
 
@@ -904,7 +904,7 @@ window.OwnerSettings = {
     CleanAPI.cleanPost('/billing/portal').then(data => {
       if (data?.url) window.location.href = data.url;
     }).catch(err => {
-      CleanClaw.showToast(err.detail || 'Failed to open billing portal.', 'error');
+      Xcleaners.showToast(err.detail || 'Failed to open billing portal.', 'error');
     });
   },
 

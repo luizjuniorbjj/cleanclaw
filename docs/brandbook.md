@@ -1,9 +1,9 @@
-# CleanClaw Brandbook & Design System v2
+# Xcleaners Brandbook & Design System v2
 
 **Author:** @ux-design-expert (Sati)
 **Date:** 2026-03-23
 **Status:** FINAL
-**Depends on:** `docs/ux/cleanclaw-design-system-plan.md`, `docs/ux/cleanclaw-wireframes-v3.md`
+**Depends on:** `docs/ux/xcleaners-design-system-plan.md`, `docs/ux/xcleaners-wireframes-v3.md`
 
 ---
 
@@ -24,15 +24,15 @@
 
 **Mission:** Empower cleaning businesses to operate like Fortune 500 companies -- with scheduling intelligence, team management, and client experience that rivals the best SaaS in any industry.
 
-**Vision:** The operating system for every cleaning business in America. From solo operators to 50-team empires, CleanClaw is the single app that runs the entire operation.
+**Vision:** The operating system for every cleaning business in America. From solo operators to 50-team empires, Xcleaners is the single app that runs the entire operation.
 
 **Tagline:** *Your cleaning business, finally organized.*
 
-**Positioning Statement:** CleanClaw is the first cleaning-business management platform built for schedule-first operations. Unlike Jobber (generic field service) or ZenMaid (booking-only), CleanClaw solves the real daily pain: assigning 100+ recurring jobs across multiple teams, every single day, without chaos.
+**Positioning Statement:** Xcleaners is the first cleaning-business management platform built for schedule-first operations. Unlike Jobber (generic field service) or ZenMaid (booking-only), Xcleaners solves the real daily pain: assigning 100+ recurring jobs across multiple teams, every single day, without chaos.
 
 ### 1.2 Brand Personality
 
-CleanClaw has a defined personality expressed through every pixel and every word.
+Xcleaners has a defined personality expressed through every pixel and every word.
 
 | Trait | What It Means | How It Shows Up |
 |-------|---------------|-----------------|
@@ -47,9 +47,9 @@ CleanClaw has a defined personality expressed through every pixel and every word
 
 ### 1.3 Brand Voice & Tone
 
-#### How CleanClaw Speaks
+#### How Xcleaners Speaks
 
-CleanClaw communicates like a **knowledgeable colleague** -- not a boss, not a chatbot. We are the coworker who already figured it out and explains it simply.
+Xcleaners communicates like a **knowledgeable colleague** -- not a boss, not a chatbot. We are the coworker who already figured it out and explains it simply.
 
 | Context | Tone | Example |
 |---------|------|---------|
@@ -96,34 +96,34 @@ CleanClaw communicates like a **knowledgeable colleague** -- not a boss, not a c
 
 #### Concept Description
 
-The CleanClaw logo merges two ideas: the **claw** (power, precision, grip on operations) and a **sparkle** (cleanliness, freshness, quality). The logomark is an abstract claw formed by three diagonal strokes that taper to points, with a small four-point sparkle accent at the upper-right of the claw -- suggesting the result of the claw's work: a clean surface.
+The Xcleaners logo merges two ideas: the **X mark** (precision, the spot to clean, marking completion) and a **sparkle** (cleanliness, freshness, quality). The logomark is a bold X formed by two crossing diagonal strokes with clean proportions, with a small four-point sparkle accent at the upper-right of the X -- suggesting the result of the work: a clean surface.
 
-The claw strokes have subtle rounded ends (not aggressive/sharp) to maintain the "professional but approachable" personality. The sparkle is small and geometric, not cartoonish.
+The X strokes have subtle rounded ends (not aggressive/sharp) to maintain the "professional but approachable" personality. The sparkle is small and geometric, not cartoonish.
 
 #### Logo Variations
 
 | Variation | Usage | Description |
 |-----------|-------|-------------|
-| **Primary (full color)** | Marketing, website hero, pitch decks | Logomark + "CleanClaw" wordmark. Blue claw, sparkle in green accent. |
-| **Icon mark** | App icon, favicon, notification badges, PWA splash | Claw + sparkle only, no wordmark. Fits in 32x32 to 512x512. |
-| **Wordmark** | Email headers, footer, small spaces where icon is separate | "CleanClaw" text in Inter Bold. "Clean" in `--color-primary-700`, "Claw" in `--color-primary-500`. |
+| **Primary (full color)** | Marketing, website hero, pitch decks | Logomark + "Xcleaners" wordmark. Blue X mark, sparkle in green accent. |
+| **Icon mark** | App icon, favicon, notification badges, PWA splash | X mark + sparkle only, no wordmark. Fits in 32x32 to 512x512. |
+| **Wordmark** | Email headers, footer, small spaces where icon is separate | "Xcleaners" text in Inter Bold. "X" in `--color-primary-700`, "cleaners" in `--color-primary-500`. |
 | **Monochrome dark** | On light backgrounds, printed materials | Full logo in `--color-neutral-900` (#111827). |
 | **Monochrome light (reversed)** | On dark backgrounds, dark headers | Full logo in `#FFFFFF`. |
 | **Single-color blue** | Watermarks, subtle placements | Full logo in `--color-primary-500` (#3B82F6). |
 
 #### Clear Space Rules
 
-Minimum clear space around the logo equals the height of the letter "C" in the wordmark (the **C-height unit**). No text, icons, or other elements may intrude into this zone.
+Minimum clear space around the logo equals the height of the letter "X" in the wordmark (the **X-height unit**). No text, icons, or other elements may intrude into this zone.
 
 ```
-    1C
+    1X
     |---|
     +---+----------------------------+---+
-    | . |                            | . |  1C
+    | . |                            | . |  1X
     +---+                            +---+
-    |   [CLAW ICON]  CleanClaw       |   |
+    |   [X ICON]  Xcleaners          |   |
     +---+                            +---+
-    | . |                            | . |  1C
+    | . |                            | . |  1X
     +---+----------------------------+---+
 ```
 
@@ -133,7 +133,7 @@ Minimum clear space around the logo equals the height of the letter "C" in the w
 |---------|---------------|
 | Full logo (icon + wordmark) | 120px (digital), 30mm (print) |
 | Icon mark only | 24px (digital), 8mm (print) |
-| Favicon | 16x16px (use simplified claw only, no sparkle at this size) |
+| Favicon | 16x16px (use simplified X mark only, no sparkle at this size) |
 
 #### Logo Misuse (Don'ts)
 
@@ -147,7 +147,7 @@ Minimum clear space around the logo equals the height of the letter "C" in the w
 
 ### 2.2 Color System
 
-CleanClaw's color system is built on four semantic color families plus a neutral scale. Each color communicates meaning consistently across the entire product.
+Xcleaners's color system is built on four semantic color families plus a neutral scale. Each color communicates meaning consistently across the entire product.
 
 #### Primary Colors
 
@@ -325,7 +325,7 @@ Use gradients sparingly. They are reserved for high-impact surfaces only.
 
 #### Icon Style
 
-All CleanClaw icons follow a unified style for visual consistency.
+All Xcleaners icons follow a unified style for visual consistency.
 
 | Attribute | Specification |
 |-----------|---------------|
@@ -403,7 +403,7 @@ All CleanClaw icons follow a unified style for visual consistency.
 
 #### Product Photography Guidelines
 
-CleanClaw uses photography in marketing materials, onboarding, and empty states. The photo style reinforces the brand personality: professional, clean, real.
+Xcleaners uses photography in marketing materials, onboarding, and empty states. The photo style reinforces the brand personality: professional, clean, real.
 
 | Attribute | Guideline |
 |-----------|-----------|
@@ -439,7 +439,7 @@ When original photography is not available:
 
 ## 3. UI Component Refinements
 
-All components use the `cc-` prefix (CleanClaw). Sizes, colors, and spacing reference design tokens defined in Section 2.
+All components use the `cc-` prefix (legacy CSS convention, retained for backward compatibility). Sizes, colors, and spacing reference design tokens defined in Section 2.
 
 ### 3.1 Buttons
 
@@ -487,7 +487,7 @@ All buttons use `--radius-sm` (6px). Full-width mobile buttons may use `--radius
 
 ### 3.2 Cards
 
-Cards are the primary content container in CleanClaw. Every piece of information lives in a card.
+Cards are the primary content container in Xcleaners. Every piece of information lives in a card.
 
 #### Base Card
 
@@ -621,7 +621,7 @@ The most-used card in the app. Must be information-dense yet scannable.
 | Background | `#FFFFFF` |
 | Border bottom | 1px solid `--color-neutral-200` |
 | Shadow | `--shadow-1` |
-| Logo | Left-aligned, icon mark + "CleanClaw" wordmark |
+| Logo | Left-aligned, icon mark + "Xcleaners" wordmark |
 | Nav items | Center or right-aligned, horizontal, `--text-md`, `--font-medium` |
 | Active item | `--color-primary-500`, 2px bottom border |
 | User menu | Right-most, avatar circle + chevron-down, opens dropdown |
@@ -653,7 +653,7 @@ Every empty state follows this structure:
 
 | Screen | Title | Description | CTA |
 |--------|-------|-------------|-----|
-| Owner Dashboard (new) | "Welcome to CleanClaw" | "Let's set up your first team and add your clients to get started." | "Add Your First Team" |
+| Owner Dashboard (new) | "Welcome to Xcleaners" | "Let's set up your first team and add your clients to get started." | "Add Your First Team" |
 | Schedule (no jobs today) | "No jobs scheduled for today" | "Build today's schedule from your client list, or add a new job." | "Build Schedule" |
 | Teams (none created) | "Create your first team" | "Teams help you organize your cleaners and assign jobs efficiently." | "Create Team" |
 | Clients (none added) | "Add your first client" | "Import clients from a spreadsheet or add them one by one." | "Add Client" / "Import CSV" |
@@ -738,7 +738,7 @@ Mobile only. Triggered by pulling down from top of scrollable content.
 
 ## 4. Motion & Animation
 
-Motion in CleanClaw serves function, not decoration. Every animation has a purpose: provide feedback, guide attention, or communicate state change.
+Motion in Xcleaners serves function, not decoration. Every animation has a purpose: provide feedback, guide attention, or communicate state change.
 
 ### 4.1 Duration Scale
 
@@ -936,7 +936,7 @@ When reduced motion is active:
 
 ## 6. Accessibility
 
-CleanClaw targets **WCAG 2.2 Level AA** compliance as a minimum. Cleaning business owners, cleaners, and homeowners represent diverse abilities -- accessibility is not optional.
+Xcleaners targets **WCAG 2.2 Level AA** compliance as a minimum. Cleaning business owners, cleaners, and homeowners represent diverse abilities -- accessibility is not optional.
 
 ### 6.1 Color Contrast Ratios
 
@@ -1202,13 +1202,13 @@ Complete CSS custom properties for implementation. Copy into `:root` block of `a
 
 | Document | Purpose | Status |
 |----------|---------|--------|
-| `docs/cleanclaw/brandbook.md` | This file -- brand identity + design system | FINAL |
-| `docs/ux/cleanclaw-wireframes-v3.md` | Screen-by-screen wireframe specifications | FINAL |
-| `docs/ux/cleanclaw-design-system-plan.md` | Detailed CSS component implementations | READY FOR IMPLEMENTATION |
-| `docs/cleanclaw-competitive-research.md` | Competitor analysis (Jobber, HCP, ZenMaid, etc.) | COMPLETE |
-| `docs/prd/cleanclaw-prd-v3.md` | Product requirements document | FINAL |
-| `docs/architecture/cleanclaw-architecture-v3.md` | Technical architecture | FINAL |
+| `docs/xcleaners/brandbook.md` | This file -- brand identity + design system | FINAL |
+| `docs/ux/xcleaners-wireframes-v3.md` | Screen-by-screen wireframe specifications | FINAL |
+| `docs/ux/xcleaners-design-system-plan.md` | Detailed CSS component implementations | READY FOR IMPLEMENTATION |
+| `docs/xcleaners-competitive-research.md` | Competitor analysis (Jobber, HCP, ZenMaid, etc.) | COMPLETE |
+| `docs/prd/xcleaners-prd-v3.md` | Product requirements document | FINAL |
+| `docs/architecture/xcleaners-architecture-v3.md` | Technical architecture | FINAL |
 
 ---
 
-*CleanClaw Brandbook v2.0 -- @ux-design-expert (Sati) -- 2026-03-23*
+*Xcleaners Brandbook v2.0 -- @ux-design-expert (Sati) -- 2026-03-23*

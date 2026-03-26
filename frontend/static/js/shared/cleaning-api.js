@@ -1,7 +1,7 @@
 /**
- * CleanClaw API Client
+ * Xcleaners API Client
  *
- * Shared API client for all CleanClaw modules.
+ * Shared API client for all Xcleaners modules.
  * Handles JWT injection, auto-refresh, error handling, and offline queue.
  */
 
@@ -145,7 +145,7 @@ window.CleanAPI = {
 
       // 401 - try refresh (skip in demo mode)
       if (resp.status === 401 && !options._retried) {
-        if (CleanClaw._user && CleanClaw._user.id && CleanClaw._user.id.startsWith('demo-')) {
+        if (Xcleaners._user && Xcleaners._user.id && Xcleaners._user.id.startsWith('demo-')) {
           // Demo mode — handle write operations first
           if (method !== 'GET' && typeof DemoData !== 'undefined' && DemoData.handleWrite) {
             const writeResult = DemoData.handleWrite(method, path, body);
@@ -180,7 +180,7 @@ window.CleanAPI = {
 
       // 403 - access denied
       if (resp.status === 403) {
-        CleanClaw.showToast('Access denied. You do not have permission for this action.', 'error');
+        Xcleaners.showToast('Access denied. You do not have permission for this action.', 'error');
         return null;
       }
 
@@ -200,7 +200,7 @@ window.CleanAPI = {
       return await resp.json();
     } catch (err) {
       // Demo mode — use mock data on any error
-      if (CleanClaw._user && CleanClaw._user.id && CleanClaw._user.id.startsWith('demo-')) {
+      if (Xcleaners._user && Xcleaners._user.id && Xcleaners._user.id.startsWith('demo-')) {
         if (typeof DemoData !== 'undefined') {
           // Handle writes first
           if (method !== 'GET' && DemoData.handleWrite) {
@@ -218,7 +218,7 @@ window.CleanAPI = {
       // Network error - queue if offline and method is mutating
       if (!navigator.onLine && method !== 'GET') {
         this._enqueue({ method, path, body, timestamp: Date.now() });
-        CleanClaw.showToast('You are offline. This action will be synced when you reconnect.', 'warning');
+        Xcleaners.showToast('You are offline. This action will be synced when you reconnect.', 'warning');
         return { _queued: true };
       }
       throw err;
@@ -277,7 +277,7 @@ window.CleanAPI = {
 
     localStorage.setItem(this._QUEUE_KEY, JSON.stringify(failed));
     if (queue.length - failed.length > 0) {
-      CleanClaw.showToast(`${queue.length - failed.length} queued action(s) synced.`, 'success');
+      Xcleaners.showToast(`${queue.length - failed.length} queued action(s) synced.`, 'success');
     }
   },
 };

@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Homeowner Booking Detail Module (Sprint 3)
+ * Xcleaners — Homeowner Booking Detail Module (Sprint 3)
  *
  * Booking detail with reschedule, cancel, and review options.
  */
@@ -11,7 +11,7 @@ window.HomeownerBookingDetail = {
     if (!bookingId) {
       container.innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">No booking ID</div>
         </div>
       `;
@@ -41,7 +41,7 @@ window.HomeownerBookingDetail = {
       if (!this._booking) {
         container.innerHTML = `
           <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '?'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '?'}</div>
             <div class="cc-empty-state-title">Booking not found</div>
             <button onclick="window.location.hash='#/homeowner/bookings'" class="cc-btn cc-btn-secondary" style="margin-top:var(--cc-space-4);">Back to Bookings</button>
           </div>
@@ -53,7 +53,7 @@ window.HomeownerBookingDetail = {
       console.error('[BookingDetail] Error:', err);
       container.innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">Could not load booking</div>
           <button onclick="window.location.hash='#/homeowner/bookings'" class="cc-btn cc-btn-secondary" style="margin-top:var(--cc-space-4);">Back</button>
         </div>
@@ -260,7 +260,7 @@ window.HomeownerBookingDetail = {
       const newDate = document.getElementById('cc-resched-date').value;
       const newTime = document.getElementById('cc-resched-time').value || null;
       if (!newDate) {
-        CleanClaw.showToast('Please select a date.', 'warning');
+        Xcleaners.showToast('Please select a date.', 'warning');
         return;
       }
       try {
@@ -269,12 +269,12 @@ window.HomeownerBookingDetail = {
           new_time: newTime,
         });
         if (result && result.success) {
-          CleanClaw.showToast('Booking rescheduled. Your cleaning team has been notified.', 'success');
+          Xcleaners.showToast('Booking rescheduled. Your cleaning team has been notified.', 'success');
           modal.remove();
           this.render(document.querySelector('.cc-booking-detail')?.parentElement || document.getElementById('cc-main-content'), { id: this._booking.id });
         }
       } catch (err) {
-        CleanClaw.showToast(err.detail || 'Could not reschedule. Please try again.', 'error');
+        Xcleaners.showToast(err.detail || 'Could not reschedule. Please try again.', 'error');
       }
     });
   },
@@ -304,12 +304,12 @@ window.HomeownerBookingDetail = {
       try {
         const result = await CleanAPI.cleanPost(`/my-bookings/${this._booking.id}/cancel`, { reason });
         if (result && result.success) {
-          CleanClaw.showToast('Booking cancelled. Your cleaning team has been notified.', 'success');
+          Xcleaners.showToast('Booking cancelled. Your cleaning team has been notified.', 'success');
           modal.remove();
           window.location.hash = '#/homeowner/bookings';
         }
       } catch (err) {
-        CleanClaw.showToast(err.detail || 'Could not cancel booking. Please try again.', 'error');
+        Xcleaners.showToast(err.detail || 'Could not cancel booking. Please try again.', 'error');
       }
     });
   },
@@ -349,7 +349,7 @@ window.HomeownerBookingDetail = {
     document.getElementById('cc-review-cancel').addEventListener('click', () => modal.remove());
     document.getElementById('cc-review-submit').addEventListener('click', async () => {
       if (selectedRating === 0) {
-        CleanClaw.showToast('Please select a rating.', 'warning');
+        Xcleaners.showToast('Please select a rating.', 'warning');
         return;
       }
       const comment = document.getElementById('cc-review-comment').value.trim() || null;
@@ -359,12 +359,12 @@ window.HomeownerBookingDetail = {
           comment,
         });
         if (result && result.success) {
-          CleanClaw.showToast('Thank you for your feedback! Your review helps us improve.', 'success');
+          Xcleaners.showToast('Thank you for your feedback! Your review helps us improve.', 'success');
           modal.remove();
           this.render(document.querySelector('.cc-booking-detail')?.parentElement || document.getElementById('cc-main-content'), { id: this._booking.id });
         }
       } catch (err) {
-        CleanClaw.showToast(err.detail || 'Could not submit review. Please try again.', 'error');
+        Xcleaners.showToast(err.detail || 'Could not submit review. Please try again.', 'error');
       }
     });
   },

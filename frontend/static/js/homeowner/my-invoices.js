@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Homeowner My Invoices Module (Sprint 3)
+ * Xcleaners — Homeowner My Invoices Module (Sprint 3)
  *
  * Invoice list with status badges and pay button.
  */
@@ -69,7 +69,7 @@ window.HomeownerMyInvoices = {
       if (invoices.length === 0) {
         listEl.innerHTML = `
           <div class="cc-card cc-empty-state cc-animate-fade-in" style="padding:var(--cc-space-8);">
-            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.invoice : '&#128196;'}</div>
+            <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.invoice : '&#128196;'}</div>
             <div class="cc-empty-state-title" style="font-size:var(--cc-text-lg);">No invoices yet</div>
             <div class="cc-empty-state-description">Invoices from your cleaning service will appear here. When they do, you can pay online securely.</div>
           </div>
@@ -135,7 +135,7 @@ window.HomeownerMyInvoices = {
       listEl.querySelectorAll('.cc-btn-pay').forEach(btn => {
         btn.addEventListener('click', () => {
           // In production, this would open a Stripe payment link
-          CleanClaw.showToast('Online payment coming soon. Contact your cleaning service for payment options.', 'info');
+          Xcleaners.showToast('Online payment coming soon. Contact your cleaning service for payment options.', 'info');
         });
       });
 
@@ -143,7 +143,7 @@ window.HomeownerMyInvoices = {
       console.error('[MyInvoices] Error:', err);
       document.getElementById('cc-invoices-list').innerHTML = `
         <div class="cc-card cc-empty-state" style="padding:var(--cc-space-8);">
-          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof CleanClawIllustrations !== 'undefined' ? CleanClawIllustrations.error : '!'}</div>
+          <div class="cc-empty-state-illustration" style="width:100px;height:100px;">${typeof XcleanersIllustrations !== 'undefined' ? XcleanersIllustrations.error : '!'}</div>
           <div class="cc-empty-state-title">Could not load invoices</div>
           <div class="cc-empty-state-description">Please check your connection and try again.</div>
         </div>

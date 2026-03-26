@@ -1,4 +1,4 @@
-# CleanClaw — CLAUDE.md
+# Xcleaners — CLAUDE.md
 
 ## Stack
 - Backend: Python 3.12 + FastAPI
@@ -8,7 +8,7 @@
 - Deploy: Railway (Docker)
 
 ## Entry Point
-- `cleanclaw_main.py` — standalone FastAPI on port 8003
+- `xcleaners_main.py` — standalone FastAPI on port 8003
 
 ## Structure
 app/modules/cleaning/ — all backend code

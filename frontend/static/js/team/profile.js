@@ -8,8 +8,8 @@ window.TeamProfile = {
   _profile: null,
 
   async render(container) {
-    const user = CleanClaw._user || {};
-    const role = CleanClaw._currentRole || 'cleaner';
+    const user = Xcleaners._user || {};
+    const role = Xcleaners._currentRole || 'cleaner';
 
     // Load profile: API first, then localStorage fallback
     let profile = {};
@@ -145,7 +145,7 @@ window.TeamProfile = {
         <div style="height:1px;background:var(--cc-neutral-200);margin:var(--cc-space-6) 0;"></div>
 
         <!-- Logout -->
-        <button class="cc-btn cc-btn-outline cc-btn-block" style="color:var(--cc-danger-500);border-color:var(--cc-danger-200);" onclick="CleanClaw.logout()">
+        <button class="cc-btn cc-btn-outline cc-btn-block" style="color:var(--cc-danger-500);border-color:var(--cc-danger-200);" onclick="Xcleaners.logout()">
           Log Out
         </button>
 
@@ -199,9 +199,9 @@ window.TeamProfile = {
     localStorage.setItem('cc_profile', JSON.stringify(data));
 
     // Update user object in memory
-    if (CleanClaw._user) {
-      CleanClaw._user.name = data.name;
-      CleanClaw._user.nome = data.name;
+    if (Xcleaners._user) {
+      Xcleaners._user.name = data.name;
+      Xcleaners._user.nome = data.name;
     }
 
     // Try API save
@@ -222,6 +222,6 @@ window.TeamProfile = {
       btn.textContent = 'Save Changes';
     }
 
-    CleanClaw.showToast('Looking good! Your profile is up to date.', 'success');
+    Xcleaners.showToast('Looking good! Your profile is up to date.', 'success');
   },
 };

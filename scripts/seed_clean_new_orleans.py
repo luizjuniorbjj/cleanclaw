@@ -1,5 +1,5 @@
 """
-Seed script for Clean New Orleans — first CleanClaw client.
+Seed script for Clean New Orleans — first Xcleaners client.
 
 Creates the business, copies service templates, sets up service areas,
 pricing rules, teams, and owner role. Idempotent (safe to run multiple times).
@@ -9,7 +9,7 @@ Usage:
 
 Requires:
     - Migrations 011-019 already applied
-    - DATABASE_URL or CLEANCLAW_DATABASE_URL env var set
+    - DATABASE_URL or XCLEANERS_DATABASE_URL env var set
     - asyncpg installed
 """
 
@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncpg
 
-DATABASE_URL = os.getenv("CLEANCLAW_DATABASE_URL", os.getenv("DATABASE_URL"))
+DATABASE_URL = os.getenv("XCLEANERS_DATABASE_URL", os.getenv("DATABASE_URL"))
 
 # UUIDs (deterministic for reproducibility)
 OWNER_ID = uuid.uuid5(uuid.NAMESPACE_DNS, "cleanneworleans.owner")
@@ -239,11 +239,11 @@ async def seed_teams(conn):
 
 async def seed():
     if not DATABASE_URL:
-        print("[ERROR] DATABASE_URL or CLEANCLAW_DATABASE_URL not set.")
+        print("[ERROR] DATABASE_URL or XCLEANERS_DATABASE_URL not set.")
         sys.exit(1)
 
     print("=" * 60)
-    print("CleanClaw — Seed Clean New Orleans")
+    print("Xcleaners — Seed Clean New Orleans")
     print("=" * 60)
 
     conn = await asyncpg.connect(DATABASE_URL)

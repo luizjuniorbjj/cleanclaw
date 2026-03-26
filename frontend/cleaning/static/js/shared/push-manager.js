@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Push Notification Manager (Sprint 4)
+ * Xcleaners — Push Notification Manager (Sprint 4)
  *
  * TODO: NOT YET IMPLEMENTED — Backend push routes do not exist yet.
  * This file is planned functionality. Do NOT load in app.html until

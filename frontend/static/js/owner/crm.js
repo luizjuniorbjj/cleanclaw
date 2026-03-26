@@ -1,5 +1,5 @@
 /**
- * CleanClaw — Owner CRM Module (stub) — Maximum plan only
+ * Xcleaners — Owner CRM Module (stub) — Maximum plan only
  */
 window.OwnerCrm = {
   render(container, params) {

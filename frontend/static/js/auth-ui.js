@@ -268,25 +268,25 @@ window.AuthUI = {
     // Check demo accounts first (works without DB)
     const demo = this._demoAccounts[email];
     if (demo && password === demo.password) {
-      console.log(`[CleanClaw] Demo login: ${demo.role} (${demo.name})`);
-      CleanClaw._user = { id: 'demo-' + demo.role, email: email, nome: demo.name, name: demo.name };
-      CleanClaw._roles = [{ role: demo.role, business_slug: 'clean-new-orleans', plan: 'maximum', business_name: 'Clean New Orleans' }];
-      CleanClaw._currentRole = demo.role;
-      CleanClaw._currentSlug = 'clean-new-orleans';
-      CleanClaw._currentPlan = 'maximum';
-      CleanAPI.init(CleanClaw._currentSlug);
+      console.log(`[Xcleaners] Demo login: ${demo.role} (${demo.name})`);
+      Xcleaners._user = { id: 'demo-' + demo.role, email: email, nome: demo.name, name: demo.name };
+      Xcleaners._roles = [{ role: demo.role, business_slug: 'clean-new-orleans', plan: 'maximum', business_name: 'Clean New Orleans' }];
+      Xcleaners._currentRole = demo.role;
+      Xcleaners._currentSlug = 'clean-new-orleans';
+      Xcleaners._currentPlan = 'maximum';
+      CleanAPI.init(Xcleaners._currentSlug);
       localStorage.setItem('cc_current_role', demo.role);
       localStorage.setItem('cc_slug', 'clean-new-orleans');
       // Save demo session for page refresh persistence
       localStorage.setItem('cc_demo_session', JSON.stringify({
-        user: CleanClaw._user,
-        roles: CleanClaw._roles,
+        user: Xcleaners._user,
+        roles: Xcleaners._roles,
         role: demo.role,
         slug: 'clean-new-orleans',
         plan: 'maximum',
       }));
       if (typeof I18n !== 'undefined') await I18n.init();
-      CleanClaw._renderShell();
+      Xcleaners._renderShell();
       // Set hash to default route BEFORE router init to prevent auth redirect
       const defaultRoute = demo.role === 'super_admin' ? '/admin'
         : demo.role === 'owner' ? '/dashboard'
@@ -301,8 +301,8 @@ window.AuthUI = {
       document.getElementById('loading-screen').style.display = 'none';
       // Navigate to trigger view render
       CleanRouter.navigate(defaultRoute);
-      CleanClaw._initPullToRefresh();
-      CleanClaw._initialized = true;
+      Xcleaners._initPullToRefresh();
+      Xcleaners._initialized = true;
       submitBtn.disabled = false;
       submitBtn.classList.remove('cc-btn-loading');
       submitBtn.textContent = 'Sign In';
@@ -326,7 +326,7 @@ window.AuthUI = {
       CleanAPI.setTokens(data.access_token, data.refresh_token);
 
       // Initialize app after login
-      await CleanClaw.initAfterAuth();
+      await Xcleaners.initAfterAuth();
     } catch (err) {
       errorEl.textContent = err.message || 'Login failed. Please try again.';
       errorEl.style.display = 'block';
@@ -382,7 +382,7 @@ window.AuthUI = {
     submitBtn.textContent = 'Creating account...';
 
     // Demo mode: if any email/password passes basic validation, log in as demo
-    const isDemoMode = typeof CleanClaw !== 'undefined' && (CleanClaw._demoMode || (CleanClaw._user && CleanClaw._user.id && CleanClaw._user.id.startsWith('demo-')));
+    const isDemoMode = typeof Xcleaners !== 'undefined' && (Xcleaners._demoMode || (Xcleaners._user && Xcleaners._user.id && Xcleaners._user.id.startsWith('demo-')));
     // Also detect demo mode if the demo accounts exist and no real backend
     const canTryDemo = typeof DemoData !== 'undefined';
 
@@ -400,7 +400,7 @@ window.AuthUI = {
           if (inviteToken) {
             try { await CleanAPI.post('/api/v1/clean/accept-invite', { token: inviteToken }); } catch { /* ignore */ }
           }
-          await CleanClaw.initAfterAuth();
+          await Xcleaners.initAfterAuth();
           return false;
         }
         // If 4xx error (not network), fall through to demo
@@ -412,24 +412,24 @@ window.AuthUI = {
       // Demo registration: log in as homeowner or owner
       const demoRole = isHomeowner ? 'homeowner' : 'owner';
       const demoSlug = isHomeowner && businessCode ? businessCode : 'clean-new-orleans';
-      console.log(`[CleanClaw] Demo register: ${demoRole} (${name}) for ${demoSlug}`);
-      CleanClaw._user = { id: 'demo-' + demoRole, email: email, nome: name, name: name };
-      CleanClaw._roles = [{ role: demoRole, business_slug: demoSlug, plan: 'maximum', business_name: demoSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) }];
-      CleanClaw._currentRole = demoRole;
-      CleanClaw._currentSlug = demoSlug;
-      CleanClaw._currentPlan = 'maximum';
-      CleanAPI.init(CleanClaw._currentSlug);
+      console.log(`[Xcleaners] Demo register: ${demoRole} (${name}) for ${demoSlug}`);
+      Xcleaners._user = { id: 'demo-' + demoRole, email: email, nome: name, name: name };
+      Xcleaners._roles = [{ role: demoRole, business_slug: demoSlug, plan: 'maximum', business_name: demoSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) }];
+      Xcleaners._currentRole = demoRole;
+      Xcleaners._currentSlug = demoSlug;
+      Xcleaners._currentPlan = 'maximum';
+      CleanAPI.init(Xcleaners._currentSlug);
       localStorage.setItem('cc_current_role', demoRole);
       localStorage.setItem('cc_slug', demoSlug);
       localStorage.setItem('cc_demo_session', JSON.stringify({
-        user: CleanClaw._user,
-        roles: CleanClaw._roles,
+        user: Xcleaners._user,
+        roles: Xcleaners._roles,
         role: demoRole,
         slug: demoSlug,
         plan: 'maximum',
       }));
       if (typeof I18n !== 'undefined') await I18n.init();
-      CleanClaw._renderShell();
+      Xcleaners._renderShell();
       const defaultRoute = demoRole === 'owner' ? '/dashboard'
         : demoRole === 'homeowner' ? '/my-bookings'
         : '/today';
@@ -439,8 +439,8 @@ window.AuthUI = {
       document.getElementById('main-layout').style.display = 'flex';
       document.getElementById('loading-screen').style.display = 'none';
       CleanRouter.navigate(defaultRoute);
-      CleanClaw._initPullToRefresh();
-      CleanClaw._initialized = true;
+      Xcleaners._initPullToRefresh();
+      Xcleaners._initialized = true;
       submitBtn.disabled = false;
       submitBtn.classList.remove('cc-btn-loading');
       submitBtn.textContent = inviteToken ? 'Accept Invitation' : 'Create Account';
@@ -477,7 +477,7 @@ window.AuthUI = {
         }
       }
 
-      await CleanClaw.initAfterAuth();
+      await Xcleaners.initAfterAuth();
     } catch (err) {
       errorEl.textContent = err.message || 'Registration failed. Please try again.';
       errorEl.style.display = 'block';
